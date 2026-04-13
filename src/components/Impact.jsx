@@ -27,7 +27,7 @@ export default function Impact() {
                             across Drug, Cyber, Robo, Neuro, Nutra, and Crystal paradigms.
                         </p>
 
-                        <div className="rounded-2xl border border-primary/15 bg-surface-container-lowest px-6 py-5 shadow-[0_12px_28px_rgba(0,108,81,0.08)] mb-7">
+                        <div className="rounded-2xl border border-primary/15 bg-surface-container-lowest px-6 py-5 shadow-[0_12px_28px_rgba(var(--color-primary-rgb),0.14)] mb-7">
                             <div className="flex items-center gap-4 mb-3">
                                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                                 <span className="text-sm font-semibold text-on-surface">Issue #1</span>
@@ -44,7 +44,7 @@ export default function Impact() {
                             </div>
                         </div>
 
-                        <button className="px-7 py-3.5 bg-gradient-to-r from-primary to-primary-container text-surface text-sm font-semibold tracking-tight rounded-lg hover:shadow-[0_18px_34px_rgba(0,108,81,0.2)] transition-all duration-300">
+                        <button className="px-7 py-3.5 bg-gradient-to-r from-primary to-primary-container text-surface text-sm font-semibold tracking-tight rounded-lg hover:shadow-[0_18px_34px_rgba(var(--color-primary-rgb),0.24)] transition-all duration-300">
                             Read Newsletter
                         </button>
                     </motion.div>

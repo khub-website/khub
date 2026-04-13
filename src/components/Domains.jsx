@@ -24,7 +24,9 @@ const domains = [
         description:
             "Using generative models to design new molecules and accelerate pharmaceutical research.",
         logo: drugLogo,
-        accent: "111, 99, 255",
+        accent: "117, 78, 173",
+        secondaryAccent: "224, 168, 255",
+        labelColor: "#ed5b00",
     },
     {
         name: "Cyberparadigm",
@@ -32,7 +34,9 @@ const domains = [
         description:
             'Hands-on cybersecurity challenges through "Let Us Hack" - a dedicated training platform.',
         logo: cyberLogo,
-        accent: "72, 186, 84",
+        accent: "87, 201, 70",
+        secondaryAccent: "151, 230, 112",
+        labelColor: "#ed5b00",
     },
     {
         name: "Roboparadigm",
@@ -40,7 +44,9 @@ const domains = [
         description:
             "Building robotic systems and lab automation for deep-tech verticals.",
         logo: roboLogo,
-        accent: "210, 146, 79",
+        accent: "204, 137, 63",
+        secondaryAccent: "237, 184, 108",
+        labelColor: "#ed5b00",
     },
     {
         name: "Neuroparadigm",
@@ -48,7 +54,9 @@ const domains = [
         description:
             "Developing digital therapeutics and AI tools for mental health support.",
         logo: neuroLogo,
-        accent: "65, 191, 225",
+        accent: "228, 194, 72",
+        secondaryAccent: "151, 88, 214",
+        labelColor: "#d8ad2d",
     },
     {
         name: "Neutraparadigm",
@@ -56,7 +64,9 @@ const domains = [
         description:
             "Researching nutrition science and functional food development.",
         logo: nutraLogo,
-        accent: "104, 177, 89",
+        accent: "34, 114, 61",
+        secondaryAccent: "70, 157, 89",
+        labelColor: "#207443",
     },
     {
         name: "Crystalparadigm",
@@ -65,6 +75,8 @@ const domains = [
             "Exploring crystallography and advanced materials for next-gen applications.",
         logo: crystalLogo,
         accent: "62, 173, 248",
+        secondaryAccent: "142, 209, 255",
+        labelColor: "#ed5b00",
     },
 ];
 
@@ -93,7 +105,7 @@ function ParadigmCard({ domain, index }) {
     const cardRotateZ = useTransform(() => jitterRotateZ.get());
     const glow = useMotionTemplate`radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(${domain.accent}, 0.32), rgba(${domain.accent}, 0.12) 26%, rgba(255,255,255,0.04) 56%, rgba(255,255,255,0) 70%)`;
     const edgeTint = useMotionTemplate`linear-gradient(140deg, rgba(${domain.accent}, 0.45), rgba(255,255,255,0.42))`;
-    const chromaGlow = useMotionTemplate`radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(255, 60, 60, 0.17), rgba(90, 215, 255, 0.17) 30%, rgba(${domain.accent}, 0.14) 52%, rgba(255,255,255,0) 75%)`;
+    const chromaGlow = useMotionTemplate`radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(${domain.secondaryAccent}, 0.22), rgba(${domain.accent}, 0.2) 32%, rgba(${domain.accent}, 0.14) 56%, rgba(255,255,255,0) 78%)`;
 
     useAnimationFrame((time) => {
         if (!isHovering) {
@@ -191,17 +203,17 @@ function ParadigmCard({ domain, index }) {
                         />
                     </div>
                     <div>
-                        <h3 className="font-display text-[1.15rem] font-bold tracking-tight text-on-surface">
+                        <h3 className="font-display text-[1.15rem] font-bold tracking-tight text-[#2c2019]">
                             {domain.name}
                         </h3>
-                        <p className="text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-primary">
+                        <p className="text-[0.72rem] font-semibold uppercase tracking-[0.12em]" style={{ color: domain.labelColor }}>
                             {domain.tagline}
                         </p>
                     </div>
                 </div>
 
                 <div className="rounded-xl border border-white/45 bg-white/35 p-5">
-                    <p className="text-sm text-on-surface-variant leading-relaxed font-light">
+                    <p className="text-sm text-[#8d6654] leading-relaxed font-light">
                         {domain.description}
                     </p>
                 </div>

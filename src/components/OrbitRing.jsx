@@ -44,7 +44,7 @@ export default function OrbitRing() {
         const safeWidth = isMobile ? Math.max(300, Math.min(viewportWidth - 22, 370)) : 740;
         const calcLogoSize = isMobile ? 78 : 132;
         const calcPadding = isMobile ? 10 : 48;
-        const calcRadius = Math.max(120, (safeWidth - calcLogoSize - calcPadding) / 2);
+        const calcRadius = Math.max(120, (safeWidth - calcLogoSize - calcPadding) / 2.5);
         const calcCenterSize = isMobile ? 96 : 116;
         const calcCenterLogoSize = isMobile ? 70 : 86;
 
@@ -121,10 +121,12 @@ export default function OrbitRing() {
                         height: centerSize,
                         borderRadius: "50%",
                         background: "rgba(255,255,255,0.97)",
-                        border: isOrbitHovered ? "2px solid rgba(0,108,81,0.28)" : "1.5px solid rgba(0,108,81,0.13)",
+                        border: isOrbitHovered
+                            ? "2px solid rgba(var(--color-primary-rgb),0.32)"
+                            : "1.5px solid rgba(var(--color-primary-rgb),0.18)",
                         boxShadow: isOrbitHovered
-                            ? "0 8px 40px rgba(0,108,81,0.15), 0 2px 12px rgba(0,0,0,0.09)"
-                            : "0 6px 32px rgba(0,0,0,0.09), 0 1.5px 6px rgba(0,108,81,0.08)",
+                            ? "0 8px 40px rgba(var(--color-primary-rgb),0.2), 0 2px 12px rgba(0,0,0,0.09)"
+                            : "0 6px 32px rgba(0,0,0,0.09), 0 1.5px 6px rgba(var(--color-primary-rgb),0.12)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -167,9 +169,11 @@ export default function OrbitRing() {
                                         height: logoSize,
                                         borderRadius: "50%",
                                         background: "rgba(255,255,255,0.95)",
-                                        border: isHovered ? "2px solid rgba(0,108,81,0.45)" : "1.5px solid rgba(0,108,81,0.12)",
+                                        border: isHovered
+                                            ? "2px solid rgba(var(--color-primary-rgb),0.5)"
+                                            : "1.5px solid rgba(var(--color-primary-rgb),0.16)",
                                         boxShadow: isHovered
-                                            ? "0 8px 40px rgba(0,108,81,0.22), 0 2px 12px rgba(0,0,0,0.1)"
+                                            ? "0 8px 40px rgba(var(--color-primary-rgb),0.24), 0 2px 12px rgba(0,0,0,0.1)"
                                             : "0 4px 24px rgba(0,0,0,0.07)",
                                         overflow: "hidden",
                                         display: "flex",
@@ -206,9 +210,9 @@ export default function OrbitRing() {
                                             fontSize: "0.7rem",
                                             fontWeight: 600,
                                             letterSpacing: "0.06em",
-                                            color: "rgba(0,108,81,0.85)",
+                                            color: "rgba(var(--color-primary-rgb),0.9)",
                                             background: "rgba(255,255,255,0.92)",
-                                            border: "1px solid rgba(0,108,81,0.15)",
+                                            border: "1px solid rgba(var(--color-primary-rgb),0.22)",
                                             borderRadius: 6,
                                             padding: "4px 10px",
                                             boxShadow: "0 8px 24px rgba(0,0,0,0.08)",

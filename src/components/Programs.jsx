@@ -65,7 +65,7 @@ export default function Programs() {
                                 ease: [0.22, 1, 0.36, 1],
                             }}
                             className="group relative bg-surface-container-lowest rounded-lg p-10
-                         hover:shadow-[0_20px_40px_rgba(0,108,81,0.08)] transition-all duration-400"
+                         hover:shadow-[0_20px_40px_rgba(var(--color-primary-rgb),0.14)] transition-all duration-400"
                         >
                             {/* Number */}
                             <span className="inline-block text-[0.75rem] font-body font-semibold tracking-[0.1em] text-primary/40 group-hover:text-primary/60 transition-colors duration-300 mb-6">
@@ -103,7 +103,7 @@ export default function Programs() {
                         <div
                             key={item.title}
                             className="bg-surface-container-low rounded-lg px-6 py-5
-                         hover:shadow-[0_10px_20px_rgba(0,108,81,0.05)] transition-all duration-300"
+                         hover:shadow-[0_10px_20px_rgba(var(--color-primary-rgb),0.12)] transition-all duration-300"
                         >
                             <p className="text-sm font-semibold text-on-surface mb-1">
                                 {item.title}

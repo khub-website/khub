@@ -15,6 +15,8 @@ const CYCLING_WORDS = [
     "Innovation",
 ];
 
+const THEMES = Array.from({ length: 10 }, (_, index) => `theme-${index + 1}`);
+
 const container = {
     hidden: {},
     show: { transition: { staggerChildren: 0.12, delayChildren: 0.3 } },
@@ -27,6 +29,7 @@ const fadeUp = {
 
 export default function Hero() {
     const [wordIndex, setWordIndex] = useState(0);
+    const [themeIndex, setThemeIndex] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -35,9 +38,29 @@ export default function Hero() {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        const saved = window.localStorage.getItem("khub-theme-index");
+        if (saved === null) return;
+
+        const parsed = Number(saved);
+        if (Number.isInteger(parsed) && parsed >= 0 && parsed < THEMES.length) {
+            setThemeIndex(parsed);
+        }
+    }, []);
+
+    useEffect(() => {
+        const theme = THEMES[themeIndex];
+        document.documentElement.setAttribute("data-theme", theme);
+        window.localStorage.setItem("khub-theme-index", String(themeIndex));
+    }, [themeIndex]);
+
     const scrollTo = (id) => {
         const el = document.querySelector(id);
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    const cycleTheme = () => {
+        setThemeIndex((prev) => (prev + 1) % THEMES.length);
     };
 
     return (
@@ -52,6 +75,15 @@ export default function Hero() {
                     animate="show"
                     className="flex-1 flex flex-col items-start text-left max-w-lg"
                 >
+                    <motion.button
+                        variants={fadeUp}
+                        onClick={cycleTheme}
+                        className="mb-5 h-8 px-3 rounded-full border border-primary/30 bg-surface-container-low text-primary text-[0.65rem] font-semibold tracking-[0.12em] uppercase hover:bg-surface-container-lowest transition-all duration-300"
+                        aria-label="Switch website theme"
+                    >
+                        {THEMES[themeIndex]}
+                    </motion.button>
+
                     <motion.p
                         variants={fadeUp}
                         className="text-[0.72rem] font-body font-semibold tracking-[0.18em] uppercase text-primary mb-5"
@@ -94,13 +126,13 @@ export default function Hero() {
                     <motion.div variants={fadeUp} className="flex items-center gap-5 flex-wrap">
                         <button
                             onClick={() => scrollTo("#domains")}
-                            className="px-8 py-3.5 bg-gradient-to-r from-primary to-primary-container text-surface text-sm font-semibold tracking-tight rounded-lg hover:shadow-[0_20px_40px_rgba(0,108,81,0.18)] transition-all duration-300"
+                            className="px-8 py-3.5 text-surface text-sm font-semibold tracking-tight rounded-lg bg-[var(--hero-cta-from)] hover:brightness-95 hover:shadow-[0_20px_40px_rgba(var(--color-primary-rgb),0.24)] transition-all duration-300"
                         >
                             Explore Our Work
                         </button>
                         <button
                             onClick={() => scrollTo("#about")}
-                            className="px-8 py-3.5 text-sm font-medium tracking-tight text-on-surface bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 rounded-lg"
+                            className="px-8 py-3.5 text-sm font-medium tracking-tight text-[var(--hero-secondary-text)] bg-[var(--hero-secondary-bg)] hover:bg-[var(--hero-secondary-bg-hover)] transition-all duration-300 rounded-lg"
                         >
                             Learn More
                         </button>

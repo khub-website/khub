@@ -17,7 +17,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased smooth-scroll`}>
+    <html lang="en" data-theme="theme-1" className={`${inter.variable} h-full antialiased smooth-scroll`}>
       <body className="min-h-full flex flex-col font-body tracking-tight">
         <ScrollResetOnReload />
         {children}

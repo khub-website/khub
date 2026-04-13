@@ -43,7 +43,7 @@ export default function CTA() {
                         whileHover={{ scale: 1.04 }}
                         whileTap={{ scale: 0.98 }}
                         className="relative inline-block px-10 py-4 bg-gradient-to-r from-primary to-primary-container text-surface text-sm font-semibold tracking-tight rounded-lg
-                       hover:shadow-[0_20px_40px_rgba(0,108,81,0.25)] transition-all duration-300"
+                       hover:shadow-[0_20px_40px_rgba(var(--color-primary-rgb),0.28)] transition-all duration-300"
                     >
                         Get in Touch
                     </motion.a>
