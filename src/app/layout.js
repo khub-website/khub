@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ScrollResetOnReload from "@/components/ScrollResetOnReload";
+import Providers from "@/components/Providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,7 +21,9 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="theme-1" className={`${inter.variable} h-full antialiased smooth-scroll`}>
       <body className="min-h-full flex flex-col font-body tracking-tight">
         <ScrollResetOnReload />
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

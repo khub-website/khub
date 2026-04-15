@@ -5,10 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 const navLinks = [
-    { label: "About", href: "#about" },
-    { label: "Domains", href: "#domains" },
-    { label: "Programs", href: "#programs" },
-    { label: "Contact", href: "#contact" },
+    { label: "About", href: "/#about" },
+    { label: "Domains", href: "/#domains" },
+    { label: "Achievements", href: "/achievements" },
+    { label: "Programs", href: "/#programs" },
+    { label: "Contact", href: "/#contact" },
 ];
 
 export default function Navbar() {
@@ -22,10 +23,18 @@ export default function Navbar() {
     }, []);
 
     const handleLinkClick = (e, href) => {
-        e.preventDefault();
+        if (href.startsWith("/#")) {
+            const id = href.substring(1); // remove the leading slash
+            const el = document.querySelector(id);
+            if (el) {
+                e.preventDefault();
+                setMobileOpen(false);
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+                return;
+            }
+        }
+        // If it's a direct page link or element not found, let the default behavior happen
         setMobileOpen(false);
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     };
 
     return (
