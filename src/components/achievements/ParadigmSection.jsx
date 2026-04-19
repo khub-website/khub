@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { ExternalLink } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect } from "react";
 
 const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
@@ -69,8 +70,8 @@ export function ParadigmSection({ paradigm }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.9, ease: "easeOut" }}
-        className="relative mx-6 lg:mx-16 rounded-3xl overflow-hidden mb-14 shadow-2xl shadow-primary/5 border border-on-surface/5"
         style={{ height: 380 }}
+        className="relative mx-6 lg:mx-16 rounded-3xl overflow-hidden mb-14 shadow-2xl shadow-primary/5 border border-on-surface/5"
       >
         {isLoading ? (
           <Skeleton className="absolute inset-0 w-full h-full" />
@@ -105,7 +106,7 @@ export function ParadigmSection({ paradigm }) {
           style={{ background: paradigm.color }}
         />
         {/* Text overlay */}
-        <div className="absolute inset-0 flex flex-col justify-end p-10">
+        <div className="absolute inset-0 flex flex-col justify-end p-8 sm:p-12">
           <div
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-4 self-start backdrop-blur-md"
             style={{ borderColor: `${paradigm.color}60`, background: `${paradigm.color}22` }}
@@ -118,7 +119,7 @@ export function ParadigmSection({ paradigm }) {
           <h2 className="font-display text-4xl md:text-5xl font-bold text-white leading-tight mb-3">
             {paradigm.tagline}
           </h2>
-          <p className="text-white/80 max-w-2xl text-base leading-relaxed font-light">
+          <p className="text-white/80 max-w-xl text-base leading-relaxed font-light">
             {paradigm.description}
           </p>
           <a
@@ -188,9 +189,14 @@ export function ParadigmSection({ paradigm }) {
                           {a.year.slice(2)}
                         </div>
                       </div>
-                      <button
-                        type="button"
-                        aria-expanded={showHoverPreview}
+                      <motion.div
+                        key={i}
+                        role="button"
+                        tabIndex={0}
+                        initial={{ opacity: 0, x: -24 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.5, delay: i * 0.1 }}
                         onMouseEnter={() => setHoveredAchievementKey(key)}
                         onMouseLeave={() => setHoveredAchievementKey(null)}
                         onFocus={() => setHoveredAchievementKey(key)}
@@ -200,7 +206,13 @@ export function ParadigmSection({ paradigm }) {
                             window.open(a.url, '_blank');
                           }
                         }}
-                        className="flex-1 rounded-2xl border p-5 text-left shadow-sm backdrop-blur-sm transition-all hover:shadow-md h-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
+                        onKeyDown={(e) => {
+                          if ((e.key === 'Enter' || e.key === ' ') && a.url) {
+                            e.preventDefault();
+                            window.open(a.url, '_blank');
+                          }
+                        }}
+                        className="flex-1 rounded-2xl border p-5 text-left shadow-sm backdrop-blur-sm transition-all hover:shadow-md h-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 cursor-pointer"
                         style={{
                           background: "color-mix(in oklab, var(--color-surface-container-low) 50%, transparent)",
                           borderColor: showHoverPreview ? `${paradigm.color}40` : "var(--color-surface-container-high)",
@@ -226,9 +238,10 @@ export function ParadigmSection({ paradigm }) {
                               className="overflow-hidden"
                             >
                               <div className="mt-3 text-sm text-on-surface-variant leading-relaxed font-light">
-                                <p>{renderDetailsWithLinks(a.details)}</p>
+                                <div className="details-text">{renderDetailsWithLinks(a.details)}</div>
                                 {a.url && (
-                                  <button
+                                  <div
+                                    role="button"
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       window.open(a.url, '_blank');
@@ -236,13 +249,13 @@ export function ParadigmSection({ paradigm }) {
                                     className="mt-2 inline-flex items-center gap-1 text-primary font-semibold hover:underline cursor-pointer"
                                   >
                                     Visit Source <ExternalLink className="w-3 h-3" />
-                                  </button>
+                                  </div>
                                 )}
                               </div>
                             </motion.div>
                           )}
                         </AnimatePresence>
-                      </button>
+                      </motion.div>
                     </motion.div>
                   );
                 })

@@ -32,20 +32,20 @@ export default function Hero() {
     const [themeIndex, setThemeIndex] = useState(0);
 
     useEffect(() => {
+        const saved = window.localStorage.getItem("khub-theme-index");
+        if (saved !== null) {
+            const parsed = Number(saved);
+            if (Number.isInteger(parsed) && parsed >= 0 && parsed < THEMES.length) {
+                setThemeIndex(parsed);
+            }
+        }
+    }, []);
+
+    useEffect(() => {
         const interval = setInterval(() => {
             setWordIndex((prev) => (prev + 1) % CYCLING_WORDS.length);
         }, 2200);
         return () => clearInterval(interval);
-    }, []);
-
-    useEffect(() => {
-        const saved = window.localStorage.getItem("khub-theme-index");
-        if (saved === null) return;
-
-        const parsed = Number(saved);
-        if (Number.isInteger(parsed) && parsed >= 0 && parsed < THEMES.length) {
-            setThemeIndex(parsed);
-        }
     }, []);
 
     useEffect(() => {

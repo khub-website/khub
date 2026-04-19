@@ -48,7 +48,14 @@ function getNearestIdx(currentRotation) {
 }
 
 export function PearlNav() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    // Reveal the disc shortly after mount for a premium entrance feel
+    const timer = setTimeout(() => setIsOpen(true), 650);
+    return () => clearTimeout(timer);
+  }, []);
+
   const [activeIdx, setActiveIdx] = useState(0);
   const [outerRotation, setOuterRotation] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -187,25 +194,25 @@ export function PearlNav() {
           top: "50vh",
           transform: "translateY(-50%)",
           zIndex: 60,
-          width: 44,
-          height: 64,
+          width: 43,
+          height: 63,
           borderRadius: "12px 0 0 12px",
-          background: isOpen ? "var(--color-primary)" : "rgba(var(--color-primary), 0.2)",
+          background: isOpen ? paradigms[activeIdx].color : `color-mix(in srgb, ${paradigms[activeIdx].color} 20%, transparent)`,
           border: "1px solid var(--color-surface-container-high)",
           borderRight: "none",
           cursor: "pointer",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          transition: "all 0.3s ease",
+          transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
           outline: "none",
-          boxShadow: isOpen ? "none" : "-2px 0 20px rgba(0, 108, 81, 0.12)",
+          boxShadow: isOpen ? "none" : `0 0 30px ${paradigms[activeIdx].color}22`,
         }}
         title={isOpen ? "Close navigation" : "Open navigation"}
       >
         <span style={{ 
-          color: isOpen ? "#fff" : "var(--color-primary)",
-          fontSize: 28, 
+          color: isOpen ? "#fff" : paradigms[activeIdx].color,
+          fontSize: 25, 
           fontWeight: "bold",
           lineHeight: 1,
           fontFamily: "monospace"
@@ -239,16 +246,16 @@ export function PearlNav() {
               >
                 <div style={{
                   position: "absolute", inset: 0, borderRadius: "50%",
-                  background: "radial-gradient(circle at 40% 35%, var(--color-surface-container-low) 0%, var(--color-surface) 100%)",
+                  background: "radial-gradient(circle at 40% 35%, color-mix(in srgb, var(--color-surface-container-low) 40%, transparent) 0%, color-mix(in srgb, var(--color-surface) 15%, transparent) 100%)",
                   border: "1px solid var(--color-surface-container-high)",
-                  backdropFilter: "blur(24px)",
-                  boxShadow: "0 0 80px rgba(0,60,40,0.08), inset 0 0 60px rgba(255,255,255,0.5)",
+                  backdropFilter: "blur(20px)",
+                  boxShadow: "0 0 80px rgba(0,60,40,0.04), inset 0 0 60px rgba(255,255,255,0.25)",
                   zIndex: 1,
                 }} />
                 {[0.82, 0.64, 0.46, 0.28].map((s, i) => (
                   <div key={i} style={{
                     position: "absolute", borderRadius: "50%",
-                    border: `1px solid var(--color-primary)${i === 0 ? "1a" : "0d"}`,
+                    border: `1px solid ${paradigms[activeIdx].color}${i === 0 ? "1a" : "0d"}`,
                     top: `${((1 - s) / 2) * 100}%`, left: `${((1 - s) / 2) * 100}%`,
                     width: `${s * 100}%`, height: `${s * 100}%`,
                     zIndex: 2,
@@ -287,7 +294,7 @@ export function PearlNav() {
                 <svg style={{ position: "absolute", inset: 0, pointerEvents: "none" }} width={DISC_SIZE} height={DISC_SIZE}>
                   <circle
                     cx={DISC_SIZE / 2} cy={DISC_SIZE / 2} r={ARM_RADIUS}
-                    fill="none" stroke="var(--color-primary-container)" strokeWidth="1.5" strokeDasharray="4 8"
+                    fill="none" stroke={paradigms[activeIdx].color} strokeWidth="1.5" strokeDasharray="4 8"
                     style={{ opacity: 0.15 }}
                   />
                 </svg>

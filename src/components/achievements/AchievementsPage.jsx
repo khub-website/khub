@@ -1,3 +1,4 @@
+import * as React from "react";
 import { AchievementsHero } from "./AchievementsHero";
 import { ParadigmSection } from "./ParadigmSection";
 import { PearlNav } from "./PearlNav";
@@ -10,7 +11,10 @@ export function AchievementsPage() {
       
       <div className="relative">
         {paradigms.map((paradigm) => (
-          <ParadigmSection key={paradigm.id} paradigm={paradigm} />
+          <ParadigmSection 
+            key={paradigm.id} 
+            paradigm={paradigm} 
+          />
         ))}
       </div>
 
