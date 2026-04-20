@@ -6,6 +6,14 @@ const nextConfig = {
     '*.spock.replit.dev',
   ].filter(Boolean),
   devIndicators: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
