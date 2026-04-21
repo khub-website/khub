@@ -5,12 +5,12 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 const logos = [
-    { src: "/logo-drugparadigm.webp", name: "Drugparadigm" },
-    { src: "/logo-cyberparadigm.webp", name: "Cyberparadigm" },
-    { src: "/logo-neuroparadigm.webp", name: "Neuroparadigm" },
-    { src: "/logo-roboparadigm.webp", name: "Roboparadigm" },
-    { src: "/logo-neutraparadigm.webp", name: "Neutraparadigm" },
-    { src: "/logo-crystalparadigm.webp", name: "Crystalparadigm" },
+    { src: "/logo-drugparadigm.webp", name: "Drug paradigm" },
+    { src: "/logo-cyberparadigm.webp", name: "Cyber paradigm" },
+    { src: "/logo-neuroparadigm.webp", name: "Neuro paradigm" },
+    { src: "/logo-roboparadigm.webp", name: "Robo paradigm" },
+    { src: "/logo-neutraparadigm.webp", name: "Neutra paradigm" },
+    { src: "/logo-crystalparadigm.webp", name: "Crystal paradigm" },
 ];
 
 const NORMAL_DURATION = 28;
