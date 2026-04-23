@@ -192,7 +192,7 @@ function ParadigmCard({ domain, index }) {
                         className="relative h-20 w-20 shrink-0 rounded-full bg-white overflow-hidden" 
                         style={{ 
                             boxShadow: "0 10px 24px rgba(18,18,18,0.1), inset 0 1px 3px rgba(0,0,0,0.08)",
-                            border: domain.name.toLowerCase().includes("neutra") ? "none" : "1px solid rgba(255,255,255,0.65)"
+                            border: "1px solid rgba(255,255,255,0.65)"
                         }}
                     >
                         <Image

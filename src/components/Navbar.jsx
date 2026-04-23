@@ -47,6 +47,7 @@ export default function Navbar() {
                 e.preventDefault();
                 router.push(href);
             }
+            return;
         }
         
         // For Home button specifically, if already on home, scroll to top
