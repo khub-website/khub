@@ -43,6 +43,13 @@ const flagshipProjects = [
     outcome: "9 material candidates simulated",
     detail: "Placeholder project summary around material performance targets.",
   },
+  {
+    name: "Next Paradigm",
+    logo: null,
+    outcome: "Upcoming Domain",
+    detail: "More deep-tech domains are on the way. This pearl marks the next vertical to be announced.",
+    upcoming: true,
+  },
 ];
 
 const evidenceBlocks = [
@@ -95,18 +102,26 @@ function PearlProjectCard({ project, index, reduceMotion }) {
           transition={reduceMotion ? {} : { duration: 2.4 + index * 0.12, repeat: Infinity, ease: "easeInOut" }}
         >
           <span className="pointer-events-none absolute left-3 top-3 h-2 w-2 rounded-full bg-white/95 z-10" />
-          <div className="absolute inset-0 p-1.5">
-            <div className={`w-full h-full bg-white rounded-full flex items-center justify-center shadow-sm overflow-hidden ${project.logo.includes("neutra") || project.logo.includes("nutra") ? "p-2.5" : "p-1.5"}`}>
-              <Image
-                src={project.logo}
-                alt={project.name}
-                width={56}
-                height={56}
-                className="h-full w-full object-contain"
-                style={{ width: "auto", height: "auto" }}
-              />
+          {project.upcoming ? (
+            <div className="absolute inset-0 p-1.5">
+              <div className="w-full h-full rounded-full bg-surface-container-low border border-primary/35 flex items-center justify-center">
+                <span className="text-[2rem] leading-none font-bold text-primary">?</span>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="absolute inset-0 p-1.5">
+              <div className={`w-full h-full bg-white rounded-full flex items-center justify-center shadow-sm overflow-hidden ${project.logo.includes("neutra") || project.logo.includes("nutra") ? "p-2.5" : "p-1.5"}`}>
+                <Image
+                  src={project.logo}
+                  alt={project.name}
+                  width={56}
+                  height={56}
+                  className="h-full w-full object-contain"
+                  style={{ width: "auto", height: "auto" }}
+                />
+              </div>
+            </div>
+          )}
         </motion.div>
       </div>
 
@@ -120,6 +135,11 @@ function PearlProjectCard({ project, index, reduceMotion }) {
         <p className="text-[0.9rem] leading-relaxed text-on-surface-variant">
           {project.detail}
         </p>
+        {project.upcoming && (
+          <p className="mt-3 text-[0.72rem] uppercase tracking-[0.14em] text-primary font-semibold">
+            More domains coming soon
+          </p>
+        )}
         <p className="mt-4 text-[0.7rem] uppercase tracking-[0.14em] text-on-surface-variant/75 font-semibold">
           Pearl {String(index + 1).padStart(2, "0")}
         </p>
