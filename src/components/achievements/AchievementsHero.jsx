@@ -10,34 +10,52 @@ export function AchievementsHero() {
 
       <div className="container mx-auto px-6 lg:px-16 relative z-10">
         <div className="max-w-3xl">
+          {/* Page title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="font-display text-[clamp(2.8rem,8vw,6rem)] font-bold tracking-tight text-on-surface leading-none mb-4 sm:mb-6"
+          >
+            Achievements
+          </motion.h1>
+
+          {/* Divider */}
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="origin-left h-px w-16 sm:w-24 bg-primary mb-6 sm:mb-10"
+          />
+
           {/* K-Hub-style small green uppercase label */}
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="text-[0.72rem] font-body font-semibold tracking-[0.18em] uppercase text-primary mb-6"
           >
             Deep-Tech Innovation Hub
           </motion.p>
 
-          {/* Large serif heading like K-Hub's "Building the Future Through" */}
-          <motion.h1
+          {/* Subheading — demoted from h1 to h2 since Achievements is now the h1 */}
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold tracking-tight text-on-surface leading-[1.1] mb-6"
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="font-display text-[clamp(1.6rem,4vw,3rem)] font-bold tracking-tight text-on-surface leading-[1.1] mb-6"
           >
             Celebrating Our{" "}
             <br />
             Milestones
-          </motion.h1>
+          </motion.h2>
 
-          {/* Body text in Inter — editorial style */}
+          {/* Body text */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-xl mb-10 font-light"
+            transition={{ duration: 0.8, delay: 0.45 }}
+            className="text-base md:text-xl text-on-surface-variant leading-relaxed max-w-xl mb-10 font-light"
           >
             K-Hub is the deep-tech incubator of KMIT Group of Institutions,
             empowering students to work on cutting-edge applied research in
