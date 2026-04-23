@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 
 const programs = [
-    {
-        title: "The Homebrew",
-        description:
-            "A collaborative experiment and prototype space where students explore ideas hands-on.",
-        number: "01",
-    },
+    // {
+    //     title: "The Homebrew",
+    //     description:
+    //         "A collaborative experiment and prototype space where students explore ideas hands-on.",
+    //     number: "01",
+    // },
     {
         title: "Cohorts",
         description:
@@ -95,7 +95,8 @@ export default function Programs() {
                     className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
                 >
                     {[
-                        { title: "Workrooms", desc: "Dedicated research spaces" },
+                        // { title: "Workrooms", desc: "Dedicated research spaces" },
+                        {title:"The Homebrew", desc:"Ideathon-style workshops"},
                         { title: "Founders' Brunch", desc: "Networking with entrepreneurs" },
                         { title: "DeepTech Starter Kits", desc: "Curated toolkits to begin" },
                         { title: "Curated Events", desc: "Talks, workshops & demos" },

@@ -48,7 +48,7 @@ export default function Navbar() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -1.5, scale: 1.005 }}
-            className="fixed top-3 sm:top-4 left-1/2 z-50 -translate-x-1/2 w-[min(96vw,1120px)]"
+            className="fixed top-3 sm:top-4 left-1/2 z-50 -translate-x-1/2 w-[min(97vw,1240px)]"
         >
             <div
                 className={`relative overflow-hidden rounded-[26px] border transition-all duration-500 ${(scrolled || forceElevatedStyle)
@@ -106,34 +106,34 @@ export default function Navbar() {
                     transition={{ duration: 4.2, repeat: Infinity, ease: "linear" }}
                 />
 
-                <div className="relative px-4 sm:px-6 md:px-8 lg:px-10">
-                    <div className="flex items-center justify-between h-17">
+                <div className="relative px-7 sm:px-9 md:px-11 lg:px-13">
+                    <div className="flex items-center justify-between h-19">
                         <Link
                             href="/"
                             onClick={() => setMobileOpen(false)}
                             className="group flex items-center gap-3.5"
                         >
-                            <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/78 ring-1 ring-white/70 shadow-[0_6px_18px_rgba(2,44,34,0.14)] flex items-center justify-center overflow-hidden">
+                            <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/78 ring-1 ring-white/70 shadow-[0_6px_18px_rgba(2,44,34,0.14)] flex items-center justify-center overflow-hidden">
                                 <Image
                                     src="/logo-khub.png"
                                     alt="K-Hub logo"
-                                    width={34}
-                                    height={34}
+                                    width={38}
+                                    height={38}
                                     priority
                                     style={{ objectFit: "contain", width: "auto", height: "auto" }}
                                 />
                             </div>
                             <div className="leading-none">
-                                <span className="block text-[1.06rem] sm:text-[1.18rem] font-semibold tracking-[0.14em] text-on-surface group-hover:text-primary transition-colors duration-300">
+                                <span className="block text-[1.12rem] sm:text-[1.24rem] font-semibold tracking-[0.14em] text-on-surface group-hover:text-primary transition-colors duration-300">
                                     K-HUB
                                 </span>
-                                <span className="block mt-1 text-[0.58rem] sm:text-[0.6rem] tracking-[0.22em] text-on-surface-variant/85 uppercase">
+                                <span className="block mt-1 text-[0.62rem] sm:text-[0.66rem] tracking-[0.22em] text-on-surface-variant/85 uppercase">
                                     Deep-Tech Innovation
                                 </span>
                             </div>
                         </Link>
 
-                        <div className="hidden md:flex items-center gap-2 p-1 rounded-full bg-[linear-gradient(135deg,rgba(255,255,255,0.5),rgba(255,255,255,0.2))] ring-1 ring-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_6px_16px_rgba(2,44,34,0.12)] backdrop-blur-[14px]">
+                        <div className="hidden md:flex items-center gap-2.5 p-1.5 rounded-full bg-[linear-gradient(135deg,rgba(255,255,255,0.5),rgba(255,255,255,0.2))] ring-1 ring-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_6px_16px_rgba(2,44,34,0.12)] backdrop-blur-[14px]">
                             {navLinks.map((link, i) => (
                                 <motion.a
                                     key={link.href}
@@ -144,7 +144,7 @@ export default function Navbar() {
                                     transition={{ delay: 0.1 + i * 0.06, duration: 0.5 }}
                                     whileHover={{ y: -2, scale: 1.03 }}
                                     whileTap={{ scale: 0.97 }}
-                                    className="px-4 py-2.5 rounded-full text-[0.84rem] font-semibold tracking-[0.02em] text-on-surface-variant hover:text-primary bg-transparent hover:bg-white/70 hover:shadow-[0_8px_22px_rgba(2,44,34,0.14),inset_0_1px_0_rgba(255,255,255,0.85)] transition-all duration-300"
+                                    className="px-5 py-3 rounded-full text-[0.9rem] font-semibold tracking-[0.02em] text-on-surface-variant hover:text-primary bg-transparent hover:bg-white/70 hover:shadow-[0_8px_22px_rgba(2,44,34,0.14),inset_0_1px_0_rgba(255,255,255,0.85)] transition-all duration-300"
                                 >
                                     {link.label}
                                 </motion.a>
