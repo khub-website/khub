@@ -18,7 +18,7 @@ const campusPartners = ["KMIT", "NGIT", "KMEC", "KMCE"];
 export default function About() {
     return (
         <section id="about" className="py-20 md:py-28 bg-surface">
-            <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
+            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
                 <div className="grid md:grid-cols-2 gap-20 md:gap-28 items-center">
                     <div>
                         <motion.p

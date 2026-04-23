@@ -32,7 +32,7 @@ const programs = [
 export default function Programs() {
     return (
         <section id="programs" className="py-20 md:py-28">
-            <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
+            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
