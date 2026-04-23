@@ -402,11 +402,11 @@ export function PearlNav() {
                               borderRadius: "50%",
                               flexShrink: 0,
                               overflow: "hidden",
-                              background: "#fff",
+                              background: `radial-gradient(circle at 32% 28%, #fff 0%, ${p.color} 50%, rgba(0,0,0,0.2) 100%)`,
                               boxShadow: isActive
-                                ? `0 0 30px ${p.color}, 0 4px 12px rgba(0,0,0,0.1), inset 0 0 10px rgba(0,0,0,0.05)`
-                                : `0 0 12px ${p.color}44, inset 0 1px 2px rgba(0,0,0,0.05)`,
-                              border: `2px solid ${isActive ? p.color : "rgba(0,0,0,0.1)"}`,
+                                ? `0 0 30px ${p.color}, inset -1px -1px 4px rgba(0,0,0,0.2)`
+                                : `0 0 15px ${p.color}66`,
+                              border: `2px solid ${isActive ? "#fff" : "rgba(255,255,255,0.8)"}`,
                               transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
                               display: "grid",
                               placeItems: "center",
