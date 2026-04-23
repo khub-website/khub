@@ -402,14 +402,15 @@ export function PearlNav() {
                               borderRadius: "50%",
                               flexShrink: 0,
                               overflow: "hidden",
-                              background: `radial-gradient(circle at 32% 28%, #fff 0%, ${p.color} 50%, rgba(0,0,0,0.2) 100%)`,
+                              background: "#fff",
                               boxShadow: isActive
-                                ? `0 0 30px ${p.color}, inset -1px -1px 4px rgba(0,0,0,0.2)`
-                                : `0 0 15px ${p.color}66`,
-                              border: `2px solid ${isActive ? "#fff" : "rgba(255,255,255,0.8)"}`,
+                                ? `0 0 30px ${p.color}, inset 0 0 10px rgba(0,0,0,0.05)`
+                                : `0 0 12px ${p.color}44`,
+                              border: `2px solid ${isActive ? p.color : "rgba(0,0,0,0.1)"}`,
                               transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
                               display: "grid",
                               placeItems: "center",
+                              boxShadow: isActive ? "0 4px 12px rgba(0,0,0,0.1), inset 0 1px 3px rgba(0,0,0,0.08)" : "inset 0 1px 2px rgba(0,0,0,0.05)",
                             }}
                           >
                             {!missingLogos[p.id] ? (
@@ -422,8 +423,10 @@ export function PearlNav() {
                                 style={{
                                   width: "100%",
                                   height: "100%",
-                                  objectFit: "cover",
-                                  transform: "scale(1.15)",
+                                  objectFit: p.id === "nutra-paradigm" ? "contain" : "cover",
+                                  transform: p.id === "nutra-paradigm" ? "scale(0.82)" : 
+                                             (p.id === "drug-paradigm" || p.id === "robo-paradigm") ? "scale(1.02)" : "scale(1.12)",
+                                  filter: "contrast(1.02) brightness(0.98)",
                                 }}
                               />
                             ) : null}

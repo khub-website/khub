@@ -188,14 +188,24 @@ function ParadigmCard({ domain, index }) {
             />
             <div className="relative z-10">
                 <div className="mb-6 flex items-center gap-4">
-                    <div className="relative h-20 w-20 shrink-0 rounded-full border border-white/65 bg-white/70 p-2 shadow-[0_10px_24px_rgba(18,18,18,0.1)]">
+                    <div 
+                        className="relative h-20 w-20 shrink-0 rounded-full bg-white overflow-hidden" 
+                        style={{ 
+                            boxShadow: "0 10px 24px rgba(18,18,18,0.1), inset 0 1px 3px rgba(0,0,0,0.08)",
+                            border: domain.name.toLowerCase().includes("neutra") ? "none" : "1px solid rgba(255,255,255,0.65)"
+                        }}
+                    >
                         <Image
                             src={domain.logo}
                             alt={`${domain.name} logo`}
                             fill
                             sizes="80px"
-                            className="rounded-full object-cover p-1.5"
-                            style={{ transform: "scale(1.15)" }}
+                            className={domain.name.toLowerCase().includes("neutra") ? "object-contain p-1" : "object-cover"}
+                            style={{ 
+                                transform: domain.name.toLowerCase().includes("neutra") ? "none" : 
+                                           (domain.name.toLowerCase().includes("drug") || domain.name.toLowerCase().includes("robo")) ? "scale(1.02)" : "scale(1.12)",
+                                filter: "contrast(1.02) brightness(0.98)"
+                            }}
                         />
                     </div>
                     <div>

@@ -183,8 +183,8 @@ export default function OrbitRing() {
                                             ? "2px solid rgba(var(--color-primary-rgb),0.5)"
                                             : "1.5px solid rgba(var(--color-primary-rgb),0.16)",
                                         boxShadow: isHovered
-                                            ? "0 8px 40px rgba(var(--color-primary-rgb),0.24), 0 2px 12px rgba(0,0,0,0.1)"
-                                            : "0 4px 24px rgba(0,0,0,0.07)",
+                                            ? "0 8px 40px rgba(var(--color-primary-rgb),0.24), 0 2px 12px rgba(0,0,0,0.1), inset 0 1px 3px rgba(0,0,0,0.1)"
+                                            : "0 4px 24px rgba(0,0,0,0.07), inset 0 1px 2px rgba(0,0,0,0.05)",
                                         overflow: "hidden",
                                         display: "flex",
                                         alignItems: "center",
@@ -201,7 +201,14 @@ export default function OrbitRing() {
                                         width={logoSize}
                                         height={logoSize}
                                         priority={true}
-                                        style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                                        style={{ 
+                                            objectFit: logo.name === "Nutra paradigm" ? "contain" : "cover", 
+                                            width: "100%", 
+                                            height: "100%",
+                                            transform: logo.name === "Nutra paradigm" ? "scale(0.82)" : 
+                                                       (logo.name === "Drug paradigm" || logo.name === "Robo paradigm") ? "scale(1.02)" : "scale(1.12)",
+                                            filter: "contrast(1.02) brightness(0.98)"
+                                        }}
                                     />
                                 </motion.div>
 
