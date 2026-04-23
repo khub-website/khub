@@ -139,7 +139,7 @@ export default function Hero() {
                     </motion.div>
                 </motion.div>
 
-                <div className="flex-[1.3] flex items-center justify-center lg:justify-end lg:pr-0">
+                <div className="flex-[1.3] flex items-center justify-center lg:justify-end lg:pr-0 lg:translate-x-12">
                     <OrbitRing />
                 </div>
             </div>

@@ -1,13 +1,14 @@
-import { useEffect, useRef, useState, useLayoutEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { paradigms } from "./ParadigmData";
 import { Tooltip, TooltipProvider, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
+const DISC_SIZE = 560;
 /** Keep pearls inside the outer disc (half-size = 280px). */
-const ARM_RADIUS_RATIO = 198 / 560;
+const ARM_RADIUS = 198;
 /** Labels live well inside the opaque inner disc for contrast. */
-const LABEL_RADIUS_RATIO = 135 / 560;
+const LABEL_RADIUS = 135;
 /** Logo badge size next to each label (inactive / active). */
-const LOGO_SIZE_RATIO = { inactive: 36 / 560, active: 44 / 560 };
+const LOGO_SIZE = { inactive: 36, active: 44 };
 const N = paradigms.length;
 const SELECTOR_ANGLE = 180;
 
@@ -21,39 +22,13 @@ const SHORT_NAMES = {
 };
 
 const PARADIGM_LOGOS = {
-  "drug-paradigm": "/attached_assets/Logo_Drugparadigm_1775035725463.webp",
-  "robo-paradigm": "/attached_assets/Logo-ROBOPARADIGM_1775035747321.webp",
-  "cyber-paradigm": "/attached_assets/Logo_CYBERPARADIGM_1775035776538.webp",
-  "neuro-paradigm": "/attached_assets/Logo-NEUROPARADIGM_1775035736800.webp",
-  "crystal-paradigm": "/attached_assets/Crystalparadigm_Logo_white_bg_1775035756777.webp",
-  "nutra-paradigm": "/attached_assets/Logo-Neutraparadigm_1775035742117.webp",
+  "drug-paradigm": "/paradigm-logos/drug-paradigm.png",
+  "robo-paradigm": "/paradigm-logos/robo-paradigm.png",
+  "cyber-paradigm": "/paradigm-logos/cyber-paradigm.png",
+  "neuro-paradigm": "/paradigm-logos/neuro-paradigm.png",
+  "crystal-paradigm": "/paradigm-logos/crystal-paradigm.png",
+  "nutra-paradigm": "/paradigm-logos/nutra-paradigm.png",
 };
-
-function useDiscSize() {
-  const [discSize, setDiscSize] = useState(560); // Safe SSR default
-
-  useLayoutEffect(() => {
-    const compute = () => {
-      const vw = window.visualViewport?.width ?? window.innerWidth;
-      const vh = window.visualViewport?.height ?? window.innerHeight;
-      return Math.min(560, Math.max(220, Math.min(vw, vh) * 0.7));
-    };
-
-    // Measure immediately after paint
-    setDiscSize(compute());
-
-    const update = () => setDiscSize(compute());
-    window.addEventListener("resize", update);
-    window.visualViewport?.addEventListener("resize", update);
-
-    return () => {
-      window.removeEventListener("resize", update);
-      window.visualViewport?.removeEventListener("resize", update);
-    };
-  }, []);
-
-  return discSize;
-}
 
 function getSnapTarget(currentRotation, idx) {
   const baseTarget = -(360 / N) * idx;
@@ -73,26 +48,10 @@ function getNearestIdx(currentRotation) {
 }
 
 export function PearlNav() {
-  const DISC_SIZE = useDiscSize();
-  const isMobile = DISC_SIZE < 400;
-  const ARM_RADIUS = ARM_RADIUS_RATIO * DISC_SIZE;
-  const LABEL_RADIUS = LABEL_RADIUS_RATIO * DISC_SIZE;
-  // Desktop: 1.12× bump; Mobile: 1.28× bump for logos
-  const logoScale = isMobile ? 1.28 : 1.12;
-  const LOGO_SIZE = {
-    inactive: Math.round(LOGO_SIZE_RATIO.inactive * DISC_SIZE * logoScale),
-    active: Math.round(LOGO_SIZE_RATIO.active * DISC_SIZE * logoScale),
-  };
-  // Mobile gets larger label text too
-  const labelFontScale = isMobile ? 1.22 : 1;
-
-  // Toggle button scales with disc
-  const BTN_W = Math.round(DISC_SIZE * 26 / 560);
-  const BTN_H = Math.round(DISC_SIZE * 30 / 560);
-
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    // Reveal the disc shortly after mount for a premium entrance feel
     const timer = setTimeout(() => setIsOpen(true), 650);
     return () => clearTimeout(timer);
   }, []);
@@ -122,19 +81,11 @@ export function PearlNav() {
     const rect = containerRef.current.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    return Math.atan2(clientY - cy, clientX - cx) * (180 / Math.PI);
+    return Math.atan2(e.clientY - cy, e.clientX - cx) * (180 / Math.PI);
   };
 
   const handleMouseDown = (e) => {
     e.preventDefault();
-    dragRef.current = { startAngle: getAngle(e), startRotation: outerRotRef.current };
-    setIsDragging(true);
-    setIsSnapping(false);
-  };
-
-  const handleTouchStart = (e) => {
     dragRef.current = { startAngle: getAngle(e), startRotation: outerRotRef.current };
     setIsDragging(true);
     setIsSnapping(false);
@@ -154,9 +105,9 @@ export function PearlNav() {
     setIsSnapping(true);
     suppressScrollRef.current = true;
     scrollTo(paradigms[nearest].id);
-    setTimeout(() => { 
-      setIsSnapping(false); 
-      suppressScrollRef.current = false; 
+    setTimeout(() => {
+      setIsSnapping(false);
+      suppressScrollRef.current = false;
     }, 2000);
   };
 
@@ -178,13 +129,9 @@ export function PearlNav() {
     };
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);
-    window.addEventListener("touchmove", onMove, { passive: true });
-    window.addEventListener("touchend", onUp);
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onUp);
-      window.removeEventListener("touchmove", onMove);
-      window.removeEventListener("touchend", onUp);
     };
   }, []);
 
@@ -247,9 +194,9 @@ export function PearlNav() {
           top: "50vh",
           transform: "translateY(-50%)",
           zIndex: 60,
-          width: BTN_W,
-          height: BTN_H,
-          borderRadius: "6px 0 0 6px",
+          width: 43,
+          height: 63,
+          borderRadius: "12px 0 0 12px",
           background: isOpen ? paradigms[activeIdx].color : `color-mix(in srgb, ${paradigms[activeIdx].color} 20%, transparent)`,
           border: "1px solid var(--color-surface-container-high)",
           borderRight: "none",
@@ -263,13 +210,12 @@ export function PearlNav() {
         }}
         title={isOpen ? "Close navigation" : "Open navigation"}
       >
-        <span style={{ 
-          color: isOpen ? "#FF6B35" : paradigms[activeIdx].color,
-          fontSize: Math.round(BTN_W * 0.9), 
+        <span style={{
+          color: isOpen ? "#fff" : paradigms[activeIdx].color,
+          fontSize: 25,
           fontWeight: "bold",
           lineHeight: 1,
-          fontFamily: "monospace",
-          transform: "translateX(-1px)"
+          fontFamily: "monospace"
         }}>
           {isOpen ? "×" : "›"}
         </span>
@@ -281,7 +227,6 @@ export function PearlNav() {
             <div
               ref={containerRef}
               data-testid="pearl-disc-nav"
-              onTouchStart={handleTouchStart}
               style={{
                 position: "fixed",
                 right: isOpen ? -(DISC_SIZE / 2) : -DISC_SIZE,
@@ -302,7 +247,7 @@ export function PearlNav() {
                 <div style={{
                   position: "absolute", inset: 0, borderRadius: "50%",
                   background: "radial-gradient(circle at 40% 35%, color-mix(in srgb, var(--color-surface-container-low) 40%, transparent) 0%, color-mix(in srgb, var(--color-surface) 15%, transparent) 100%)",
-                  border: "0px solid transparent",
+                  border: "1px solid var(--color-surface-container-high)",
                   backdropFilter: "blur(20px)",
                   boxShadow: "0 0 80px rgba(0,60,40,0.04), inset 0 0 60px rgba(255,255,255,0.25)",
                   zIndex: 1,
@@ -316,7 +261,7 @@ export function PearlNav() {
                     zIndex: 2,
                   }} />
                 ))}
-                
+
                 {/* Opaque inner disc to increase label contrast */}
                 <div
                   aria-hidden
@@ -378,7 +323,7 @@ export function PearlNav() {
                         data-testid={`pearl-nav-${p.id}`}
                         style={{
                           position: "absolute",
-                          left: LABEL_RADIUS - LOGO_SIZE.active / 3,
+                          left: LABEL_RADIUS - 14,
                           top: -LOGO_SIZE.active / 2,
                           display: "flex", alignItems: "center",
                           background: "transparent", border: "none",
@@ -390,7 +335,7 @@ export function PearlNav() {
                           display: "flex",
                           flexDirection: "row",
                           alignItems: "center",
-                          gap: Math.round(DISC_SIZE * 10 / 560),
+                          gap: 10,
                           minWidth: 0,
                           transform: `rotate(180deg)`,
                           transition: isDragging ? "none" : "transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
@@ -424,8 +369,8 @@ export function PearlNav() {
                                   width: "100%",
                                   height: "100%",
                                   objectFit: p.id === "nutra-paradigm" ? "contain" : "cover",
-                                  transform: p.id === "nutra-paradigm" ? "scale(0.82)" : 
-                                             (p.id === "drug-paradigm" || p.id === "robo-paradigm") ? "scale(1.02)" : "scale(1.12)",
+                                  transform: p.id === "nutra-paradigm" ? "scale(0.82)" :
+                                    (p.id === "drug-paradigm" || p.id === "robo-paradigm") ? "scale(1.02)" : "scale(1.12)",
                                   filter: "contrast(1.02) brightness(0.98)",
                                 }}
                               />
@@ -436,7 +381,7 @@ export function PearlNav() {
                             title={SHORT_NAMES[p.id] ?? p.name}
                             style={{
                               color: isActive ? "var(--color-on-surface)" : "var(--color-on-surface-variant)",
-                              fontSize: isActive ? Math.round(DISC_SIZE * 13 / 560 * labelFontScale) : Math.round(DISC_SIZE * 12 / 560 * labelFontScale),
+                              fontSize: isActive ? 13 : 12,
                               fontWeight: isActive ? 850 : 650,
                               fontFamily: "var(--font-display)",
                               letterSpacing: "0.06em",
@@ -447,17 +392,15 @@ export function PearlNav() {
                               display: "inline-flex",
                               alignItems: "center",
                               minWidth: 0,
-                              maxWidth: isActive ? Math.round(DISC_SIZE * 118 / 560 * labelFontScale) : Math.round(DISC_SIZE * 92 / 560 * labelFontScale),
+                              maxWidth: isActive ? 118 : 92,
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                               whiteSpace: "nowrap",
-                              padding: isActive
-                                ? `${Math.round(DISC_SIZE * 4 / 560)}px ${Math.round(DISC_SIZE * 10 / 560)}px`
-                                : `${Math.round(DISC_SIZE * 3 / 560)}px ${Math.round(DISC_SIZE * 9 / 560)}px`,
+                              padding: isActive ? "4px 10px" : "3px 9px",
                               borderRadius: 999,
-                              background: isActive 
-                                  ? "color-mix(in oklab, var(--color-surface-container-low) 78%, var(--color-on-surface) 22%)" 
-                                  : "color-mix(in oklab, var(--color-surface-container-low) 88%, var(--color-on-surface) 12%)",
+                              background: isActive
+                                ? "color-mix(in oklab, var(--color-surface-container-low) 78%, var(--color-on-surface) 22%)"
+                                : "color-mix(in oklab, var(--color-surface-container-low) 88%, var(--color-on-surface) 12%)",
                               border: "1px solid color-mix(in oklab, var(--color-surface-container-high) 60%, var(--color-on-surface) 40%)",
                               boxShadow: isActive ? "0 10px 22px rgba(0,0,0,0.12)" : "0 8px 18px rgba(0,0,0,0.08)",
                             }}
@@ -472,8 +415,8 @@ export function PearlNav() {
               </div>
             </div>
           </TooltipTrigger>
-          <TooltipContent 
-            side="left" 
+          <TooltipContent
+            side="left"
             className="max-w-xs"
           >
             <div className="text-sm space-y-1">

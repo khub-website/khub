@@ -10,7 +10,12 @@ import {
     useTransform,
 } from "framer-motion";
 import { useState } from "react";
-// Removed old logo imports and switched to public paths in domains array
+import drugLogo from "../../paradigm_logos/drug_paradigm.png";
+import cyberLogo from "../../paradigm_logos/cyver_paradigm.png";
+import roboLogo from "../../paradigm_logos/robo_paradigm.jpg";
+import neuroLogo from "../../paradigm_logos/neuro_paradigm.png";
+import nutraLogo from "../../paradigm_logos/nutra_paradigm.png";
+import crystalLogo from "../../paradigm_logos/crystal_paradigm.png";
 
 const domains = [
     {
@@ -18,7 +23,7 @@ const domains = [
         tagline: "AI-Driven Drug Discovery",
         description:
             "Using generative models to design new molecules and accelerate pharmaceutical research.",
-        logo: "/attached_assets/Logo_Drugparadigm_1775035725463.webp",
+        logo: drugLogo,
         accent: "117, 78, 173",
         secondaryAccent: "224, 168, 255",
         labelColor: "#ed5b00",
@@ -28,7 +33,7 @@ const domains = [
         tagline: "Cybersecurity Training",
         description:
             'Hands-on cybersecurity challenges through "Let Us Hack" - a dedicated training platform.',
-        logo: "/attached_assets/Logo_CYBERPARADIGM_1775035776538.webp",
+        logo: cyberLogo,
         accent: "87, 201, 70",
         secondaryAccent: "151, 230, 112",
         labelColor: "#ed5b00",
@@ -38,7 +43,7 @@ const domains = [
         tagline: "Robotics & Lab Automation",
         description:
             "Building robotic systems and lab automation for deep-tech verticals.",
-        logo: "/attached_assets/Logo-ROBOPARADIGM_1775035747321.webp",
+        logo: roboLogo,
         accent: "204, 137, 63",
         secondaryAccent: "237, 184, 108",
         labelColor: "#ed5b00",
@@ -48,7 +53,7 @@ const domains = [
         tagline: "AI-Driven Mental Wellness",
         description:
             "Developing digital therapeutics and AI tools for mental health support.",
-        logo: "/attached_assets/Logo-NEUROPARADIGM_1775035736800.webp",
+        logo: neuroLogo,
         accent: "228, 194, 72",
         secondaryAccent: "151, 88, 214",
         labelColor: "#d8ad2d",
@@ -58,7 +63,7 @@ const domains = [
         tagline: "Functional Foods & Supplements",
         description:
             "Researching nutrition science and functional food development.",
-        logo: "/attached_assets/Logo-Neutraparadigm_1775035742117.webp",
+        logo: nutraLogo,
         accent: "34, 114, 61",
         secondaryAccent: "70, 157, 89",
         labelColor: "#207443",
@@ -68,7 +73,7 @@ const domains = [
         tagline: "Materials Science",
         description:
             "Exploring crystallography and advanced materials for next-gen applications.",
-        logo: "/attached_assets/Crystalparadigm_Logo_white_bg_1775035756777.webp",
+        logo: crystalLogo,
         accent: "62, 173, 248",
         secondaryAccent: "142, 209, 255",
         labelColor: "#ed5b00",
@@ -117,11 +122,11 @@ function ParadigmCard({ domain, index }) {
 
         jitterX.set(
             Math.sin((t + seed) * freq) * 1.1 +
-                Math.cos((t + seed * 0.7) * highFreq) * 0.55
+            Math.cos((t + seed * 0.7) * highFreq) * 0.55
         );
         jitterY.set(
             Math.cos((t + seed) * (freq + 2.1)) * 0.95 +
-                Math.sin((t + seed * 0.35) * (highFreq - 3.4)) * 0.45
+            Math.sin((t + seed * 0.35) * (highFreq - 3.4)) * 0.45
         );
         jitterRotateZ.set(Math.sin((t + seed * 0.5) * 15.2) * 0.22);
     });
@@ -188,9 +193,9 @@ function ParadigmCard({ domain, index }) {
             />
             <div className="relative z-10">
                 <div className="mb-6 flex items-center gap-4">
-                    <div 
-                        className="relative h-20 w-20 shrink-0 rounded-full bg-white overflow-hidden" 
-                        style={{ 
+                    <div
+                        className="relative h-20 w-20 shrink-0 rounded-full bg-white overflow-hidden"
+                        style={{
                             boxShadow: "0 10px 24px rgba(18,18,18,0.1), inset 0 1px 3px rgba(0,0,0,0.08)",
                             border: domain.name.toLowerCase().includes("neutra") ? "none" : "1px solid rgba(255,255,255,0.65)"
                         }}
@@ -201,9 +206,9 @@ function ParadigmCard({ domain, index }) {
                             fill
                             sizes="80px"
                             className={domain.name.toLowerCase().includes("neutra") ? "object-contain p-1" : "object-cover"}
-                            style={{ 
-                                transform: domain.name.toLowerCase().includes("neutra") ? "none" : 
-                                           (domain.name.toLowerCase().includes("drug") || domain.name.toLowerCase().includes("robo")) ? "scale(1.02)" : "scale(1.12)",
+                            style={{
+                                transform: domain.name.toLowerCase().includes("neutra") ? "none" :
+                                    (domain.name.toLowerCase().includes("drug") || domain.name.toLowerCase().includes("robo")) ? "scale(1.02)" : "scale(1.12)",
                                 filter: "contrast(1.02) brightness(0.98)"
                             }}
                         />
@@ -231,7 +236,7 @@ function ParadigmCard({ domain, index }) {
 export default function Domains() {
     return (
         <section id="domains" className="py-20 md:py-28 bg-surface-container-low">
-            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+            <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
