@@ -240,7 +240,7 @@ function ParadigmCard({ domain, index }) {
 export default function Domains() {
     return (
         <section id="domains" className="py-20 md:py-28 bg-surface-container-low">
-            <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
+            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

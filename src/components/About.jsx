@@ -38,7 +38,7 @@ export default function About() {
             className="py-20 md:py-28 bg-surface cursor-pointer"
             aria-label="Open full About Us page"
         >
-            <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
+            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
                 <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-lowest px-4 py-2 text-[0.72rem] font-semibold tracking-[0.08em] uppercase text-primary">
                     About Us Preview
                     <span className="text-on-surface-variant">Open full page</span>

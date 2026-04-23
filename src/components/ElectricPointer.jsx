@@ -50,7 +50,7 @@ export const ElectricPointer = () => {
       ctx.clearRect(0, 0, width, height);
       
       // Draw Grid (Subtle)
-      ctx.strokeStyle = "rgba(255, 107, 53, 0.08)";
+      ctx.strokeStyle = "rgba(220, 90, 45, 0.12)";
       ctx.lineWidth = 1;
       const gridSize = 50;
       for (let x = 0; x < width; x += gridSize) {
@@ -80,8 +80,8 @@ export const ElectricPointer = () => {
 
         if (dist < connectionDistance) {
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(230, 90, 43, ${0.4 * (1 - dist / connectionDistance)})`;
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = `rgba(220, 80, 35, ${0.5 * (1 - dist / connectionDistance)})`;
+          ctx.lineWidth = 1.2;
           ctx.moveTo(dot.x, dot.y);
           ctx.lineTo(mouse.x, mouse.y);
           ctx.stroke();
@@ -90,7 +90,7 @@ export const ElectricPointer = () => {
           if (Math.random() > 0.98) {
             ctx.fillStyle = "#E65A2B";
             ctx.beginPath();
-            ctx.arc(dot.x, dot.y, 1.5, 0, Math.PI * 2);
+            ctx.arc(dot.x, dot.y, 2, 0, Math.PI * 2);
             ctx.fill();
           }
         }
@@ -104,8 +104,8 @@ export const ElectricPointer = () => {
 
           if (dist2 < 150) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(35, 75, 30, ${0.3 * (1 - dist2 / 150)})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(30, 70, 25, ${0.4 * (1 - dist2 / 150)})`;
+            ctx.lineWidth = 0.6;
             ctx.moveTo(dot.x, dot.y);
             ctx.lineTo(dot2.x, dot2.y);
             ctx.stroke();

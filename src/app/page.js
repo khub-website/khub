@@ -6,10 +6,12 @@ import Programs from "@/components/Programs";
 import Impact from "@/components/Impact";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import { ElectricPointer } from "@/components/ElectricPointer";
 
 export default function Home() {
   return (
     <>
+      <ElectricPointer />
       <Navbar />
       <main>
         <Hero />
