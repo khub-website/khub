@@ -59,7 +59,7 @@ export function ParadigmSection({ paradigm }) {
   return (
     <section
       id={paradigm.id}
-      className="relative py-12 sm:py-24"
+      className="relative py-24"
       style={{
         background: `radial-gradient(ellipse at 50% 0%, ${paradigm.color}08 0%, transparent 60%)`
       }}
@@ -70,8 +70,8 @@ export function ParadigmSection({ paradigm }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.9, ease: "easeOut" }}
-        className="relative mx-3 sm:mx-6 lg:mx-16 rounded-2xl sm:rounded-3xl overflow-hidden mb-8 sm:mb-14 shadow-lg sm:shadow-2xl shadow-primary/5 border border-on-surface/5"
-        style={{ minHeight: "clamp(200px, 40vw, 380px)" }}
+        style={{ height: 380 }}
+        className="relative mx-6 lg:mx-16 rounded-3xl overflow-hidden mb-14 shadow-2xl shadow-primary/5 border border-on-surface/5"
       >
         {isLoading ? (
           <Skeleton className="absolute inset-0 w-full h-full" />
@@ -106,35 +106,35 @@ export function ParadigmSection({ paradigm }) {
           style={{ background: paradigm.color }}
         />
         {/* Text overlay */}
-        <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-8 lg:p-12">
+        <div className="absolute inset-0 flex flex-col justify-end p-8 sm:p-12">
           <div
-            className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border mb-2 sm:mb-4 self-start backdrop-blur-md"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-4 self-start backdrop-blur-md"
             style={{ borderColor: `${paradigm.color}60`, background: `${paradigm.color}22` }}
           >
-            <Icon className="w-3 sm:w-4 h-3 sm:h-4" style={{ color: paradigm.color }} />
-            <span className="text-[10px] sm:text-xs font-bold tracking-widest uppercase" style={{ color: paradigm.color }}>
+            <Icon className="w-4 h-4" style={{ color: paradigm.color }} />
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: paradigm.color }}>
               {paradigm.name}
             </span>
           </div>
-          <h2 className="font-display text-xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight mb-1.5 sm:mb-3">
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-white leading-tight mb-3">
             {paradigm.tagline}
           </h2>
-          <p className="text-white/80 max-w-xl text-xs sm:text-base leading-relaxed font-light line-clamp-3 sm:line-clamp-none">
+          <p className="text-white/80 max-w-xl text-base leading-relaxed font-light">
             {paradigm.description}
           </p>
           <a
             href={scraped?.siteUrl ?? paradigm.siteUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 sm:mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/60"
+            className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/60"
           >
             Visit paradigm site
-            <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden />
+            <ExternalLink className="h-4 w-4" aria-hidden />
           </a>
         </div>
       </motion.div>
 
-      <div className="mx-3 sm:mx-6 lg:mx-16 flex justify-center">
+      <div className="mx-6 lg:mx-16 flex justify-center">
         {/* ── Achievements timeline ── */}
         <div className="w-full max-w-2xl">
           <motion.h3
@@ -142,24 +142,21 @@ export function ParadigmSection({ paradigm }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-xs font-bold tracking-widest uppercase mb-6 sm:mb-8"
+            className="text-xs font-bold tracking-widest uppercase mb-8"
             style={{ color: paradigm.color }}
           >
             Key Achievements
           </motion.h3>
           <div className="relative">
-            {/* Vertical timeline line — pinned to the dot column (20px from left) */}
+            {/* Vertical timeline line */}
             <div
-              className="absolute top-2 bottom-2 w-px"
-              style={{
-                left: 20,
-                background: `linear-gradient(to bottom, ${paradigm.color}60, transparent)`
-              }}
+              className="absolute left-[19px] top-2 bottom-2 w-px"
+              style={{ background: `linear-gradient(to bottom, ${paradigm.color}60, transparent)` }}
             />
-            <div className="space-y-4 sm:space-y-6">
+            <div className="space-y-6">
               {isLoading ? (
                 Array.from({ length: 2 }).map((_, i) => (
-                  <div key={i} className="flex gap-3 sm:gap-5">
+                  <div key={i} className="flex gap-5">
                     <div className="flex-shrink-0 mt-1 relative z-10">
                       <Skeleton className="w-10 h-10 rounded-full" />
                     </div>
@@ -177,12 +174,12 @@ export function ParadigmSection({ paradigm }) {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: "-100px" }}
                       transition={{ duration: 0.5, delay: i * 0.1 }}
-                      className="flex gap-3 sm:gap-5"
+                      className="flex gap-5"
                     >
                       {/* Dot */}
                       <div className="flex-shrink-0 mt-1 relative z-10">
                         <div
-                          className="w-10 h-10 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-black shadow-lg"
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-[10px] font-black shadow-lg"
                           style={{
                             background: `var(--color-surface)`,
                             border: `2px solid ${paradigm.color}`,
@@ -215,21 +212,21 @@ export function ParadigmSection({ paradigm }) {
                             window.open(a.url, '_blank');
                           }
                         }}
-                        className="flex-1 min-w-0 rounded-2xl border p-3 sm:p-5 text-left shadow-sm backdrop-blur-sm transition-all hover:shadow-md h-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 cursor-pointer"
+                        className="flex-1 rounded-2xl border p-5 text-left shadow-sm backdrop-blur-sm transition-all hover:shadow-md h-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 cursor-pointer"
                         style={{
                           background: "color-mix(in oklab, var(--color-surface-container-low) 50%, transparent)",
                           borderColor: showHoverPreview ? `${paradigm.color}40` : "var(--color-surface-container-high)",
                         }}
                       >
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-2 mb-1.5">
                           <span
-                            className="text-[9px] sm:text-[10px] font-bold tracking-widest"
+                            className="text-[10px] font-bold tracking-widest"
                             style={{ color: paradigm.color }}
                           >
                             {a.month ? `${MONTHS[a.month - 1]} ${a.year}` : a.year}
                           </span>
                         </div>
-                        <h4 className="text-on-surface font-semibold text-sm sm:text-base leading-snug">{a.title}</h4>
+                        <h4 className="text-on-surface font-semibold text-base leading-tight">{a.title}</h4>
                         <AnimatePresence initial={false}>
                           {showHoverPreview && (
                             <motion.div
@@ -240,8 +237,8 @@ export function ParadigmSection({ paradigm }) {
                               transition={{ duration: 0.2, ease: "easeOut" }}
                               className="overflow-hidden"
                             >
-                              <div className="mt-2 sm:mt-3 text-xs sm:text-sm text-on-surface-variant leading-relaxed font-light">
-                                <div className="details-text break-words">{renderDetailsWithLinks(a.details)}</div>
+                              <div className="mt-3 text-sm text-on-surface-variant leading-relaxed font-light">
+                                <div className="details-text">{renderDetailsWithLinks(a.details)}</div>
                                 {a.url && (
                                   <div
                                     role="button"
@@ -263,7 +260,7 @@ export function ParadigmSection({ paradigm }) {
                   );
                 })
               ) : (
-                <p className="text-xs text-on-surface-variant ml-14 sm:ml-16 italic font-light">No achievements found.</p>
+                <p className="text-xs text-on-surface-variant ml-16 italic font-light">No achievements found.</p>
               )}
             </div>
           </div>
@@ -272,9 +269,10 @@ export function ParadigmSection({ paradigm }) {
 
       {/* Section divider */}
       <div
-        className="mx-3 sm:mx-6 lg:mx-16 mt-12 sm:mt-24 h-px opacity-10"
+        className="mx-16 mt-24 h-px opacity-10"
         style={{ background: `linear-gradient(to right, transparent, ${paradigm.color}, transparent)` }}
       />
     </section>
   );
 }
+
