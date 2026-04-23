@@ -74,7 +74,7 @@ export default function Impact() {
 
                             <div className="relative z-10 p-8 md:p-10">
                                 <div className="mb-8">
-                                    <Image src="/logo-khub.png" alt="K-Hub" width={84} height={32} />
+                                    <Image src="/logo-khub.png" alt="K-Hub" width={84} height={32} style={{ width: "auto", height: "auto" }} />
                                 </div>
 
                                 <h3 className="font-display text-[clamp(2rem,5vw,3.5rem)] leading-[0.95] font-bold text-on-surface mb-1">
