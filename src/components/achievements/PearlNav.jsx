@@ -402,7 +402,7 @@ export function PearlNav() {
                               borderRadius: "50%",
                               flexShrink: 0,
                               overflow: "hidden",
-                              background: `radial-gradient(circle at 32% 28%, #fff 0%, ${p.color} 50%, rgba(0,0,0,0.2) 100%)`,
+                              background: p.id === "drug-paradigm" ? "#fff" : `radial-gradient(circle at 32% 28%, #fff 0%, ${p.color} 50%, rgba(0,0,0,0.2) 100%)`,
                               boxShadow: isActive
                                 ? `0 0 30px ${p.color}, inset -1px -1px 4px rgba(0,0,0,0.2)`
                                 : `0 0 15px ${p.color}66`,
