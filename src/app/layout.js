@@ -15,6 +15,13 @@ export const metadata = {
   description:
     "K-Hub - Driving deep-tech innovation across drug discovery, cybersecurity, robotics, materials science, and more.",
   authors: [{ name: "K-Hub" }],
+  icons: {
+    icon: [
+      { url: "/logo-khub.png" },
+      { url: "/logo-khub.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/logo-khub.png",
+  },
 };
 
 export default function RootLayout({ children }) {
