@@ -44,7 +44,27 @@ export function AchievementsHero() {
             drug discovery, cybersecurity, robotics, and beyond.
           </motion.p>
 
-          {/* Buttons removed as per user request */}
+          {/* K-Hub button row: green CTA + outlined secondary */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="flex items-center gap-4 flex-wrap"
+          >
+            <a
+              href="#drug-paradigm"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-primary text-surface text-sm font-semibold tracking-tight shadow-lg shadow-primary/20 transition-all hover:brightness-95 hover:shadow-primary/30 hover:-translate-y-0.5"
+            >
+              <Award className="w-4 h-4" />
+              Explore Our Work
+            </a>
+            <a
+              href="#about"
+              className="inline-flex items-center px-8 py-3.5 rounded-lg border border-on-surface/10 bg-surface-container-low text-on-surface-variant text-sm font-medium tracking-tight transition-all hover:bg-surface-container-high"
+            >
+              Learn More
+            </a>
+          </motion.div>
         </div>
       </div>
 

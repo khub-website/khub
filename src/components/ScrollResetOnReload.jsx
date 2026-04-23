@@ -11,9 +11,7 @@ export default function ScrollResetOnReload() {
         }
 
         const resetToTop = () => {
-            if (!window.location.hash) {
-                window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-            }
+            window.scrollTo({ top: 0, left: 0, behavior: "auto" });
         };
 
         resetToTop();
