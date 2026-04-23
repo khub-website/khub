@@ -9,37 +9,37 @@ import Footer from "@/components/Footer";
 const flagshipProjects = [
   {
     name: "DrugParadigm X-47",
-    logo: "/paradigm-logos/drug-paradigm.png",
+    logo: "/logo-drugparadigm.webp",
     outcome: "2 candidate molecules shortlisted",
     detail: "Placeholder project summary and measurable research outcome.",
   },
   {
     name: "CyberParadigm Sentinel",
-    logo: "/paradigm-logos/cyber-paradigm.png",
+    logo: "/logo-cyberparadigm.webp",
     outcome: "1,200+ security drills completed",
     detail: "Placeholder project summary with benchmark and deployment context.",
   },
   {
     name: "RoboParadigm Atlas Arm",
-    logo: "/paradigm-logos/robo-paradigm.png",
+    logo: "/logo-roboparadigm.webp",
     outcome: "3 prototype iterations validated",
     detail: "Placeholder project summary with lab-to-field conversion details.",
   },
   {
     name: "NeuroParadigm Echo",
-    logo: "/paradigm-logos/neuro-paradigm.png",
+    logo: "/logo-neuroparadigm.webp",
     outcome: "87% model reliability in pilot",
     detail: "Placeholder project summary with validation data and use case.",
   },
   {
     name: "NutraParadigm N-One",
-    logo: "/paradigm-logos/nutra-paradigm.png",
+    logo: "/logo-neutraparadigm.webp",
     outcome: "4 functional formulations tested",
     detail: "Placeholder project summary with pilot cohorts and findings.",
   },
   {
     name: "CrystalParadigm Forge",
-    logo: "/paradigm-logos/crystal-paradigm.png",
+    logo: "/logo-crystalparadigm.webp",
     outcome: "9 material candidates simulated",
     detail: "Placeholder project summary around material performance targets.",
   },
@@ -86,7 +86,7 @@ function PearlProjectCard({ project, index, reduceMotion }) {
 
       <div className="flex items-start justify-center md:justify-start">
         <motion.div
-          className="relative h-20 w-20 rounded-full border border-white/90 p-2 shadow-[0_10px_26px_rgba(10,25,20,0.2)]"
+          className="relative h-20 w-20 rounded-full border border-white/90 shadow-[0_10px_26px_rgba(10,25,20,0.2)] overflow-hidden"
           style={{
             background:
               "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.98) 0%, rgba(235,244,240,0.94) 52%, rgba(194,217,208,0.9) 100%)",
@@ -94,14 +94,19 @@ function PearlProjectCard({ project, index, reduceMotion }) {
           animate={reduceMotion ? {} : { y: [0, -3, 0] }}
           transition={reduceMotion ? {} : { duration: 2.4 + index * 0.12, repeat: Infinity, ease: "easeInOut" }}
         >
-          <span className="pointer-events-none absolute left-3 top-3 h-2 w-2 rounded-full bg-white/95" />
-          <Image
-            src={project.logo}
-            alt={project.name}
-            width={56}
-            height={56}
-            className="h-full w-full object-contain rounded-full"
-          />
+          <span className="pointer-events-none absolute left-3 top-3 h-2 w-2 rounded-full bg-white/95 z-10" />
+          <div className="absolute inset-0 p-1.5">
+            <div className={`w-full h-full bg-white rounded-full flex items-center justify-center shadow-sm overflow-hidden ${project.logo.includes("neutra") || project.logo.includes("nutra") ? "p-2.5" : "p-1.5"}`}>
+              <Image
+                src={project.logo}
+                alt={project.name}
+                width={56}
+                height={56}
+                className="h-full w-full object-contain"
+                style={{ width: "auto", height: "auto" }}
+              />
+            </div>
+          </div>
         </motion.div>
       </div>
 
@@ -149,7 +154,7 @@ export default function AboutPage() {
     <>
       <Navbar />
       <main className="bg-surface text-on-surface pt-32 pb-20">
-        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
+        <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
@@ -208,7 +213,7 @@ export default function AboutPage() {
           </motion.div>
         </section>
 
-        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16 md:mt-20">
+        <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 mt-16 md:mt-20">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
@@ -248,7 +253,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16">
+        <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 mt-16">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
@@ -282,7 +287,7 @@ export default function AboutPage() {
           </motion.div>
         </section>
 
-        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16">
+        <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 mt-16">
           <motion.div
             variants={sectionIntro}
             initial="hidden"

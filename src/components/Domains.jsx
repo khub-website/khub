@@ -10,20 +10,13 @@ import {
     useTransform,
 } from "framer-motion";
 import { useState } from "react";
-import drugLogo from "../../paradigm_logos/drug_paradigm.png";
-import cyberLogo from "../../paradigm_logos/cyver_paradigm.png";
-import roboLogo from "../../paradigm_logos/robo_paradigm.jpg";
-import neuroLogo from "../../paradigm_logos/neuro_paradigm.png";
-import nutraLogo from "../../paradigm_logos/nutra_paradigm.png";
-import crystalLogo from "../../paradigm_logos/crystal_paradigm.png";
-
 const domains = [
     {
         name: "Drugparadigm",
         tagline: "AI-Driven Drug Discovery",
         description:
             "Using generative models to design new molecules and accelerate pharmaceutical research.",
-        logo: drugLogo,
+        logo: "/logo-drugparadigm.webp",
         accent: "117, 78, 173",
         secondaryAccent: "224, 168, 255",
         labelColor: "#ed5b00",
@@ -33,7 +26,7 @@ const domains = [
         tagline: "Cybersecurity Training",
         description:
             'Hands-on cybersecurity challenges through "Let Us Hack" - a dedicated training platform.',
-        logo: cyberLogo,
+        logo: "/logo-cyberparadigm.webp",
         accent: "87, 201, 70",
         secondaryAccent: "151, 230, 112",
         labelColor: "#ed5b00",
@@ -43,7 +36,7 @@ const domains = [
         tagline: "Robotics & Lab Automation",
         description:
             "Building robotic systems and lab automation for deep-tech verticals.",
-        logo: roboLogo,
+        logo: "/logo-roboparadigm.webp",
         accent: "204, 137, 63",
         secondaryAccent: "237, 184, 108",
         labelColor: "#ed5b00",
@@ -53,7 +46,7 @@ const domains = [
         tagline: "AI-Driven Mental Wellness",
         description:
             "Developing digital therapeutics and AI tools for mental health support.",
-        logo: neuroLogo,
+        logo: "/logo-neuroparadigm.webp",
         accent: "228, 194, 72",
         secondaryAccent: "151, 88, 214",
         labelColor: "#d8ad2d",
@@ -63,7 +56,7 @@ const domains = [
         tagline: "Functional Foods & Supplements",
         description:
             "Researching nutrition science and functional food development.",
-        logo: nutraLogo,
+        logo: "/logo-neutraparadigm.webp",
         accent: "34, 114, 61",
         secondaryAccent: "70, 157, 89",
         labelColor: "#207443",
@@ -73,7 +66,7 @@ const domains = [
         tagline: "Materials Science",
         description:
             "Exploring crystallography and advanced materials for next-gen applications.",
-        logo: crystalLogo,
+        logo: "/logo-crystalparadigm.webp",
         accent: "62, 173, 248",
         secondaryAccent: "142, 209, 255",
         labelColor: "#ed5b00",

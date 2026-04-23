@@ -22,12 +22,12 @@ const SHORT_NAMES = {
 };
 
 const PARADIGM_LOGOS = {
-  "drug-paradigm": "/paradigm-logos/drug-paradigm.png",
-  "robo-paradigm": "/paradigm-logos/robo-paradigm.png",
-  "cyber-paradigm": "/paradigm-logos/cyber-paradigm.png",
-  "neuro-paradigm": "/paradigm-logos/neuro-paradigm.png",
-  "crystal-paradigm": "/paradigm-logos/crystal-paradigm.png",
-  "nutra-paradigm": "/paradigm-logos/nutra-paradigm.png",
+  "drug-paradigm": "/logo-drugparadigm.webp",
+  "robo-paradigm": "/logo-roboparadigm.webp",
+  "cyber-paradigm": "/logo-cyberparadigm.webp",
+  "neuro-paradigm": "/logo-neuroparadigm.webp",
+  "crystal-paradigm": "/logo-crystalparadigm.webp",
+  "nutra-paradigm": "/logo-neutraparadigm.webp",
 };
 
 function getSnapTarget(currentRotation, idx) {
