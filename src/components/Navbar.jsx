@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const navLinks = [
     { label: "About", href: "/about" },
@@ -19,6 +19,7 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const pathname = usePathname();
+    const router = useRouter();
     const forceElevatedStyle = pathname === "/about";
 
     useEffect(() => {
@@ -28,17 +29,31 @@ export default function Navbar() {
     }, []);
 
     const handleLinkClick = (e, href) => {
-        if (href.startsWith("/#") && pathname === "/") {
-            const id = href.substring(1); // remove the leading slash
-            const el = document.querySelector(id);
-            if (el) {
-                e.preventDefault();
-                setMobileOpen(false);
-                el.scrollIntoView({ behavior: "smooth", block: "start" });
-                return;
+        if (href.startsWith("/#")) {
+            const hash = href.substring(1); // e.g. "#domains"
+            e.preventDefault();
+            setMobileOpen(false);
+
+            if (pathname === "/") {
+                // Already on home page — just scroll
+                const el = document.querySelector(hash);
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            } else {
+                // Navigate to home first, then scroll after page loads
+                router.push("/");
+                const scrollAfterNav = () => {
+                    const el = document.querySelector(hash);
+                    if (el) {
+                        el.scrollIntoView({ behavior: "smooth", block: "start" });
+                    } else {
+                        // Element not rendered yet, retry
+                        requestAnimationFrame(scrollAfterNav);
+                    }
+                };
+                setTimeout(scrollAfterNav, 300);
             }
+            return;
         }
-        // If it's a direct page link or element not found, let the default behavior happen
         setMobileOpen(false);
     };
 

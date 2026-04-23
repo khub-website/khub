@@ -192,12 +192,11 @@ export default function OrbitRing() {
                                         height={logoSize}
                                         priority={true}
                                         style={{
-                                            objectFit: logo.name === "Nutra paradigm" ? "contain" : "cover",
+                                            objectFit: logo.name.toLowerCase().includes("eutra") ? "contain" : "cover",
                                             width: "100%",
                                             height: "100%",
-                                            transform: logo.name === "Nutra paradigm" ? "scale(0.82)" :
-                                                (logo.name === "Drug paradigm" || logo.name === "Robo paradigm") ? "scale(1.02)" : "scale(1.12)",
-                                            filter: "contrast(1.02) brightness(0.98)"
+                                            transform: logo.name.toLowerCase().includes("eutra") ? "scale(0.82)" :
+                                                (logo.name.toLowerCase().includes("drug") || logo.name.toLowerCase().includes("robo")) ? "scale(1.02)" : "scale(1.15)",
                                         }}
                                     />
                                 </motion.div>
