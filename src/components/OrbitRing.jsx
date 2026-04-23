@@ -22,6 +22,12 @@ export default function OrbitRing() {
     const [viewportWidth, setViewportWidth] = useState(1200);
     const orbitAngle = useMotionValue(0);
     const counterAngle = useTransform(orbitAngle, (v) => -v);
+    const [canAnimate, setCanAnimate] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setCanAnimate(true), 1500);
+        return () => clearTimeout(timer);
+    }, []);
 
     useEffect(() => {
         const updateWidth = () => setViewportWidth(window.innerWidth);
@@ -63,6 +69,7 @@ export default function OrbitRing() {
     }, [viewportWidth]);
 
     useAnimationFrame((_, delta) => {
+        if (!canAnimate) return;
         const duration = isOrbitHovered ? SLOW_DURATION : NORMAL_DURATION;
         const degPerSecond = 360 / duration;
         const next = orbitAngle.get() + (delta / 1000) * degPerSecond;
@@ -193,8 +200,7 @@ export default function OrbitRing() {
                                         alt={logo.name}
                                         width={logoSize}
                                         height={logoSize}
-                                        loading="eager"
-                                        priority={i === 0}
+                                        priority={true}
                                         style={{ objectFit: "cover", width: "100%", height: "100%" }}
                                     />
                                 </motion.div>

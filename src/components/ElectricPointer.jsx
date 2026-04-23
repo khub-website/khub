@@ -116,9 +116,13 @@ export const ElectricPointer = () => {
       requestAnimationFrame(animate);
     };
 
-    animate();
+    // Defer animation to prevent stutter on fresh load
+    const timeout = setTimeout(() => {
+      animate();
+    }, 1000);
 
     return () => {
+      clearTimeout(timeout);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
     };
