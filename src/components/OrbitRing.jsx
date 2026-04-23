@@ -5,12 +5,12 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 const logos = [
-    { src: "/logo-drugparadigm.webp", name: "Drug paradigm" },
-    { src: "/logo-cyberparadigm.webp", name: "Cyber paradigm" },
-    { src: "/logo-neuroparadigm.webp", name: "Neuro paradigm" },
-    { src: "/logo-roboparadigm.webp", name: "Robo paradigm" },
-    { src: "/logo-neutraparadigm.webp", name: "Neutra paradigm" },
-    { src: "/logo-crystalparadigm.webp", name: "Crystal paradigm" },
+    { src: "/attached_assets/Logo_Drugparadigm_1775035725463.webp", name: "Drug paradigm" },
+    { src: "/attached_assets/Logo_CYBERPARADIGM_1775035776538.webp", name: "Cyber paradigm" },
+    { src: "/attached_assets/Logo-NEUROPARADIGM_1775035736800.webp", name: "Neuro paradigm" },
+    { src: "/attached_assets/Logo-ROBOPARADIGM_1775035747321.webp", name: "Robo paradigm" },
+    { src: "/attached_assets/Logo-Neutraparadigm_1775035742117.webp", name: "Nutra paradigm" },
+    { src: "/attached_assets/Crystalparadigm_Logo_white_bg_1775035756777.webp", name: "Crystal paradigm" },
 ];
 
 const NORMAL_DURATION = 28;
@@ -41,22 +41,24 @@ export default function OrbitRing() {
         tooltipOffset,
     } = useMemo(() => {
         const isMobile = viewportWidth < 640;
-        const safeWidth = isMobile ? Math.max(300, Math.min(viewportWidth - 22, 370)) : 740;
-        const calcLogoSize = isMobile ? 78 : 132;
-        const calcPadding = isMobile ? 10 : 48;
-        const calcRadius = Math.max(120, (safeWidth - calcLogoSize - calcPadding) / 2.5);
-        const calcCenterSize = isMobile ? 96 : 116;
-        const calcCenterLogoSize = isMobile ? 70 : 86;
+        const safeWidth = isMobile ? Math.max(280, Math.min(viewportWidth - 32, 370)) : 740;
+        const calcLogoSize = isMobile ? (viewportWidth < 360 ? 64 : 78) : 132;
+        const calcPadding = isMobile ? 8 : 48;
+        const calcRadius = isMobile 
+            ? Math.max(100, (safeWidth - calcLogoSize - calcPadding) / 2.2)
+            : Math.max(120, (safeWidth - calcLogoSize - calcPadding) / 2.5);
+        const calcCenterSize = isMobile ? 86 : 116;
+        const calcCenterLogoSize = isMobile ? 62 : 86;
 
         return {
             radius: calcRadius,
             logoSize: calcLogoSize,
             centerSize: calcCenterSize,
             centerLogoSize: calcCenterLogoSize,
-            outerRingInset: isMobile ? 36 : 64,
-            containerSize: calcRadius * 2 + calcLogoSize + calcPadding,
-            hoverScale: isMobile ? 1.2 : 1.28,
-            tooltipOffset: isMobile ? -36 : -44,
+            outerRingInset: isMobile ? 32 : 64,
+            containerSize: Math.min(viewportWidth - 16, calcRadius * 2 + calcLogoSize + calcPadding),
+            hoverScale: isMobile ? 1.15 : 1.28,
+            tooltipOffset: isMobile ? -32 : -44,
         };
     }, [viewportWidth]);
 
@@ -132,9 +134,10 @@ export default function OrbitRing() {
                         justifyContent: "center",
                         backdropFilter: "blur(8px)",
                         transition: "border 0.3s ease, box-shadow 0.3s ease",
+                        overflow: "hidden",
                     }}
                 >
-                    <Image src="/logo-khub.png" alt="K-Hub" width={centerLogoSize} height={centerLogoSize} priority style={{ objectFit: "contain" }} />
+                    <Image src="/attached_assets/khub_logo.png" alt="K-Hub" width={centerLogoSize} height={centerLogoSize} priority style={{ objectFit: "contain" }} />
                 </motion.div>
             </motion.div>
 
@@ -192,7 +195,7 @@ export default function OrbitRing() {
                                         height={logoSize}
                                         loading="eager"
                                         priority={i === 0}
-                                        style={{ objectFit: "contain", padding: logoSize < 90 ? 6 : 8 }}
+                                        style={{ objectFit: "cover", width: "100%", height: "100%" }}
                                     />
                                 </motion.div>
 

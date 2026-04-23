@@ -246,6 +246,10 @@ html[data-theme="theme-10"] {
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
+    scrollbar-width: none; /* Hide for Firefox */
+    -ms-overflow-style: none; /* Hide for IE/Edge */
   }
 
   body {
@@ -255,8 +259,17 @@ html[data-theme="theme-10"] {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    width: 100%;
+    margin: 0;
     position: relative;
     letter-spacing: -0.01em;
+    scrollbar-width: none; /* Hide for Firefox */
+    -ms-overflow-style: none; /* Hide for IE/Edge */
+  }
+
+  body > * {
+    width: 100%;
+    flex-shrink: 0;
   }
 }
 
@@ -281,18 +294,14 @@ body::after {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 0px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-surface-container-low);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-outline-variant);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--color-outline-variant) 70%, var(--color-on-surface) 30%);
+  background: transparent;
 }

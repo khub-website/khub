@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 const navLinks = [
+    { label: "Home", href: "/" },
     { label: "About", href: "/#about" },
     { label: "Domains", href: "/#domains" },
     { label: "Gallery", href: "/gallery" },
@@ -23,19 +25,35 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    const router = useRouter();
+    const pathname = usePathname();
+
     const handleLinkClick = (e, href) => {
+        setMobileOpen(false);
+        
+        // If it's a hash link
         if (href.startsWith("/#")) {
-            const id = href.substring(1); // remove the leading slash
-            const el = document.querySelector(id);
-            if (el) {
+            const id = href.substring(1); // e.g., "#about"
+            
+            if (pathname === "/") {
+                // If already on home page, just scroll
+                const el = document.querySelector(id);
+                if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            } else {
+                // If on another page, use router to go home with the hash
                 e.preventDefault();
-                setMobileOpen(false);
-                el.scrollIntoView({ behavior: "smooth", block: "start" });
-                return;
+                router.push(href);
             }
         }
-        // If it's a direct page link or element not found, let the default behavior happen
-        setMobileOpen(false);
+        
+        // For Home button specifically, if already on home, scroll to top
+        if (href === "/" && pathname === "/") {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
     };
 
     return (
@@ -105,10 +123,12 @@ export default function Navbar() {
                 <div className="relative px-4 sm:px-6 md:px-8 lg:px-10">
                     <div className="flex items-center justify-between h-[68px]">
                         <a
-                            href="#"
+                            href="/"
                             onClick={(e) => {
-                                e.preventDefault();
-                                window.scrollTo({ top: 0, behavior: "smooth" });
+                                if (window.location.pathname === "/") {
+                                    e.preventDefault();
+                                    window.scrollTo({ top: 0, behavior: "smooth" });
+                                }
                             }}
                             className="group flex items-center gap-3.5"
                         >

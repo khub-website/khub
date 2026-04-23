@@ -21,12 +21,12 @@ const SHORT_NAMES = {
 };
 
 const PARADIGM_LOGOS = {
-  "drug-paradigm": "/paradigm-logos/drug-paradigm.png",
-  "robo-paradigm": "/paradigm-logos/robo-paradigm.png",
-  "cyber-paradigm": "/paradigm-logos/cyber-paradigm.png",
-  "neuro-paradigm": "/paradigm-logos/neuro-paradigm.png",
-  "crystal-paradigm": "/paradigm-logos/crystal-paradigm.png",
-  "nutra-paradigm": "/paradigm-logos/nutra-paradigm.png",
+  "drug-paradigm": "/attached_assets/Logo_Drugparadigm_1775035725463.webp",
+  "robo-paradigm": "/attached_assets/Logo-ROBOPARADIGM_1775035747321.webp",
+  "cyber-paradigm": "/attached_assets/Logo_CYBERPARADIGM_1775035776538.webp",
+  "neuro-paradigm": "/attached_assets/Logo-NEUROPARADIGM_1775035736800.webp",
+  "crystal-paradigm": "/attached_assets/Crystalparadigm_Logo_white_bg_1775035756777.webp",
+  "nutra-paradigm": "/attached_assets/Logo-Neutraparadigm_1775035742117.webp",
 };
 
 function useDiscSize() {
@@ -87,8 +87,8 @@ export function PearlNav() {
   const labelFontScale = isMobile ? 1.22 : 1;
 
   // Toggle button scales with disc
-  const BTN_W = Math.round(DISC_SIZE * 43 / 560);
-  const BTN_H = Math.round(DISC_SIZE * 63 / 560);
+  const BTN_W = Math.round(DISC_SIZE * 26 / 560);
+  const BTN_H = Math.round(DISC_SIZE * 30 / 560);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -249,7 +249,7 @@ export function PearlNav() {
           zIndex: 60,
           width: BTN_W,
           height: BTN_H,
-          borderRadius: "12px 0 0 12px",
+          borderRadius: "6px 0 0 6px",
           background: isOpen ? paradigms[activeIdx].color : `color-mix(in srgb, ${paradigms[activeIdx].color} 20%, transparent)`,
           border: "1px solid var(--color-surface-container-high)",
           borderRight: "none",
@@ -264,11 +264,12 @@ export function PearlNav() {
         title={isOpen ? "Close navigation" : "Open navigation"}
       >
         <span style={{ 
-          color: isOpen ? "#fff" : paradigms[activeIdx].color,
-          fontSize: Math.round(BTN_W * 0.58), 
+          color: isOpen ? "#FF6B35" : paradigms[activeIdx].color,
+          fontSize: Math.round(BTN_W * 0.9), 
           fontWeight: "bold",
           lineHeight: 1,
-          fontFamily: "monospace"
+          fontFamily: "monospace",
+          transform: "translateX(-1px)"
         }}>
           {isOpen ? "×" : "›"}
         </span>
@@ -422,6 +423,7 @@ export function PearlNav() {
                                   width: "100%",
                                   height: "100%",
                                   objectFit: "cover",
+                                  transform: "scale(1.15)",
                                 }}
                               />
                             ) : null}
