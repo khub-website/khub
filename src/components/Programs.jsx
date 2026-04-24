@@ -3,36 +3,36 @@
 import { motion } from "framer-motion";
 
 const programs = [
-    {
-        title: "The Homebrew",
-        description:
-            "A collaborative experiment and prototype space where students explore ideas hands-on.",
-        number: "01",
-    },
+    // {
+    //     title: "The Homebrew",
+    //     description:
+    //         "A collaborative experiment and prototype space where students explore ideas hands-on.",
+    //     number: "01",
+    // },
     {
         title: "Cohorts",
         description:
             "Structured learning and project groups that guide students through deep-tech domains.",
-        number: "02",
+        number: "01",
     },
-    {
-        title: "Imagineering School",
-        description:
-            "Creative problem-solving programs that blend imagination with engineering rigor.",
-        number: "03",
-    },
+    // {
+    //     title: "Imagineering School",
+    //     description:
+    //         "Creative problem-solving programs that blend imagination with engineering rigor.",
+    //     number: "03",
+    // },
     {
         title: "Startup Incubation",
         description:
             "Full-stack startup support — from ideation to market, with mentorship and resources.",
-        number: "04",
+        number: "02",
     },
 ];
 
 export default function Programs() {
     return (
         <section id="programs" className="py-20 md:py-28">
-            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+            <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -95,7 +95,8 @@ export default function Programs() {
                     className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
                 >
                     {[
-                        { title: "Workrooms", desc: "Dedicated research spaces" },
+                        // { title: "Workrooms", desc: "Dedicated research spaces" },
+                        {title:"The Homebrew", desc:"Ideathon-style workshops"},
                         { title: "Founders' Brunch", desc: "Networking with entrepreneurs" },
                         { title: "DeepTech Starter Kits", desc: "Curated toolkits to begin" },
                         { title: "Curated Events", desc: "Talks, workshops & demos" },
