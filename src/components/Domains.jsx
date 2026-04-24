@@ -18,7 +18,7 @@ const domains = [
         tagline: "AI-Driven Drug Discovery",
         description:
             "Using generative models to design new molecules and accelerate pharmaceutical research.",
-        logo: "/attached_assets/Logo_Drugparadigm_1775035725463.webp",
+        logo: "/logo-drugparadigm.webp",
         accent: "117, 78, 173",
         secondaryAccent: "224, 168, 255",
         labelColor: "#ed5b00",
@@ -28,7 +28,7 @@ const domains = [
         tagline: "Cybersecurity Training",
         description:
             'Hands-on cybersecurity challenges through "Let Us Hack" - a dedicated training platform.',
-        logo: "/attached_assets/Logo_CYBERPARADIGM_1775035776538.webp",
+        logo: "/logo-cyberparadigm.webp",
         accent: "87, 201, 70",
         secondaryAccent: "151, 230, 112",
         labelColor: "#ed5b00",
@@ -38,7 +38,7 @@ const domains = [
         tagline: "Robotics & Lab Automation",
         description:
             "Building robotic systems and lab automation for deep-tech verticals.",
-        logo: "/attached_assets/Logo-ROBOPARADIGM_1775035747321.webp",
+        logo: "/logo-roboparadigm.webp",
         accent: "204, 137, 63",
         secondaryAccent: "237, 184, 108",
         labelColor: "#ed5b00",
@@ -48,7 +48,7 @@ const domains = [
         tagline: "AI-Driven Mental Wellness",
         description:
             "Developing digital therapeutics and AI tools for mental health support.",
-        logo: "/attached_assets/Logo-NEUROPARADIGM_1775035736800.webp",
+        logo: "/logo-neuroparadigm.webp",
         accent: "228, 194, 72",
         secondaryAccent: "151, 88, 214",
         labelColor: "#d8ad2d",
@@ -58,7 +58,7 @@ const domains = [
         tagline: "Functional Foods & Supplements",
         description:
             "Researching nutrition science and functional food development.",
-        logo: "/attached_assets/Logo-Neutraparadigm_1775035742117.webp",
+        logo: "/logo-neutraparadigm.webp",
         accent: "34, 114, 61",
         secondaryAccent: "70, 157, 89",
         labelColor: "#207443",
@@ -68,7 +68,7 @@ const domains = [
         tagline: "Materials Science",
         description:
             "Exploring crystallography and advanced materials for next-gen applications.",
-        logo: "/attached_assets/Crystalparadigm_Logo_white_bg_1775035756777.webp",
+        logo: "/logo-crystalparadigm.webp",
         accent: "62, 173, 248",
         secondaryAccent: "142, 209, 255",
         labelColor: "#ed5b00",

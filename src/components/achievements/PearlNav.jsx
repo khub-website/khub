@@ -21,12 +21,12 @@ const SHORT_NAMES = {
 };
 
 const PARADIGM_LOGOS = {
-  "drug-paradigm": "/attached_assets/Logo_Drugparadigm_1775035725463.webp",
-  "robo-paradigm": "/attached_assets/Logo-ROBOPARADIGM_1775035747321.webp",
-  "cyber-paradigm": "/attached_assets/Logo_CYBERPARADIGM_1775035776538.webp",
-  "neuro-paradigm": "/attached_assets/Logo-NEUROPARADIGM_1775035736800.webp",
-  "crystal-paradigm": "/attached_assets/Crystalparadigm_Logo_white_bg_1775035756777.webp",
-  "nutra-paradigm": "/attached_assets/Logo-Neutraparadigm_1775035742117.webp",
+  "drug-paradigm": "/logo-drugparadigm.webp",
+  "robo-paradigm": "/logo-roboparadigm.webp",
+  "cyber-paradigm": "/logo-cyberparadigm.webp",
+  "neuro-paradigm": "/logo-neuroparadigm.webp",
+  "crystal-paradigm": "/logo-crystalparadigm.webp",
+  "nutra-paradigm": "/logo-neutraparadigm.webp",
 };
 
 function useDiscSize() {
