@@ -9,37 +9,37 @@ import Footer from "@/components/Footer";
 const flagshipProjects = [
   {
     name: "DrugParadigm X-47",
-    logo: "/paradigm-logos/drug-paradigm.png",
+    logo: "/logo-drugparadigm.webp",
     outcome: "2 candidate molecules shortlisted",
     detail: "Placeholder project summary and measurable research outcome.",
   },
   {
     name: "CyberParadigm Sentinel",
-    logo: "/paradigm-logos/cyber-paradigm.png",
+    logo: "/logo-cyberparadigm.webp",
     outcome: "1,200+ security drills completed",
     detail: "Placeholder project summary with benchmark and deployment context.",
   },
   {
     name: "RoboParadigm Atlas Arm",
-    logo: "/paradigm-logos/robo-paradigm.png",
+    logo: "/logo-roboparadigm.webp",
     outcome: "3 prototype iterations validated",
     detail: "Placeholder project summary with lab-to-field conversion details.",
   },
   {
     name: "NeuroParadigm Echo",
-    logo: "/paradigm-logos/neuro-paradigm.png",
+    logo: "/logo-neuroparadigm.webp",
     outcome: "87% model reliability in pilot",
     detail: "Placeholder project summary with validation data and use case.",
   },
   {
     name: "NutraParadigm N-One",
-    logo: "/paradigm-logos/nutra-paradigm.png",
+    logo: "/logo-neutraparadigm.webp",
     outcome: "4 functional formulations tested",
     detail: "Placeholder project summary with pilot cohorts and findings.",
   },
   {
     name: "CrystalParadigm Forge",
-    logo: "/paradigm-logos/crystal-paradigm.png",
+    logo: "/logo-crystalparadigm.webp",
     outcome: "9 material candidates simulated",
     detail: "Placeholder project summary around material performance targets.",
   },
