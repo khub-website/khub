@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 
 export default function Footer() {
+    const mapsShareUrl = "https://share.google/VactTMVzldUcG9lxT";
+
     return (
         <footer id="contact" className="border-t border-surface-container-low bg-surface">
             <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-16 md:py-20">
@@ -11,7 +13,7 @@ export default function Footer() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16"
+                    className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16"
                 >
                     {/* Brand */}
                     <div>
@@ -83,6 +85,30 @@ export default function Footer() {
                                 </a>
                             </p>
                         </div>
+                    </div>
+
+                    {/* Location Map */}
+                    <div>
+                        <p className="text-[0.75rem] font-body font-semibold tracking-widest uppercase text-primary mb-5">
+                            Find Us
+                        </p>
+                        <div className="overflow-hidden rounded-xl border border-surface-container-low bg-surface-container-lowest">
+                            <iframe
+                                title="K-Hub location"
+                                src="https://maps.google.com/maps?q=SY%20No%2032%2FA%20%26%2032%2FE2%2C%20Near%20NGIT%20College%2C%20Uppal%2C%20Hyderabad%2C%20Telangana%20500088&z=15&output=embed"
+                                className="w-full h-40"
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            />
+                        </div>
+                        <a
+                            href={mapsShareUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-block mt-3 text-xs text-on-surface-variant hover:text-primary transition-colors duration-300 font-light"
+                        >
+                            Open in Google Maps
+                        </a>
                     </div>
                 </motion.div>
 
