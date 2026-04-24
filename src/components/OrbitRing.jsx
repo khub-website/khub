@@ -5,12 +5,12 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 const logos = [
-    { src: "/attached_assets/Logo_Drugparadigm_1775035725463.webp", name: "Drug paradigm" },
-    { src: "/attached_assets/Logo_CYBERPARADIGM_1775035776538.webp", name: "Cyber paradigm" },
-    { src: "/attached_assets/Logo-NEUROPARADIGM_1775035736800.webp", name: "Neuro paradigm" },
-    { src: "/attached_assets/Logo-ROBOPARADIGM_1775035747321.webp", name: "Robo paradigm" },
-    { src: "/attached_assets/Logo-Neutraparadigm_1775035742117.webp", name: "Nutra paradigm" },
-    { src: "/attached_assets/Crystalparadigm_Logo_white_bg_1775035756777.webp", name: "Crystal paradigm" },
+    { src: "/logo-drugparadigm.webp", name: "Drug paradigm" },
+    { src: "/logo-cyberparadigm.webp", name: "Cyber paradigm" },
+    { src: "/logo-neuroparadigm.webp", name: "Neuro paradigm" },
+    { src: "/logo-roboparadigm.webp", name: "Robo paradigm" },
+    { src: "/logo-neutraparadigm.webp", name: "Nutra paradigm" },
+    { src: "/logo-crystalparadigm.webp", name: "Crystal paradigm" },
 ];
 
 const NORMAL_DURATION = 28;
@@ -144,7 +144,7 @@ export default function OrbitRing() {
                         overflow: "hidden",
                     }}
                 >
-                    <Image src="/attached_assets/khub_logo.png" alt="K-Hub" width={centerLogoSize} height={centerLogoSize} priority style={{ objectFit: "contain" }} />
+                    <Image src="/logo-khub.png" alt="K-Hub" width={centerLogoSize} height={centerLogoSize} priority style={{ objectFit: "contain" }} />
                 </motion.div>
             </motion.div>
 
