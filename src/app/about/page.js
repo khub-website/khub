@@ -9,46 +9,39 @@ import Footer from "@/components/Footer";
 const flagshipProjects = [
   {
     name: "DrugParadigm X-47",
-    logo: "/logo-drugparadigm.webp",
+    logo: "/paradigm-logos/drug-paradigm.png",
     outcome: "2 candidate molecules shortlisted",
     detail: "Placeholder project summary and measurable research outcome.",
   },
   {
     name: "CyberParadigm Sentinel",
-    logo: "/logo-cyberparadigm.webp",
+    logo: "/paradigm-logos/cyber-paradigm.png",
     outcome: "1,200+ security drills completed",
     detail: "Placeholder project summary with benchmark and deployment context.",
   },
   {
     name: "RoboParadigm Atlas Arm",
-    logo: "/logo-roboparadigm.webp",
+    logo: "/paradigm-logos/robo-paradigm.png",
     outcome: "3 prototype iterations validated",
     detail: "Placeholder project summary with lab-to-field conversion details.",
   },
   {
     name: "NeuroParadigm Echo",
-    logo: "/logo-neuroparadigm.webp",
+    logo: "/paradigm-logos/neuro-paradigm.png",
     outcome: "87% model reliability in pilot",
     detail: "Placeholder project summary with validation data and use case.",
   },
   {
     name: "NutraParadigm N-One",
-    logo: "/logo-neutraparadigm.webp",
+    logo: "/paradigm-logos/nutra-paradigm.png",
     outcome: "4 functional formulations tested",
     detail: "Placeholder project summary with pilot cohorts and findings.",
   },
   {
     name: "CrystalParadigm Forge",
-    logo: "/logo-crystalparadigm.webp",
+    logo: "/paradigm-logos/crystal-paradigm.png",
     outcome: "9 material candidates simulated",
     detail: "Placeholder project summary around material performance targets.",
-  },
-  {
-    name: "Next Paradigm",
-    logo: null,
-    outcome: "Upcoming Domain",
-    detail: "More deep-tech domains are on the way. This pearl marks the next vertical to be announced.",
-    upcoming: true,
   },
 ];
 
@@ -93,7 +86,7 @@ function PearlProjectCard({ project, index, reduceMotion }) {
 
       <div className="flex items-start justify-center md:justify-start">
         <motion.div
-          className="relative h-20 w-20 rounded-full border border-white/90 shadow-[0_10px_26px_rgba(10,25,20,0.2)] overflow-hidden"
+          className="relative h-20 w-20 rounded-full border border-white/90 p-2 shadow-[0_10px_26px_rgba(10,25,20,0.2)]"
           style={{
             background:
               "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.98) 0%, rgba(235,244,240,0.94) 52%, rgba(194,217,208,0.9) 100%)",
@@ -101,27 +94,14 @@ function PearlProjectCard({ project, index, reduceMotion }) {
           animate={reduceMotion ? {} : { y: [0, -3, 0] }}
           transition={reduceMotion ? {} : { duration: 2.4 + index * 0.12, repeat: Infinity, ease: "easeInOut" }}
         >
-          <span className="pointer-events-none absolute left-3 top-3 h-2 w-2 rounded-full bg-white/95 z-10" />
-          {project.upcoming ? (
-            <div className="absolute inset-0 p-1.5">
-              <div className="w-full h-full rounded-full bg-surface-container-low border border-primary/35 flex items-center justify-center">
-                <span className="text-[2rem] leading-none font-bold text-primary">?</span>
-              </div>
-            </div>
-          ) : (
-            <div className="absolute inset-0 p-1.5">
-              <div className={`w-full h-full bg-white rounded-full flex items-center justify-center shadow-sm overflow-hidden ${project.logo.includes("neutra") || project.logo.includes("nutra") ? "p-2.5" : "p-1.5"}`}>
-                <Image
-                  src={project.logo}
-                  alt={project.name}
-                  width={56}
-                  height={56}
-                  className="h-full w-full object-contain"
-                  style={{ width: "auto", height: "auto" }}
-                />
-              </div>
-            </div>
-          )}
+          <span className="pointer-events-none absolute left-3 top-3 h-2 w-2 rounded-full bg-white/95" />
+          <Image
+            src={project.logo}
+            alt={project.name}
+            width={56}
+            height={56}
+            className="h-full w-full object-contain rounded-full"
+          />
         </motion.div>
       </div>
 
@@ -135,11 +115,6 @@ function PearlProjectCard({ project, index, reduceMotion }) {
         <p className="text-[0.9rem] leading-relaxed text-on-surface-variant">
           {project.detail}
         </p>
-        {project.upcoming && (
-          <p className="mt-3 text-[0.72rem] uppercase tracking-[0.14em] text-primary font-semibold">
-            More domains coming soon
-          </p>
-        )}
         <p className="mt-4 text-[0.7rem] uppercase tracking-[0.14em] text-on-surface-variant/75 font-semibold">
           Pearl {String(index + 1).padStart(2, "0")}
         </p>
@@ -174,7 +149,7 @@ export default function AboutPage() {
     <>
       <Navbar />
       <main className="bg-surface text-on-surface pt-32 pb-20">
-        <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
@@ -233,7 +208,7 @@ export default function AboutPage() {
           </motion.div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 mt-16 md:mt-20">
+        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16 md:mt-20">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
@@ -273,7 +248,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 mt-16">
+        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
@@ -307,7 +282,7 @@ export default function AboutPage() {
           </motion.div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 mt-16">
+        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
