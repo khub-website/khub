@@ -36,6 +36,7 @@ export default function Footer() {
                                 { label: "About", href: "/about" },
                                 { label: "Paradigms", href: "#domains" },
                                 { label: "Programs", href: "#programs" },
+                                { label: "Contact", href: "/contact" },
                             ].map((link) => (
                                 <li key={link.label}>
                                     <a
@@ -78,10 +79,10 @@ export default function Footer() {
                             </p>
                             <p>
                                 <a
-                                    href="mailto:pratham@k-hub.org.in"
+                                    href="mailto:komurojusairaudhran@gmail.com"
                                     className="hover:text-primary transition-colors duration-300"
                                 >
-                                    pratham@k-hub.org.in
+                                    komurojusairaudhran@gmail.com
                                 </a>
                             </p>
                         </div>

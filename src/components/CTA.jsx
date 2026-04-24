@@ -33,13 +33,7 @@ export default function CTA() {
                     </p>
 
                     <motion.a
-                        href="#contact"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            document
-                                .querySelector("#contact")
-                                ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                        }}
+                        href="/contact"
                         whileHover={{ scale: 1.04 }}
                         whileTap={{ scale: 0.98 }}
                         className="relative inline-block px-10 py-4 bg-gradient-to-r from-primary to-primary-container text-surface text-sm font-semibold tracking-tight rounded-lg
