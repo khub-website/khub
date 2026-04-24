@@ -31,7 +31,7 @@ export default function Footer() {
                         </p>
                         <ul className="space-y-3">
                             {[
-                                { label: "About", href: "#about" },
+                                { label: "About", href: "/about" },
                                 { label: "Paradigms", href: "#domains" },
                                 { label: "Programs", href: "#programs" },
                             ].map((link) => (
@@ -39,10 +39,12 @@ export default function Footer() {
                                     <a
                                         href={link.href}
                                         onClick={(e) => {
-                                            e.preventDefault();
-                                            document
-                                                .querySelector(link.href)
-                                                ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                            if (link.href.startsWith("#")) {
+                                                e.preventDefault();
+                                                document
+                                                    .querySelector(link.href)
+                                                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                            }
                                         }}
                                         className="text-sm text-on-surface-variant hover:text-primary transition-colors duration-300 font-light"
                                     >

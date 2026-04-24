@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 20 },
@@ -16,9 +17,32 @@ const stats = [
 const campusPartners = ["KMIT", "NGIT", "KMEC", "KMCE"];
 
 export default function About() {
+    const router = useRouter();
+
+    const openAboutPage = () => {
+        router.push("/about");
+    };
+
     return (
-        <section id="about" className="py-20 md:py-28 bg-surface">
-            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+        <section
+            id="about"
+            role="link"
+            tabIndex={0}
+            onClick={openAboutPage}
+            onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openAboutPage();
+                }
+            }}
+            className="py-20 md:py-28 bg-surface cursor-pointer"
+            aria-label="Open full About Us page"
+        >
+            <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
+                <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-lowest px-4 py-2 text-[0.72rem] font-semibold tracking-[0.08em] uppercase text-primary">
+                    About Us Preview
+                    <span className="text-on-surface-variant">Open full page</span>
+                </div>
                 <div className="grid md:grid-cols-2 gap-20 md:gap-28 items-center">
                     <div>
                         <motion.p
