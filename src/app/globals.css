@@ -25,6 +25,18 @@
   animation: discSpin 22s linear infinite;
 }
 
+.gallery-pin {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  background:
+    radial-gradient(circle at 30% 30%, #fff 0 15%, rgba(var(--color-primary-rgb), 0.92) 36%, rgba(var(--color-primary-rgb), 0.64) 100%);
+  box-shadow:
+    0 0 0 6px rgba(var(--color-primary-rgb), 0.12),
+    0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
 :root,
 html[data-theme="theme-1"] {
   /* Theme 1: Ocean Breeze */
