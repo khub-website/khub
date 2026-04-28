@@ -1,14 +1,7 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import ScrollResetOnReload from "@/components/ScrollResetOnReload";
 import Providers from "@/components/Providers";
 import { ElectricPointer } from "@/components/ElectricPointer";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export const metadata = {
   title: "K-Hub | Deep-Tech Innovation",
@@ -26,7 +19,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="theme-1" className={`${inter.variable} h-full antialiased smooth-scroll`}>
+    <html lang="en" data-theme="theme-1" className="h-full antialiased smooth-scroll">
       <body suppressHydrationWarning className="min-h-full flex flex-col font-body tracking-tight">
         <ScrollResetOnReload />
         <Providers>

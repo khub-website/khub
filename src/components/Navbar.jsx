@@ -12,7 +12,7 @@ const navLinks = [
     { label: "Gallery", href: "/gallery" },
     { label: "Achievements", href: "/achievements" },
     { label: "Programs", href: "/#programs" },
-    { label: "Contact", href: "/#contact" },
+    { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {

@@ -5,12 +5,12 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 const logos = [
-    { src: "/logo-drugparadigm.webp", name: "Drug paradigm" },
-    { src: "/logo-cyberparadigm.webp", name: "Cyber paradigm" },
-    { src: "/logo-neuroparadigm.webp", name: "Neuro paradigm" },
-    { src: "/logo-roboparadigm.webp", name: "Robo paradigm" },
-    { src: "/logo-neutraparadigm.webp", name: "Nutra paradigm" },
-    { src: "/logo-crystalparadigm.webp", name: "Crystal paradigm" },
+    { src: "/logo-drugparadigm.webp", name: "Drug paradigm", url: "https://drugparadigm.com/" },
+    { src: "/logo-cyberparadigm.webp", name: "Cyber paradigm", url: "https://cyberparadigm.in/" },
+    { src: "/logo-neuroparadigm.webp", name: "Neuro paradigm", url: "https://neuroparadigm.in/" },
+    { src: "/logo-roboparadigm.webp", name: "Robo paradigm", url: "https://roboparadigm.com/" },
+    { src: "/logo-neutraparadigm.webp", name: "Nutra paradigm", url: null },
+    { src: "/logo-crystalparadigm.webp", name: "Crystal paradigm", url: "https://crystalparadigm.in/" },
 ];
 
 const NORMAL_DURATION = 28;
@@ -50,7 +50,7 @@ export default function OrbitRing() {
         const safeWidth = isMobile ? Math.max(280, Math.min(viewportWidth - 32, 370)) : 740;
         const calcLogoSize = isMobile ? (viewportWidth < 360 ? 64 : 78) : 132;
         const calcPadding = isMobile ? 8 : 48;
-        const calcRadius = isMobile 
+        const calcRadius = isMobile
             ? Math.max(100, (safeWidth - calcLogoSize - calcPadding) / 2.2)
             : Math.max(120, (safeWidth - calcLogoSize - calcPadding) / 2.5);
         const calcCenterSize = isMobile ? 86 : 116;
@@ -165,11 +165,16 @@ export default function OrbitRing() {
                                 initial={{ scale: 0, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
                                 transition={{ type: "spring", stiffness: 60, damping: 14, delay: 0.5 + i * 0.1 }}
-                                style={{ width: logoSize, height: logoSize, cursor: "pointer" }}
+                                style={{ width: logoSize, height: logoSize, cursor: logo.url ? "pointer" : "default" }}
                                 onHoverStart={() => setHoveredIndex(i)}
                                 onHoverEnd={() => setHoveredIndex(null)}
                                 onTouchStart={() => setHoveredIndex(i)}
                                 onTouchEnd={() => setHoveredIndex(null)}
+                                onClick={() => {
+                                    if (logo.url) {
+                                        window.open(logo.url, "_blank", "noopener,noreferrer");
+                                    }
+                                }}
                             >
                                 <motion.div
                                     animate={isHovered ? { scale: hoverScale } : { scale: 1 }}
@@ -201,12 +206,12 @@ export default function OrbitRing() {
                                         width={logoSize}
                                         height={logoSize}
                                         priority={true}
-                                        style={{ 
-                                            objectFit: logo.name === "Nutra paradigm" ? "contain" : "cover", 
-                                            width: "100%", 
+                                        style={{
+                                            objectFit: logo.name === "Nutra paradigm" ? "contain" : "cover",
+                                            width: "100%",
                                             height: "100%",
-                                            transform: logo.name === "Nutra paradigm" ? "scale(0.82)" : 
-                                                       (logo.name === "Drug paradigm" || logo.name === "Robo paradigm") ? "scale(1.02)" : "scale(1.12)",
+                                            transform: logo.name === "Nutra paradigm" ? "scale(0.82)" :
+                                                (logo.name === "Drug paradigm" || logo.name === "Robo paradigm") ? "scale(1.02)" : "scale(1.12)",
                                             filter: "contrast(1.02) brightness(0.98)"
                                         }}
                                     />
@@ -236,7 +241,7 @@ export default function OrbitRing() {
                                             pointerEvents: "none",
                                         }}
                                     >
-                                        {logo.name}
+                                        {logo.name === "Nutra paradigm" ? "Nutra paradigm (Coming Soon)" : logo.name}
                                     </motion.div>
                                 )}
                             </motion.div>

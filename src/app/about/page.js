@@ -12,36 +12,42 @@ const flagshipProjects = [
     logo: "/logo-drugparadigm.webp",
     outcome: "2 candidate molecules shortlisted",
     detail: "Placeholder project summary and measurable research outcome.",
+    url: "https://drugparadigm.com/",
   },
   {
     name: "CyberParadigm Sentinel",
     logo: "/logo-cyberparadigm.webp",
     outcome: "1,200+ security drills completed",
     detail: "Placeholder project summary with benchmark and deployment context.",
+    url: "https://cyberparadigm.in/",
   },
   {
     name: "RoboParadigm Atlas Arm",
     logo: "/logo-roboparadigm.webp",
     outcome: "3 prototype iterations validated",
     detail: "Placeholder project summary with lab-to-field conversion details.",
+    url: "https://roboparadigm.com/",
   },
   {
     name: "NeuroParadigm Echo",
     logo: "/logo-neuroparadigm.webp",
     outcome: "87% model reliability in pilot",
     detail: "Placeholder project summary with validation data and use case.",
+    url: "https://neuroparadigm.in/",
   },
   {
     name: "NutraParadigm N-One",
     logo: "/logo-neutraparadigm.webp",
     outcome: "4 functional formulations tested",
     detail: "Placeholder project summary with pilot cohorts and findings.",
+    url: null,
   },
   {
     name: "CrystalParadigm Forge",
     logo: "/logo-crystalparadigm.webp",
     outcome: "9 material candidates simulated",
     detail: "Placeholder project summary around material performance targets.",
+    url: "https://crystalparadigm.in/",
   },
   {
     name: "Next Paradigm",
@@ -49,6 +55,7 @@ const flagshipProjects = [
     outcome: "Upcoming Domain",
     detail: "More deep-tech domains are on the way. This pearl marks the next vertical to be announced.",
     upcoming: true,
+    url: null,
   },
 ];
 
@@ -144,9 +151,15 @@ function PearlProjectCard({ project, index, reduceMotion }) {
           style={{
             background:
               "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.98) 0%, rgba(235,244,240,0.94) 52%, rgba(194,217,208,0.9) 100%)",
+            cursor: project.url ? "pointer" : "default",
           }}
           animate={reduceMotion ? {} : { y: [0, -3, 0] }}
           transition={reduceMotion ? {} : { duration: 2.4 + index * 0.12, repeat: Infinity, ease: "easeInOut" }}
+          onClick={() => {
+            if (project.url) {
+              window.open(project.url, "_blank", "noopener,noreferrer");
+            }
+          }}
         >
           <span className="pointer-events-none absolute left-3 top-3 h-2 w-2 rounded-full bg-white/95" />
           {project.upcoming ? (
@@ -166,18 +179,25 @@ function PearlProjectCard({ project, index, reduceMotion }) {
       </div>
 
       <div>
-        <p className="text-[0.92rem] font-semibold leading-tight text-on-surface mb-2">
+        <h4 
+          className={`text-[0.92rem] font-semibold leading-tight text-on-surface mb-2 ${project.url ? "hover:text-primary cursor-pointer transition-colors" : ""}`}
+          onClick={() => {
+            if (project.url) {
+              window.open(project.url, "_blank", "noopener,noreferrer");
+            }
+          }}
+        >
           {project.name}
-        </p>
+        </h4>
         <p className="text-[0.84rem] uppercase tracking-[0.11em] font-semibold text-primary mb-3">
           {project.outcome}
         </p>
         <p className="text-[0.9rem] leading-relaxed text-on-surface-variant">
           {project.detail}
         </p>
-        {project.upcoming && (
+        {(project.upcoming || project.url === null) && (
           <p className="mt-3 text-[0.72rem] uppercase tracking-[0.14em] text-primary font-semibold">
-            More domains coming soon
+            {project.url === null ? "Coming soon" : "More domains coming soon"}
           </p>
         )}
         <p className="mt-4 text-[0.7rem] uppercase tracking-[0.14em] text-on-surface-variant/75 font-semibold">

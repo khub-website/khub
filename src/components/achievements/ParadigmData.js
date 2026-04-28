@@ -4,7 +4,7 @@ export const paradigms = [
   {
     id: "drug-paradigm",
     name: "DrugParadigm",
-    siteUrl: "https://drugparadigm.com/",
+    url: "https://drugparadigm.com/",
     tagline: "Accelerating discovery with molecular intelligence",
     description: "Leveraging deep learning to predict protein structures and simulate molecular interactions. This paradigm reduces the search space for life-saving therapeutics from decades to days.",
     color: "#006c51", // Adjusted to match K-Hub primary
@@ -20,7 +20,7 @@ export const paradigms = [
   {
     id: "robo-paradigm",
     name: "RoboParadigm",
-    siteUrl: "https://k-hub.org/paradigms/robo-paradigm",
+    url: "https://roboparadigm.com/",
     tagline: "The bridge between silicon and steel",
     description: "Integrating advanced perception with dynamic control systems. RoboParadigm focuses on embodied agents that can navigate, manipulate, and learn within complex physical environments.",
     color: "#3b82f6",
@@ -36,7 +36,7 @@ export const paradigms = [
   {
     id: "cyber-paradigm",
     name: "CyberParadigm",
-    siteUrl: "https://k-hub.org/paradigms/cyber-paradigm",
+    url: "https://cyberparadigm.in/",
     tagline: "Autonomous defense for a digital world",
     description: "Redefining security through predictive analytics and autonomous response. CyberParadigm shifts the focus from reactive patching to proactive, self-healing network infrastructures.",
     color: "#f59e0b",
@@ -52,7 +52,7 @@ export const paradigms = [
   {
     id: "neuro-paradigm",
     name: "NeuroParadigm",
-    siteUrl: "https://k-hub.org/paradigms/neuro-paradigm",
+    url: "https://neuroparadigm.in/",
     tagline: "Connecting minds and machines",
     description: "Decoding the language of the brain to restore function and enhance cognition. NeuroParadigm explores the frontier of high-bandwidth neural interfaces and neuromorphic hardware.",
     color: "#8b5cf6",
@@ -68,7 +68,7 @@ export const paradigms = [
   {
     id: "crystal-paradigm",
     name: "CrystalParadigm",
-    siteUrl: "https://k-hub.org/paradigms/crystal-paradigm",
+    url: "https://crystalparadigm.in/",
     tagline: "Architecting matter from the atom up",
     description: "Discovering high-performance materials through computational alchemy. CrystalParadigm uses generative models to explore the vast space of possible crystal structures for energy and tech.",
     color: "#06b6d4",
@@ -84,7 +84,7 @@ export const paradigms = [
   {
     id: "nutra-paradigm",
     name: "NutraParadigm",
-    siteUrl: "https://k-hub.org/paradigms/nutra-paradigm",
+    url: null,
     tagline: "Personalizing health through precision biology",
     description: "Analyzing the complex interplay between diet, microbiome, and metabolism. NutraParadigm uses AI to design bespoke nutritional interventions for optimal human performance.",
     color: "#ec4899",
