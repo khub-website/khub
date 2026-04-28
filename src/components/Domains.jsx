@@ -259,7 +259,7 @@ export default function Domains() {
                         Paradigms
                     </p>
                     <h2 className="font-display text-[clamp(1.8rem,4.5vw,3rem)] font-bold leading-[1.1] tracking-tight text-on-surface max-w-2xl">
-                        Six Verticals.
+                        Many Verticals.
                         <br />
                         <span className="text-on-surface-variant">One Mission.</span>
                     </h2>
