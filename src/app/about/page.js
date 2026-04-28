@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -64,20 +63,20 @@ const evidenceBlocks = [
 
 const leadershipTeam = [
   {
-    name: "K-Hub Lead 01",
-    role: "Executive Director",
+    name: "Shri. Neil Gogte",
+    role: "Chairman, KMIT Group of Institutions",
     bio: "Guides K-Hub strategy, partnerships, and the cross-domain research pipeline.",
     image: "/team/leader-01.png",
   },
   {
-    name: "K-Hub Lead 02",
-    role: "Program Director",
+    name: "Sudarsh Lal",
+    role: "Director, K-Hub",
     bio: "Shapes the program cadence, mentor network, and founder readiness milestones.",
     image: "/team/leader-02.png",
   },
   {
-    name: "K-Hub Lead 03",
-    role: "Research Operations",
+    name: "Venkateshwar Rao Boinapally",
+    role: "Leadership",
     bio: "Keeps lab pipelines, grants, and student teams moving from idea to demo.",
     image: "/team/leader-03.png",
   },
@@ -88,37 +87,43 @@ const paradigmHeads = [
     name: "Paradigm Head 01",
     role: "DrugParadigm",
     bio: "Leads discovery work and translational pathways for drug innovation.",
-    image: "/team/paradigm-01.png",
+    image: "/logo-drugparadigm.webp",
+    isLogo: true,
   },
   {
     name: "Paradigm Head 02",
     role: "CyberParadigm",
     bio: "Oversees secure systems research and applied security pilots.",
-    image: "/team/paradigm-02.png",
+    image: "/logo-cyberparadigm.webp",
+    isLogo: true,
   },
   {
     name: "Paradigm Head 03",
     role: "RoboParadigm",
     bio: "Guides robotics prototyping, automation, and field testing cycles.",
-    image: "/team/paradigm-03.png",
+    image: "/logo-roboparadigm.webp",
+    isLogo: true,
   },
   {
     name: "Paradigm Head 04",
     role: "NeuroParadigm",
     bio: "Directs neurotech research, experimentation, and model validation.",
-    image: "/team/paradigm-04.png",
+    image: "/logo-neuroparadigm.webp",
+    isLogo: true,
   },
   {
     name: "Paradigm Head 05",
     role: "NutraParadigm",
     bio: "Leads nutrition science pilots and functional formulation testing.",
-    image: "/team/paradigm-05.png",
+    image: "/logo-neutraparadigm.webp",
+    isLogo: true,
   },
   {
     name: "Paradigm Head 06",
     role: "CrystalParadigm",
     bio: "Heads materials research and simulation-to-prototype delivery.",
-    image: "/team/paradigm-06.png",
+    image: "/logo-crystalparadigm.webp",
+    isLogo: true,
   },
 ];
 
@@ -183,26 +188,55 @@ function PearlProjectCard({ project, index, reduceMotion }) {
   );
 }
 
-function TeamCard({ person, isActive }) {
+function TeamCard({ person, reduceMotion }) {
+  const logoFloat = reduceMotion || !person.isLogo ? {} : { y: [0, -6, 0] };
+
   return (
     <motion.article
       variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
-      tabIndex={isActive ? 0 : -1}
+      tabIndex={0}
       aria-label={`${person.name} - ${person.role}`}
-      aria-hidden={!isActive}
-      className="group relative w-[230px] sm:w-[250px] md:w-[270px] overflow-hidden rounded-2xl border border-outline-variant/70 bg-surface-container-lowest shadow-[0_18px_40px_rgba(18,20,24,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+      className="group relative w-[230px] sm:w-[250px] md:w-[270px] shrink-0 overflow-hidden rounded-2xl border border-outline-variant/70 bg-surface-container-lowest shadow-[0_18px_40px_rgba(18,20,24,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
     >
       <div className="relative h-60 md:h-64 w-full overflow-hidden">
-        <Image
-          src={person.image}
-          alt={person.name}
-          width={320}
-          height={420}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-        />
+        {person.isLogo ? (
+          <div className="relative h-full w-full bg-surface-container-low">
+            <div
+              aria-hidden
+              className="absolute -top-6 right-6 h-20 w-20 rounded-full opacity-40 blur-2xl"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(var(--color-primary-rgb),0.45) 0%, rgba(var(--color-primary-rgb),0) 70%)",
+              }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <motion.div
+                animate={logoFloat}
+                transition={reduceMotion ? {} : { duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                className="flex h-28 w-28 items-center justify-center rounded-full border border-white/80 bg-white/80 shadow-[0_18px_40px_rgba(15,20,25,0.18)]"
+              >
+                <Image
+                  src={person.image}
+                  alt={`${person.role} logo`}
+                  width={96}
+                  height={96}
+                  className="h-16 w-16 object-contain"
+                />
+              </motion.div>
+            </div>
+          </div>
+        ) : (
+          <Image
+            src={person.image}
+            alt={person.name}
+            width={320}
+            height={420}
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+          />
+        )}
         <div
           aria-hidden
-          className="absolute inset-0 bg-linear-to-t from-black/65 via-black/10 to-transparent opacity-70"
+          className={`absolute inset-0 bg-linear-to-t ${person.isLogo ? "from-black/50" : "from-black/65"} via-black/10 to-transparent opacity-70`}
         />
         <div className="absolute bottom-4 left-4 right-4 text-white">
           <p className="text-[0.95rem] font-semibold leading-tight">{person.name}</p>
@@ -226,29 +260,12 @@ function TeamCard({ person, isActive }) {
   );
 }
 
-function TeamSlider({ title, description, people, reduceMotion }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    if (reduceMotion) {
-      return undefined;
-    }
-
-    const intervalId = setInterval(() => {
-      setActiveIndex((current) => (current + 1) % people.length);
-    }, 4200);
-
-    return () => clearInterval(intervalId);
-  }, [reduceMotion, people.length]);
-
-  const visibleOffsets = useMemo(() => [-2, -1, 0, 1, 2], []);
-  const shiftStyle = { "--card-shift": "clamp(140px, 22vw, 210px)" };
-
-  const handlePrev = () =>
-    setActiveIndex((current) => (current - 1 + people.length) % people.length);
-  const handleNext = () => setActiveIndex((current) => (current + 1) % people.length);
-
-  const activePerson = people[activeIndex];
+function TeamMarquee({ title, description, people, reduceMotion, duration, loop = true }) {
+  const shouldLoop = loop && !reduceMotion;
+  const trackPeople = shouldLoop ? [...people, ...people] : people;
+  const trackClassName = shouldLoop
+    ? "flex gap-5 marquee-track"
+    : "flex flex-wrap justify-center gap-5";
 
   return (
     <motion.div
@@ -256,7 +273,7 @@ function TeamSlider({ title, description, people, reduceMotion }) {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-90px" }}
-      className="rounded-3xl border border-outline-variant/70 bg-surface-container-lowest p-6 md:p-8 shadow-[0_24px_60px_rgba(20,20,18,0.12)]"
+      className="marquee-pause"
     >
       <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
         <div>
@@ -267,81 +284,29 @@ function TeamSlider({ title, description, people, reduceMotion }) {
             {description}
           </h3>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={handlePrev}
-            className="h-9 w-9 rounded-full border border-outline-variant/70 bg-surface text-on-surface-variant transition hover:text-primary"
-            aria-label="Show previous"
-          >
-            &#8592;
-          </button>
-          <button
-            type="button"
-            onClick={handleNext}
-            className="h-9 w-9 rounded-full border border-outline-variant/70 bg-surface text-on-surface-variant transition hover:text-primary"
-            aria-label="Show next"
-          >
-            &#8594;
-          </button>
-        </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-3xl bg-surface px-4 py-8 sm:px-6">
+      <div className="relative overflow-hidden rounded-3xl border border-outline-variant/70 bg-surface-container-lowest px-4 py-6">
+        {shouldLoop && (
+          <>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-linear-to-r from-surface-container-lowest via-surface-container-lowest/80 to-transparent"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-linear-to-l from-surface-container-lowest via-surface-container-lowest/80 to-transparent"
+            />
+          </>
+        )}
+
         <div
-          aria-hidden
-          className="pointer-events-none absolute -top-10 left-1/2 h-28 w-56 -translate-x-1/2 rounded-full blur-3xl opacity-50"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(var(--color-primary-rgb),0.35) 0%, rgba(var(--color-primary-rgb),0) 70%)",
-          }}
-        />
-
-        <div className="relative h-[360px] sm:h-[400px] md:h-[440px]" style={shiftStyle}>
-          <div className="absolute inset-0 flex items-center justify-center">
-            {visibleOffsets.map((offset) => {
-              const index = (activeIndex + offset + people.length) % people.length;
-              const person = people[index];
-              const distance = Math.abs(offset);
-              const scale = distance === 0 ? 1 : distance === 1 ? 0.88 : 0.78;
-              const opacity = distance === 2 ? 0.35 : distance === 1 ? 0.7 : 1;
-
-              return (
-                <motion.div
-                  key={`${person.name}-${offset}`}
-                  initial={false}
-                  animate={{
-                    x: `calc(${offset} * var(--card-shift))`,
-                    scale,
-                    opacity,
-                    zIndex: 10 - distance,
-                  }}
-                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute"
-                  style={{ pointerEvents: offset === 0 ? "auto" : "none" }}
-                >
-                  <TeamCard person={person} isActive={offset === 0} />
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="mt-6 flex items-center justify-between text-sm text-on-surface-variant">
-          <p className="font-semibold text-on-surface">{activePerson.name}</p>
-          <div className="flex items-center gap-2">
-            {people.map((person, index) => (
-              <button
-                key={person.name}
-                type="button"
-                onClick={() => setActiveIndex(index)}
-                className={`h-2.5 w-2.5 rounded-full transition ${
-                  index === activeIndex ? "bg-primary" : "bg-outline-variant"
-                }`}
-                aria-label={`Go to ${person.name}`}
-              />
-            ))}
-          </div>
+          className={trackClassName}
+          style={shouldLoop ? { "--marquee-duration": duration } : {}}
+        >
+          {trackPeople.map((person, index) => (
+            <TeamCard key={`${person.name}-${index}`} person={person} reduceMotion={reduceMotion} />
+          ))}
         </div>
       </div>
     </motion.div>
@@ -526,18 +491,21 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          <TeamSlider
+          <TeamMarquee
             title="Leadership"
             description="The core team steering K-Hub"
             people={leadershipTeam}
             reduceMotion={reduceMotion}
+            duration="26s"
+            loop={false}
           />
 
-          <TeamSlider
+          <TeamMarquee
             title="Paradigm Heads"
             description="Domain leaders keeping each vertical on pace"
             people={paradigmHeads}
             reduceMotion={reduceMotion}
+            duration="32s"
           />
         </section>
       </main>
