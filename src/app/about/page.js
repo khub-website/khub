@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -61,22 +62,63 @@ const evidenceBlocks = [
   { label: "Application Pathways", value: "06" },
 ];
 
-const peopleBlocks = [
+const leadershipTeam = [
   {
-    title: "Paradigm Leads",
-    text: "Placeholder copy about domain heads, leadership roles, and how each vertical is guided.",
+    name: "K-Hub Lead 01",
+    role: "Executive Director",
+    bio: "Guides K-Hub strategy, partnerships, and the cross-domain research pipeline.",
+    image: "/team/leader-01.png",
   },
   {
-    title: "Mentor Network",
-    text: "Placeholder copy describing technical mentors, founders, and research advisors.",
+    name: "K-Hub Lead 02",
+    role: "Program Director",
+    bio: "Shapes the program cadence, mentor network, and founder readiness milestones.",
+    image: "/team/leader-02.png",
   },
   {
-    title: "Student Builder Teams",
-    text: "Placeholder copy for interdisciplinary teams, contribution model, and selection.",
+    name: "K-Hub Lead 03",
+    role: "Research Operations",
+    bio: "Keeps lab pipelines, grants, and student teams moving from idea to demo.",
+    image: "/team/leader-03.png",
+  },
+];
+
+const paradigmHeads = [
+  {
+    name: "Paradigm Head 01",
+    role: "DrugParadigm",
+    bio: "Leads discovery work and translational pathways for drug innovation.",
+    image: "/team/paradigm-01.png",
   },
   {
-    title: "Industry & Academic Partners",
-    text: "Placeholder copy on partner institutions, lab collaborations, and project pathways.",
+    name: "Paradigm Head 02",
+    role: "CyberParadigm",
+    bio: "Oversees secure systems research and applied security pilots.",
+    image: "/team/paradigm-02.png",
+  },
+  {
+    name: "Paradigm Head 03",
+    role: "RoboParadigm",
+    bio: "Guides robotics prototyping, automation, and field testing cycles.",
+    image: "/team/paradigm-03.png",
+  },
+  {
+    name: "Paradigm Head 04",
+    role: "NeuroParadigm",
+    bio: "Directs neurotech research, experimentation, and model validation.",
+    image: "/team/paradigm-04.png",
+  },
+  {
+    name: "Paradigm Head 05",
+    role: "NutraParadigm",
+    bio: "Leads nutrition science pilots and functional formulation testing.",
+    image: "/team/paradigm-05.png",
+  },
+  {
+    name: "Paradigm Head 06",
+    role: "CrystalParadigm",
+    bio: "Heads materials research and simulation-to-prototype delivery.",
+    image: "/team/paradigm-06.png",
   },
 ];
 
@@ -138,6 +180,171 @@ function PearlProjectCard({ project, index, reduceMotion }) {
         </p>
       </div>
     </motion.article>
+  );
+}
+
+function TeamCard({ person, isActive }) {
+  return (
+    <motion.article
+      variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
+      tabIndex={isActive ? 0 : -1}
+      aria-label={`${person.name} - ${person.role}`}
+      aria-hidden={!isActive}
+      className="group relative w-[230px] sm:w-[250px] md:w-[270px] overflow-hidden rounded-2xl border border-outline-variant/70 bg-surface-container-lowest shadow-[0_18px_40px_rgba(18,20,24,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+    >
+      <div className="relative h-60 md:h-64 w-full overflow-hidden">
+        <Image
+          src={person.image}
+          alt={person.name}
+          width={320}
+          height={420}
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-linear-to-t from-black/65 via-black/10 to-transparent opacity-70"
+        />
+        <div className="absolute bottom-4 left-4 right-4 text-white">
+          <p className="text-[0.95rem] font-semibold leading-tight">{person.name}</p>
+          <p className="text-[0.75rem] uppercase tracking-[0.18em] text-white/80 mt-1">
+            {person.role}
+          </p>
+        </div>
+      </div>
+
+      <div className="absolute inset-0 flex items-end bg-surface/95 opacity-0 translate-y-6 transition duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0">
+        <div className="p-5">
+          <p className="text-[0.85rem] uppercase tracking-[0.18em] text-primary font-semibold mb-2">
+            About
+          </p>
+          <p className="text-[0.9rem] leading-relaxed text-on-surface-variant">
+            {person.bio}
+          </p>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+function TeamSlider({ title, description, people, reduceMotion }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (reduceMotion) {
+      return undefined;
+    }
+
+    const intervalId = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % people.length);
+    }, 4200);
+
+    return () => clearInterval(intervalId);
+  }, [reduceMotion, people.length]);
+
+  const visibleOffsets = useMemo(() => [-2, -1, 0, 1, 2], []);
+  const shiftStyle = { "--card-shift": "clamp(140px, 22vw, 210px)" };
+
+  const handlePrev = () =>
+    setActiveIndex((current) => (current - 1 + people.length) % people.length);
+  const handleNext = () => setActiveIndex((current) => (current + 1) % people.length);
+
+  const activePerson = people[activeIndex];
+
+  return (
+    <motion.div
+      variants={{ hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } }}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-90px" }}
+      className="rounded-3xl border border-outline-variant/70 bg-surface-container-lowest p-6 md:p-8 shadow-[0_24px_60px_rgba(20,20,18,0.12)]"
+    >
+      <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
+        <div>
+          <p className="text-[0.7rem] font-semibold tracking-[0.18em] uppercase text-primary mb-2">
+            {title}
+          </p>
+          <h3 className="font-display text-[clamp(1.2rem,2.5vw,1.8rem)] leading-tight">
+            {description}
+          </h3>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={handlePrev}
+            className="h-9 w-9 rounded-full border border-outline-variant/70 bg-surface text-on-surface-variant transition hover:text-primary"
+            aria-label="Show previous"
+          >
+            &#8592;
+          </button>
+          <button
+            type="button"
+            onClick={handleNext}
+            className="h-9 w-9 rounded-full border border-outline-variant/70 bg-surface text-on-surface-variant transition hover:text-primary"
+            aria-label="Show next"
+          >
+            &#8594;
+          </button>
+        </div>
+      </div>
+
+      <div className="relative overflow-hidden rounded-3xl bg-surface px-4 py-8 sm:px-6">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-10 left-1/2 h-28 w-56 -translate-x-1/2 rounded-full blur-3xl opacity-50"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(var(--color-primary-rgb),0.35) 0%, rgba(var(--color-primary-rgb),0) 70%)",
+          }}
+        />
+
+        <div className="relative h-[360px] sm:h-[400px] md:h-[440px]" style={shiftStyle}>
+          <div className="absolute inset-0 flex items-center justify-center">
+            {visibleOffsets.map((offset) => {
+              const index = (activeIndex + offset + people.length) % people.length;
+              const person = people[index];
+              const distance = Math.abs(offset);
+              const scale = distance === 0 ? 1 : distance === 1 ? 0.88 : 0.78;
+              const opacity = distance === 2 ? 0.35 : distance === 1 ? 0.7 : 1;
+
+              return (
+                <motion.div
+                  key={`${person.name}-${offset}`}
+                  initial={false}
+                  animate={{
+                    x: `calc(${offset} * var(--card-shift))`,
+                    scale,
+                    opacity,
+                    zIndex: 10 - distance,
+                  }}
+                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute"
+                  style={{ pointerEvents: offset === 0 ? "auto" : "none" }}
+                >
+                  <TeamCard person={person} isActive={offset === 0} />
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-6 flex items-center justify-between text-sm text-on-surface-variant">
+          <p className="font-semibold text-on-surface">{activePerson.name}</p>
+          <div className="flex items-center gap-2">
+            {people.map((person, index) => (
+              <button
+                key={person.name}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                className={`h-2.5 w-2.5 rounded-full transition ${
+                  index === activeIndex ? "bg-primary" : "bg-outline-variant"
+                }`}
+                aria-label={`Go to ${person.name}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
@@ -300,13 +507,13 @@ export default function AboutPage() {
           </motion.div>
         </section>
 
-        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16">
+        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16 space-y-10">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-90px" }}
-            className="mb-8"
+            className="mb-4"
           >
             <p className="text-[0.72rem] font-semibold tracking-[0.14em] uppercase text-primary mb-3">
               People Involved
@@ -314,28 +521,24 @@ export default function AboutPage() {
             <h2 className="font-display text-[clamp(1.5rem,3vw,2.3rem)] leading-[1.1] tracking-tight">
               The Team Behind the Work
             </h2>
+            <p className="mt-3 text-sm text-on-surface-variant max-w-2xl">
+              Two focus lines: core leadership first, then the paradigm heads guiding each domain.
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-5">
-            {peopleBlocks.map((item, index) => (
-              <motion.article
-                key={item.title}
-                variants={cardReveal}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-90px" }}
-                transition={{ delay: Math.min(index * 0.06, 0.18) }}
-                className="rounded-2xl border border-outline-variant/65 bg-surface-container-lowest p-6"
-              >
-                <h3 className="font-display text-[1.15rem] font-semibold mb-3 text-on-surface">
-                  {item.title}
-                </h3>
-                <p className="text-[0.95rem] leading-relaxed text-on-surface-variant">
-                  {item.text}
-                </p>
-              </motion.article>
-            ))}
-          </div>
+          <TeamSlider
+            title="Leadership"
+            description="The core team steering K-Hub"
+            people={leadershipTeam}
+            reduceMotion={reduceMotion}
+          />
+
+          <TeamSlider
+            title="Paradigm Heads"
+            description="Domain leaders keeping each vertical on pace"
+            people={paradigmHeads}
+            reduceMotion={reduceMotion}
+          />
         </section>
       </main>
       <Footer />
