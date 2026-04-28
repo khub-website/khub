@@ -122,15 +122,21 @@ export function ParadigmSection({ paradigm }) {
           <p className="text-white/80 max-w-xl text-xs sm:text-base leading-relaxed font-light line-clamp-3 sm:line-clamp-none">
             {paradigm.description}
           </p>
-          <a
-            href={scraped?.siteUrl ?? paradigm.siteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 sm:mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/60"
-          >
-            Visit paradigm site
-            <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden />
-          </a>
+          { (scraped?.url ?? paradigm.url) ? (
+            <a
+              href={scraped?.url ?? paradigm.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 sm:mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/60 cursor-pointer"
+            >
+              Visit paradigm site
+              <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden />
+            </a>
+          ) : (
+            <div className="mt-3 sm:mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white/50 backdrop-blur-md cursor-default">
+              Coming soon
+            </div>
+          )}
         </div>
       </motion.div>
 
@@ -269,6 +275,7 @@ export function ParadigmSection({ paradigm }) {
           </div>
         </div>
       </div>
+
 
       {/* Section divider */}
       <div
