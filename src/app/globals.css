@@ -21,8 +21,23 @@
   to   { transform: rotate(360deg); }
 }
 
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 .pearl-disc-rotate {
   animation: discSpin 22s linear infinite;
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-duration, 28s) linear infinite;
+  width: max-content;
+}
+
+.marquee-pause:hover .marquee-track,
+.marquee-pause:focus-within .marquee-track {
+  animation-play-state: paused;
 }
 
 .gallery-pin {
