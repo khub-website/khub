@@ -68,22 +68,69 @@ const evidenceBlocks = [
   { label: "Application Pathways", value: "06" },
 ];
 
-const peopleBlocks = [
+const leadershipTeam = [
   {
-    title: "Paradigm Leads",
-    text: "Placeholder copy about domain heads, leadership roles, and how each vertical is guided.",
+    name: "Shri. Neil Gogte",
+    role: "Chairman, KMIT Group of Institutions",
+    bio: "Guides K-Hub strategy, partnerships, and the cross-domain research pipeline.",
+    image: "/team/leader-01.png",
   },
   {
-    title: "Mentor Network",
-    text: "Placeholder copy describing technical mentors, founders, and research advisors.",
+    name: "Sudarsh Lal",
+    role: "Director, K-Hub",
+    bio: "Shapes the program cadence, mentor network, and founder readiness milestones.",
+    image: "/team/leader-02.png",
   },
   {
-    title: "Student Builder Teams",
-    text: "Placeholder copy for interdisciplinary teams, contribution model, and selection.",
+    name: "Venkateshwar Rao Boinapally",
+    role: "Leadership",
+    bio: "Keeps lab pipelines, grants, and student teams moving from idea to demo.",
+    image: "/team/leader-03.png",
+  },
+];
+
+const paradigmHeads = [
+  {
+    name: "Paradigm Head 01",
+    role: "DrugParadigm",
+    bio: "Leads discovery work and translational pathways for drug innovation.",
+    image: "/logo-drugparadigm.webp",
+    isLogo: true,
   },
   {
-    title: "Industry & Academic Partners",
-    text: "Placeholder copy on partner institutions, lab collaborations, and project pathways.",
+    name: "Paradigm Head 02",
+    role: "CyberParadigm",
+    bio: "Oversees secure systems research and applied security pilots.",
+    image: "/logo-cyberparadigm.webp",
+    isLogo: true,
+  },
+  {
+    name: "Paradigm Head 03",
+    role: "RoboParadigm",
+    bio: "Guides robotics prototyping, automation, and field testing cycles.",
+    image: "/logo-roboparadigm.webp",
+    isLogo: true,
+  },
+  {
+    name: "Paradigm Head 04",
+    role: "NeuroParadigm",
+    bio: "Directs neurotech research, experimentation, and model validation.",
+    image: "/logo-neuroparadigm.webp",
+    isLogo: true,
+  },
+  {
+    name: "Paradigm Head 05",
+    role: "NutraParadigm",
+    bio: "Leads nutrition science pilots and functional formulation testing.",
+    image: "/logo-neutraparadigm.webp",
+    isLogo: true,
+  },
+  {
+    name: "Paradigm Head 06",
+    role: "CrystalParadigm",
+    bio: "Heads materials research and simulation-to-prototype delivery.",
+    image: "/logo-crystalparadigm.webp",
+    isLogo: true,
   },
 ];
 
@@ -158,6 +205,131 @@ function PearlProjectCard({ project, index, reduceMotion }) {
         </p>
       </div>
     </motion.article>
+  );
+}
+
+function TeamCard({ person, reduceMotion }) {
+  const logoFloat = reduceMotion || !person.isLogo ? {} : { y: [0, -6, 0] };
+
+  return (
+    <motion.article
+      variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
+      tabIndex={0}
+      aria-label={`${person.name} - ${person.role}`}
+      className="group relative w-[230px] sm:w-[250px] md:w-[270px] shrink-0 overflow-hidden rounded-2xl border border-outline-variant/70 bg-surface-container-lowest shadow-[0_18px_40px_rgba(18,20,24,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+    >
+      <div className="relative h-60 md:h-64 w-full overflow-hidden">
+        {person.isLogo ? (
+          <div className="relative h-full w-full bg-surface-container-low">
+            <div
+              aria-hidden
+              className="absolute -top-6 right-6 h-20 w-20 rounded-full opacity-40 blur-2xl"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(var(--color-primary-rgb),0.45) 0%, rgba(var(--color-primary-rgb),0) 70%)",
+              }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <motion.div
+                animate={logoFloat}
+                transition={reduceMotion ? {} : { duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                className="flex h-28 w-28 items-center justify-center rounded-full border border-white/80 bg-white/80 shadow-[0_18px_40px_rgba(15,20,25,0.18)]"
+              >
+                <Image
+                  src={person.image}
+                  alt={`${person.role} logo`}
+                  width={96}
+                  height={96}
+                  className="h-16 w-16 object-contain"
+                />
+              </motion.div>
+            </div>
+          </div>
+        ) : (
+          <Image
+            src={person.image}
+            alt={person.name}
+            width={320}
+            height={420}
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+          />
+        )}
+        <div
+          aria-hidden
+          className={`absolute inset-0 bg-linear-to-t ${person.isLogo ? "from-black/50" : "from-black/65"} via-black/10 to-transparent opacity-70`}
+        />
+        <div className="absolute bottom-4 left-4 right-4 text-white">
+          <p className="text-[0.95rem] font-semibold leading-tight">{person.name}</p>
+          <p className="text-[0.75rem] uppercase tracking-[0.18em] text-white/80 mt-1">
+            {person.role}
+          </p>
+        </div>
+      </div>
+
+      <div className="absolute inset-0 flex items-end bg-surface/95 opacity-0 translate-y-6 transition duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0">
+        <div className="p-5">
+          <p className="text-[0.85rem] uppercase tracking-[0.18em] text-primary font-semibold mb-2">
+            About
+          </p>
+          <p className="text-[0.9rem] leading-relaxed text-on-surface-variant">
+            {person.bio}
+          </p>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+function TeamMarquee({ title, description, people, reduceMotion, duration, loop = true }) {
+  const shouldLoop = loop && !reduceMotion;
+  const trackPeople = shouldLoop ? [...people, ...people] : people;
+  const trackClassName = shouldLoop
+    ? "flex gap-5 marquee-track"
+    : "flex flex-wrap justify-center gap-5";
+
+  return (
+    <motion.div
+      variants={{ hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } }}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-90px" }}
+      className="marquee-pause"
+    >
+      <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
+        <div>
+          <p className="text-[0.7rem] font-semibold tracking-[0.18em] uppercase text-primary mb-2">
+            {title}
+          </p>
+          <h3 className="font-display text-[clamp(1.2rem,2.5vw,1.8rem)] leading-tight">
+            {description}
+          </h3>
+        </div>
+      </div>
+
+      <div className="relative overflow-hidden rounded-3xl border border-outline-variant/70 bg-surface-container-lowest px-4 py-6">
+        {shouldLoop && (
+          <>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-linear-to-r from-surface-container-lowest via-surface-container-lowest/80 to-transparent"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-linear-to-l from-surface-container-lowest via-surface-container-lowest/80 to-transparent"
+            />
+          </>
+        )}
+
+        <div
+          className={trackClassName}
+          style={shouldLoop ? { "--marquee-duration": duration } : {}}
+        >
+          {trackPeople.map((person, index) => (
+            <TeamCard key={`${person.name}-${index}`} person={person} reduceMotion={reduceMotion} />
+          ))}
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
@@ -320,13 +492,13 @@ export default function AboutPage() {
           </motion.div>
         </section>
 
-        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16">
+        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16 space-y-10">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-90px" }}
-            className="mb-8"
+            className="mb-4"
           >
             <p className="text-[0.72rem] font-semibold tracking-[0.14em] uppercase text-primary mb-3">
               People Involved
@@ -334,28 +506,27 @@ export default function AboutPage() {
             <h2 className="font-display text-[clamp(1.5rem,3vw,2.3rem)] leading-[1.1] tracking-tight">
               The Team Behind the Work
             </h2>
+            <p className="mt-3 text-sm text-on-surface-variant max-w-2xl">
+              Two focus lines: core leadership first, then the paradigm heads guiding each domain.
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-5">
-            {peopleBlocks.map((item, index) => (
-              <motion.article
-                key={item.title}
-                variants={cardReveal}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-90px" }}
-                transition={{ delay: Math.min(index * 0.06, 0.18) }}
-                className="rounded-2xl border border-outline-variant/65 bg-surface-container-lowest p-6"
-              >
-                <h3 className="font-display text-[1.15rem] font-semibold mb-3 text-on-surface">
-                  {item.title}
-                </h3>
-                <p className="text-[0.95rem] leading-relaxed text-on-surface-variant">
-                  {item.text}
-                </p>
-              </motion.article>
-            ))}
-          </div>
+          <TeamMarquee
+            title="Leadership"
+            description="The core team steering K-Hub"
+            people={leadershipTeam}
+            reduceMotion={reduceMotion}
+            duration="26s"
+            loop={false}
+          />
+
+          <TeamMarquee
+            title="Paradigm Heads"
+            description="Domain leaders keeping each vertical on pace"
+            people={paradigmHeads}
+            reduceMotion={reduceMotion}
+            duration="32s"
+          />
         </section>
       </main>
       <Footer />
