@@ -281,28 +281,30 @@ export default function GalleryPage() {
       <Navbar />
 
       <main className="pt-24 lg:pt-0">
-        <section className="relative overflow-hidden px-[6vw] pb-32 pt-10 lg:pb-40 lg:pt-24">
+        <section className="relative overflow-hidden pb-32 pt-10 lg:pb-40 lg:pt-24">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(var(--color-primary-rgb),0.18),transparent_42%),radial-gradient(circle_at_90%_10%,rgba(var(--color-primary-rgb),0.12),transparent_35%)]" />
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative max-w-[1000px] text-[clamp(44px,8.5vw,110px)] font-semibold leading-[0.92] tracking-tight"
-            style={{ fontFamily: "Georgia, serif" }}
-          >
-            Gallery stories, pinned to motion.
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mt-8 max-w-[720px] text-lg leading-relaxed text-on-surface-variant md:text-2xl"
-          >
-            Scroll to pull each memory from the thread. Every image rises from below, pinned like a notice board and connected by one cinematic curve.
-          </motion.p>
+          <div className="page-container relative">
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="relative max-w-[1000px] text-[clamp(44px,8.5vw,110px)] font-semibold leading-[0.92] tracking-tight"
+              style={{ fontFamily: "Georgia, serif" }}
+            >
+              Gallery stories, pinned to motion.
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mt-8 max-w-[720px] text-lg leading-relaxed text-on-surface-variant md:text-2xl"
+            >
+              Scroll to pull each memory from the thread. Every image rises from below, pinned like a notice board and connected by one cinematic curve.
+            </motion.p>
+          </div>
         </section>
 
-        <section ref={sectionRef} className="relative mx-auto max-w-[1320px] px-[5vw] pb-40">
+        <section ref={sectionRef} className="relative pb-40">
           <motion.svg
             aria-hidden
             viewBox="0 0 900 2100"
@@ -355,22 +357,24 @@ export default function GalleryPage() {
 
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_24%,rgba(28,98,255,0.2),transparent_46%),radial-gradient(circle_at_88%_62%,rgba(89,189,255,0.14),transparent_46%)] blur-3xl" />
 
-          <div className="relative z-10 space-y-7 lg:space-y-2">
-            {GALLERY_ITEMS.map((item, index) => (
-              <ThreadPhotoCard
-                key={item.id}
-                item={item}
-                index={index}
-                reducedMotion={Boolean(reduceMotion)}
-                onSelect={setSelectedItem}
-              />
-            ))}
-          </div>
+          <div className="page-container relative z-10">
+            <div className="space-y-7 lg:space-y-2">
+              {GALLERY_ITEMS.map((item, index) => (
+                <ThreadPhotoCard
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  reducedMotion={Boolean(reduceMotion)}
+                  onSelect={setSelectedItem}
+                />
+              ))}
+            </div>
 
-          <div className="mt-20 border-t border-on-surface/12 pt-12">
-            <p className="max-w-2xl text-base leading-relaxed text-on-surface-variant md:text-lg">
-              A stitched archive of moments from Khub. The thread, pins, and staggered parallax are designed to make the gallery feel alive while you scroll.
-            </p>
+            <div className="mt-20 border-t border-on-surface/12 pt-12">
+              <p className="max-w-2xl text-base leading-relaxed text-on-surface-variant md:text-lg">
+                A stitched archive of moments from Khub. The thread, pins, and staggered parallax are designed to make the gallery feel alive while you scroll.
+              </p>
+            </div>
           </div>
         </section>
       </main>

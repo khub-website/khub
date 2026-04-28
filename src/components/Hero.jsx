@@ -68,7 +68,7 @@ export default function Hero() {
             <div className="absolute top-24 right-[5%] w-80 h-80 bg-primary/[0.05] rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-20 left-[4%] w-72 h-72 bg-primary/[0.04] rounded-full blur-3xl pointer-events-none" />
 
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 flex flex-col lg:flex-row items-center gap-8 lg:gap-4">
+            <div className="relative z-10 w-full page-container flex flex-col lg:flex-row items-center gap-8 lg:gap-4">
                 <motion.div
                     variants={container}
                     initial="hidden"

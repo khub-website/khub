@@ -285,6 +285,12 @@ html[data-theme="theme-10"] {
   }
 }
 
+@layer components {
+  .page-container {
+    @apply max-w-7xl mx-auto px-6 sm:px-10 lg:px-14;
+  }
+}
+
 body::after {
   content: "";
   position: fixed;

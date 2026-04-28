@@ -187,7 +187,7 @@ export default function AboutPage() {
     <>
       <Navbar />
       <main className="bg-surface text-on-surface pt-32 pb-20">
-        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12">
+        <section className="page-container">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
@@ -246,7 +246,7 @@ export default function AboutPage() {
           </motion.div>
         </section>
 
-        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16 md:mt-20">
+        <section className="page-container mt-16 md:mt-20">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
@@ -286,7 +286,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16">
+        <section className="page-container mt-16">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
@@ -320,7 +320,7 @@ export default function AboutPage() {
           </motion.div>
         </section>
 
-        <section className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 mt-16">
+        <section className="page-container mt-16">
           <motion.div
             variants={sectionIntro}
             initial="hidden"

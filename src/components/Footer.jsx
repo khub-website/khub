@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 
 export default function Footer() {
-    const mapsShareUrl = "https://share.google/VactTMVzldUcG9lxT";
+    const mapsShareUrl = "https://www.google.com/maps/search/?api=1&query=Teleparadigm+Towers&query_place_id=&ll=17.3941203,78.6214986"
 
     return (
         <footer id="contact" className="border-t border-surface-container-low bg-surface">
-            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-16 md:py-20">
+            <div className="page-container py-16 md:py-20">
                 <motion.div
                     initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -56,6 +56,22 @@ export default function Footer() {
                                 </li>
                             ))}
                         </ul>
+
+                        <p className="text-[0.75rem] font-body font-semibold tracking-[0.1em] uppercase text-primary mt-8 mb-5">
+                            Socials
+                        </p>
+                        <ul className="space-y-3">
+                            <li>
+                                <a
+                                    href="https://www.instagram.com/khubmedialabs/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-sm text-on-surface-variant hover:text-primary transition-colors duration-300 font-light"
+                                >
+                                    Instagram
+                                </a>
+                            </li>
+                        </ul>
                     </div>
 
                     {/* Contact */}
@@ -96,7 +112,8 @@ export default function Footer() {
                         <div className="overflow-hidden rounded-xl border border-surface-container-low bg-surface-container-lowest">
                             <iframe
                                 title="K-Hub location"
-                                src="https://maps.google.com/maps?q=SY%20No%2032%2FA%20%26%2032%2FE2%2C%20Near%20NGIT%20College%2C%20Uppal%2C%20Hyderabad%2C%20Telangana%20500088&z=15&output=embed"
+                                src="https://www.google.com/maps/embed?origin=mfe&pb=!1m12!1m8!1m3!1d3807.3678507970926!2d78.6214986!3d17.3941203!3m2!1i1024!2i768!4f13.1!2m1!1sTeleparadigm+Towers!6i17"
+
                                 className="w-full h-40"
                                 loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"

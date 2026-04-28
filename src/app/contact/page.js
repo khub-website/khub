@@ -93,7 +93,7 @@ export default function ContactPage() {
               "radial-gradient(ellipse 80% 70% at 50% 40%, black 40%, transparent 90%)",
           }}
         />
-        <div className="relative w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
+        <div className="relative w-full page-container">
           <header className="text-center mb-8 sm:mb-10 md:mb-14">
             <h1 className="font-display text-[clamp(1.6rem,6vw,2.75rem)] font-bold tracking-tight text-on-surface">
               Contact Us
