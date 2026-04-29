@@ -83,7 +83,7 @@ export default function Hero() {
                         className="mb-5 h-8 px-3 rounded-full border border-primary/30 bg-surface-container-low text-primary text-[0.65rem] font-semibold tracking-[0.12em] uppercase hover:bg-surface-container-lowest transition-all duration-300"
                         aria-label="Switch website theme"
                     >
-                        {THEMES[themeIndex]}
+                        {`Theme-${themeIndex + 1}`}
                     </motion.button>
 
                     <motion.p

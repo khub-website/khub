@@ -56,11 +56,11 @@ const GALLERY_ITEMS = [
 
 /* ─── Per-filter thread gradient colors ─── */
 const THREAD_COLORS = {
-  All:            { from: "#818cf8", mid: "#6366f1", to: "#f59e0b" },
-  Events:         { from: "#ec4899", mid: "#f43f5e", to: "#fb923c" },
-  "Mentor Rounds":{ from: "#14b8a6", mid: "#0d9488", to: "#06b6d4" },
-  Builds:         { from: "#8b5cf6", mid: "#7c3aed", to: "#a78bfa" },
-  Launch:         { from: "#f59e0b", mid: "#d97706", to: "#ef4444" },
+  All: { from: "#818cf8", mid: "#6366f1", to: "#f59e0b" },
+  Events: { from: "#ec4899", mid: "#f43f5e", to: "#fb923c" },
+  "Mentor Rounds": { from: "#14b8a6", mid: "#0d9488", to: "#06b6d4" },
+  Builds: { from: "#8b5cf6", mid: "#7c3aed", to: "#a78bfa" },
+  Launch: { from: "#f59e0b", mid: "#d97706", to: "#ef4444" },
 };
 
 /* ─── Helpers ─── */
