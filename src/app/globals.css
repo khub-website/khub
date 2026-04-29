@@ -21,8 +21,37 @@
   to   { transform: rotate(360deg); }
 }
 
+@keyframes heroWordShine {
+  0%, 3% {
+    background-position: 160% 50%;
+  }
+  38% {
+    background-position: -80% 50%;
+  }
+  100% {
+    background-position: -80% 50%;
+  }
+}
+
 .pearl-disc-rotate {
   animation: discSpin 22s linear infinite;
+}
+
+.hero-shine-word {
+  color: transparent;
+  background-image: linear-gradient(
+    100deg,
+    var(--color-primary) 0%,
+    var(--color-primary) 44%,
+    rgba(255, 255, 255, 0.95) 50%,
+    var(--color-primary) 56%,
+    var(--color-primary) 100%
+  );
+  background-size: 220% 100%;
+  background-position: 160% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: heroWordShine var(--hero-word-cycle-ms, 2200ms) cubic-bezier(0.4, 0, 0.2, 1) 1 both;
 }
 
 .gallery-pin {
@@ -50,8 +79,14 @@ html[data-theme="theme-1"] {
   --color-primary-container: #00B4D8;
   --color-tertiary: #03045E;
   --color-outline-variant: #CAF0F8;
+  --color-accent-pink: #FFC6D2;
+  --color-accent-cyan: #8ECFE5;
   --color-primary-rgb: 0, 119, 182;
   --color-primary-container-rgb: 0, 180, 216;
+  --gallery-pin-primary: #E74C3C;
+  --gallery-pin-light: #F8B4B8;
+  --gallery-thread-main: #1C62FF;
+  --gallery-thread-glow: #74C7FF;
   --hero-cta-from: #0077B6;
   --hero-cta-to: #00B4D8;
   --hero-secondary-bg: #CAF0F8;
@@ -83,20 +118,24 @@ html[data-theme="theme-2"] {
 html[data-theme="theme-3"] {
   /* Theme 3: Oceanic Cactus Pop */
   --color-surface: #F7FFEE;
-  --color-surface-container-low: #FFE66D;
+  --color-surface-container-low: #FFE0EB;
   --color-surface-container-lowest: #FFFFFF;
-  --color-surface-container-high: #FF6B6B;
+  --color-surface-container-high: #FFA3A3;
   --color-on-surface: #1A2B2C;
   --color-on-surface-variant: #1A535C;
   --color-primary: #4ECDC4;
-  --color-primary-container: #FF6B6B;
+  --color-primary-container: #FFA3A3;
   --color-tertiary: #1A535C;
-  --color-outline-variant: #FFE66D;
+  --color-outline-variant: #FFE0EB;
   --color-primary-rgb: 78, 205, 196;
-  --color-primary-container-rgb: 255, 107, 107;
+  --color-primary-container-rgb: 255, 163, 163;
+  --gallery-pin-primary: #FFA3A3;
+  --gallery-pin-light: #FFB8C3;
+  --gallery-thread-main: #4ECDC4;
+  --gallery-thread-glow: #7FE5DD;
   --hero-cta-from: #1A535C;
   --hero-cta-to: #4ECDC4;
-  --hero-secondary-bg: #FFE66D;
+  --hero-secondary-bg: #FFE0EB;
   --hero-secondary-bg-hover: #F7FFEE;
   --hero-secondary-text: #1A2B2C;
 }
@@ -104,22 +143,26 @@ html[data-theme="theme-3"] {
 html[data-theme="theme-4"] {
   /* Theme 4: Pastel Dream */
   --color-surface: #FFFFFF;
-  --color-surface-container-low: #BDE0FE;
+  --color-surface-container-low: #F0F9F8;
   --color-surface-container-lowest: #FFFFFF;
-  --color-surface-container-high: #FFAFCC;
-  --color-on-surface: #3D2B4A;
-  --color-on-surface-variant: #CDB4DB;
-  --color-primary: #FFC8DD;
-  --color-primary-container: #FFAFCC;
-  --color-tertiary: #CDB4DB;
-  --color-outline-variant: #BDE0FE;
-  --color-primary-rgb: 255, 200, 221;
-  --color-primary-container-rgb: 255, 175, 204;
-  --hero-cta-from: #CDB4DB;
-  --hero-cta-to: #FFAFCC;
-  --hero-secondary-bg: #BDE0FE;
+  --color-surface-container-high: #E8F7F5;
+  --color-on-surface: #1F0F2E;
+  --color-on-surface-variant: #3D2456;
+  --color-primary: #4ECDC4;
+  --color-primary-container: #4ECDC4;
+  --color-tertiary: #3D2456;
+  --color-outline-variant: #F0F9F8;
+  --color-primary-rgb: 78, 205, 196;
+  --color-primary-container-rgb: 78, 205, 196;
+  --gallery-pin-primary: #4ECDC4;
+  --gallery-pin-light: #7FE5DD;
+  --gallery-thread-main: #F0F9F8;
+  --gallery-thread-glow: #D4EBFF;
+  --hero-cta-from: #3D2456;
+  --hero-cta-to: #4ECDC4;
+  --hero-secondary-bg: #F0F9F8;
   --hero-secondary-bg-hover: #FFFFFF;
-  --hero-secondary-text: #3D2B4A;
+  --hero-secondary-text: #1F0F2E;
 }
 
 html[data-theme="theme-5"] {
@@ -166,44 +209,53 @@ html[data-theme="theme-6"] {
 
 html[data-theme="theme-7"] {
   /* Theme 7: Soft Rainbow Candy */
-  --color-surface: #90DBF4;
+  --color-surface: #00AFB9;
   --color-surface-container-low: #A3C4F3;
   --color-surface-container-lowest: #FFFFFF;
-  --color-surface-container-high: #CFBAF0;
+  --color-surface-container-high: #1E4B50;
   --color-on-surface: #2B2D42;
-  --color-on-surface-variant: #F1C0E8;
-  --color-primary: #F1C0E8;
-  --color-primary-container: #CFBAF0;
-  --color-tertiary: #FFCFD2;
+  --color-on-surface-variant: #0E3A3F;
+  --color-primary: #0E3A3F;
+  --color-primary-container: #1E4B50;
+  --color-tertiary: #1A4D52;
   --color-outline-variant: #A3C4F3;
-  --color-primary-rgb: 241, 192, 232;
-  --color-primary-container-rgb: 207, 186, 240;
-  --hero-cta-from: #CFBAF0;
-  --hero-cta-to: #F1C0E8;
+  --color-primary-rgb: 14, 58, 63;
+  --color-primary-container-rgb: 30, 75, 80;
+  --gallery-pin-primary: #1A4D52;
+  --gallery-pin-light: #2D6B73;
+  --gallery-thread-main: #0E3A3F;
+  --gallery-thread-glow: #1E4B50;
+  --hero-cta-from: #1E4B50;
+  --hero-cta-to: #0E3A3F;
   --hero-secondary-bg: #A3C4F3;
-  --hero-secondary-bg-hover: #90DBF4;
+  --hero-secondary-bg-hover: #00AFB9;
   --hero-secondary-text: #2B2D42;
 }
 
 html[data-theme="theme-8"] {
   /* Theme 8: Cool Waters */
-  --color-surface: #C7F9CC;
-  --color-surface-container-low: #80ED99;
+  --color-surface: #E8FFEB;
+  --color-surface-container-low: #D4F5D9;
   --color-surface-container-lowest: #FFFFFF;
-  --color-surface-container-high: #57CC99;
-  --color-on-surface: #1A3A2A;
-  --color-on-surface-variant: #22577A;
-  --color-primary: #38A3A5;
-  --color-primary-container: #57CC99;
-  --color-tertiary: #22577A;
-  --color-outline-variant: #80ED99;
-  --color-primary-rgb: 56, 163, 165;
-  --color-primary-container-rgb: 87, 204, 153;
-  --hero-cta-from: #38A3A5;
-  --hero-cta-to: #57CC99;
-  --hero-secondary-bg: #80ED99;
-  --hero-secondary-bg-hover: #C7F9CC;
-  --hero-secondary-text: #1A3A2A;
+  --color-surface-container-high: #B8F0C0;
+  --color-on-surface: #0D1F17;
+  --color-on-surface-variant: #0F2E38;
+  --color-primary: #1A5F62;
+  --color-primary-container: #2A7F84;
+  --color-tertiary: #0F2E38;
+  --color-outline-variant: #D4F5D9;
+  --color-accent-coral: #BC4749;
+  --color-primary-rgb: 26, 95, 98;
+  --color-primary-container-rgb: 42, 127, 132;
+  --gallery-pin-primary: #2A7F84;
+  --gallery-pin-light: #4A9BA0;
+  --gallery-thread-main: #1A5F62;
+  --gallery-thread-glow: #2A7F84;
+  --hero-cta-from: #1A5F62;
+  --hero-cta-to: #2A7F84;
+  --hero-secondary-bg: #D4F5D9;
+  --hero-secondary-bg-hover: #E8FFEB;
+  --hero-secondary-text: #0D1F17;
 }
 
 html[data-theme="theme-9"] {

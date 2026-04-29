@@ -15,7 +15,9 @@ const CYCLING_WORDS = [
     "Innovation",
 ];
 
-const THEMES = Array.from({ length: 10 }, (_, index) => `theme-${index + 1}`);
+const THEMES = ["theme-1", "theme-3", "theme-4", "theme-7", "theme-8"];
+const WORD_SWITCH_MS = 2200;
+const WORD_TRANSITION_SECONDS = 0.4;
 
 const container = {
     hidden: {},
@@ -44,7 +46,7 @@ export default function Hero() {
     useEffect(() => {
         const interval = setInterval(() => {
             setWordIndex((prev) => (prev + 1) % CYCLING_WORDS.length);
-        }, 2200);
+        }, WORD_SWITCH_MS);
         return () => clearInterval(interval);
     }, []);
 
@@ -105,8 +107,9 @@ export default function Hero() {
                                     initial={{ opacity: 0, y: "100%", filter: "blur(6px)" }}
                                     animate={{ opacity: 1, y: "0%", filter: "blur(0px)" }}
                                     exit={{ opacity: 0, y: "-100%", filter: "blur(6px)" }}
-                                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                    className="absolute inset-0 text-primary whitespace-nowrap"
+                                    transition={{ duration: WORD_TRANSITION_SECONDS, ease: [0.22, 1, 0.36, 1] }}
+                                    className="hero-shine-word absolute inset-0 whitespace-nowrap"
+                                    style={{ "--hero-word-cycle-ms": `${WORD_SWITCH_MS}ms` }}
                                 >
                                     {CYCLING_WORDS[wordIndex]}
                                 </motion.span>

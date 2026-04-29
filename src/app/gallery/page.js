@@ -15,6 +15,39 @@ import gallery7 from "../../../gallery_images/7.jpg";
 import gallery8 from "../../../gallery_images/8.jpg";
 import gallery9 from "../../../gallery_images/9.avif";
 
+// Hook to get CSS variables and update on theme change
+function useThemeColors() {
+  const [colors, setColors] = useState({
+    pinPrimary: "#E74C3C",
+    pinLight: "#F8B4B8",
+    threadMain: "#1C62FF",
+    threadGlow: "#74C7FF",
+  });
+
+  useEffect(() => {
+    const updateColors = () => {
+      const root = document.documentElement;
+      const computedStyle = getComputedStyle(root);
+      setColors({
+        pinPrimary: computedStyle.getPropertyValue("--gallery-pin-primary").trim() || "#E74C3C",
+        pinLight: computedStyle.getPropertyValue("--gallery-pin-light").trim() || "#F8B4B8",
+        threadMain: computedStyle.getPropertyValue("--gallery-thread-main").trim() || "#1C62FF",
+        threadGlow: computedStyle.getPropertyValue("--gallery-thread-glow").trim() || "#74C7FF",
+      });
+    };
+
+    updateColors();
+
+    // Listen for theme changes
+    const observer = new MutationObserver(updateColors);
+    observer.observe(document.documentElement, { attributes: true });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return colors;
+}
+
 const GALLERY_ITEMS = [
   {
     id: 1,
@@ -135,7 +168,7 @@ const GALLERY_ITEMS = [
   },
 ];
 
-function ThreadPhotoCard({ item, index, reducedMotion, onSelect }) {
+function ThreadPhotoCard({ item, index, reducedMotion, onSelect, colors }) {
   const cardRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: cardRef,
@@ -184,11 +217,11 @@ function ThreadPhotoCard({ item, index, reducedMotion, onSelect }) {
             viewBox="0 0 52 64"
             className="h-8 w-8 drop-shadow-[0_6px_10px_rgba(0,0,0,0.28)] md:h-10 md:w-10"
           >
-            <ellipse cx="26" cy="14" rx="14" ry="9" fill="#dc2626" />
-            <ellipse cx="24" cy="12" rx="8" ry="4" fill="#fca5a5" opacity="0.85" />
-            <rect x="21" y="16" width="10" height="18" rx="5" fill="#ef4444" transform="rotate(-8 26 24)" />
-            <ellipse cx="26" cy="34" rx="12" ry="7" fill="#dc2626" />
-            <ellipse cx="24" cy="32" rx="7" ry="3.5" fill="#fca5a5" opacity="0.6" />
+            <ellipse cx="26" cy="14" rx="14" ry="9" fill={colors.pinPrimary} />
+            <ellipse cx="24" cy="12" rx="8" ry="4" fill={colors.pinLight} opacity="0.85" />
+            <rect x="21" y="16" width="10" height="18" rx="5" fill={colors.pinPrimary} transform="rotate(-8 26 24)" />
+            <ellipse cx="26" cy="34" rx="12" ry="7" fill={colors.pinPrimary} />
+            <ellipse cx="24" cy="32" rx="7" ry="3.5" fill={colors.pinLight} opacity="0.6" />
             <path d="M26 39 L22 58 L30 58 Z" fill="#737373" />
           </svg>
         </motion.div>
@@ -234,8 +267,19 @@ function ThreadPhotoCard({ item, index, reducedMotion, onSelect }) {
 
 export default function GalleryPage() {
   const sectionRef = useRef(null);
+  const heroVideoRef = useRef(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const reduceMotion = useReducedMotion();
+  const colors = useThemeColors();
+
+  const loopFullVideo = () => {
+    const video = heroVideoRef.current;
+
+    if (video && video.ended) {
+      video.currentTime = 0;
+      video.play();
+    }
+  };
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -281,25 +325,56 @@ export default function GalleryPage() {
       <Navbar />
 
       <main className="pt-24 lg:pt-0">
-        <section className="relative overflow-hidden px-[6vw] pb-32 pt-10 lg:pb-40 lg:pt-24">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(var(--color-primary-rgb),0.18),transparent_42%),radial-gradient(circle_at_90%_10%,rgba(var(--color-primary-rgb),0.12),transparent_35%)]" />
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative max-w-[1000px] text-[clamp(44px,8.5vw,110px)] font-semibold leading-[0.92] tracking-tight"
-            style={{ fontFamily: "Georgia, serif" }}
+        <section className="relative min-h-[100svh] overflow-hidden bg-on-surface">
+          <motion.div
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0"
           >
-            Gallery stories, pinned to motion.
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mt-8 max-w-[720px] text-lg leading-relaxed text-on-surface-variant md:text-2xl"
-          >
-            Scroll to pull each memory from the thread. Every image rises from below, pinned like a notice board and connected by one cinematic curve.
-          </motion.p>
+            <video
+              ref={heroVideoRef}
+              className="h-full w-full object-cover"
+              autoPlay
+              muted
+              playsInline
+              preload="metadata"
+              onTimeUpdate={loopFullVideo}
+            >
+              <source src="/hero_video_for_gallery.mp4" type="video/mp4" />
+            </video>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+            className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.58),rgba(0,0,0,0.18)_54%,rgba(0,0,0,0.38))]"
+          />
+
+          <div className="relative z-10 flex min-h-[100svh] flex-col justify-end px-5 pb-10 pt-28 text-white sm:px-8 sm:pb-16 md:pb-20 lg:px-12">
+            <motion.div
+              initial={{ opacity: 0, y: 34 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.25,
+                duration: 0.75,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="max-w-4xl"
+            >
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-white/75">
+                Gallery
+              </p>
+              <h1 className="text-4xl font-semibold leading-none tracking-tight sm:text-6xl lg:text-7xl">
+                Moments from K-Hub.
+              </h1>
+              <p className="mt-5 max-w-2xl text-sm leading-6 text-white/82 sm:mt-6 sm:text-lg sm:leading-7">
+                A moving glimpse of the people, sessions, and spaces that shape
+                the K-Hub community.
+              </p>
+            </motion.div>
+          </div>
         </section>
 
         <section ref={sectionRef} className="relative mx-auto max-w-[1320px] px-[5vw] pb-40">
@@ -313,7 +388,7 @@ export default function GalleryPage() {
             <motion.path
               d="M36 90 C 210 30, 430 34, 620 120 C 800 202, 870 340, 780 468 C 662 638, 392 620, 252 758 C 134 872, 154 1045, 346 1148 C 536 1250, 760 1216, 828 1360 C 892 1492, 764 1642, 580 1716 C 390 1792, 344 1928, 492 2010 C 616 2082, 748 2058, 828 1968"
               fill="none"
-              stroke="rgba(28,98,255,0.9)"
+              stroke={colors.threadMain}
               strokeWidth="30"
               strokeLinecap="round"
               style={reduceMotion ? undefined : { pathLength: threadDraw }}
@@ -321,7 +396,7 @@ export default function GalleryPage() {
             <motion.path
               d="M36 90 C 210 30, 430 34, 620 120 C 800 202, 870 340, 780 468 C 662 638, 392 620, 252 758 C 134 872, 154 1045, 346 1148 C 536 1250, 760 1216, 828 1360 C 892 1492, 764 1642, 580 1716 C 390 1792, 344 1928, 492 2010 C 616 2082, 748 2058, 828 1968"
               fill="none"
-              stroke="rgba(116,199,255,0.9)"
+              stroke={colors.threadGlow}
               strokeWidth="10"
               strokeLinecap="round"
               style={reduceMotion ? { opacity: 0.3 } : { pathLength: threadDraw, opacity: threadGlow }}
@@ -338,7 +413,7 @@ export default function GalleryPage() {
             <motion.path
               d="M40 120 C 300 22, 620 24, 900 130 C 1140 220, 1290 360, 1210 520 C 1120 700, 780 680, 520 770 C 250 865, 180 1030, 360 1160 C 590 1325, 1040 1250, 1215 1425 C 1330 1540, 1240 1705, 980 1800 C 730 1890, 640 2040, 860 2140 C 1010 2210, 1160 2260, 1260 2220 C 1350 2180, 1320 2070, 1210 1970"
               fill="none"
-              stroke="rgba(28,98,255,0.88)"
+              stroke={colors.threadMain}
               strokeWidth="40"
               strokeLinecap="round"
               style={reduceMotion ? undefined : { pathLength: threadDraw }}
@@ -346,14 +421,19 @@ export default function GalleryPage() {
             <motion.path
               d="M40 120 C 300 22, 620 24, 900 130 C 1140 220, 1290 360, 1210 520 C 1120 700, 780 680, 520 770 C 250 865, 180 1030, 360 1160 C 590 1325, 1040 1250, 1215 1425 C 1330 1540, 1240 1705, 980 1800 C 730 1890, 640 2040, 860 2140 C 1010 2210, 1160 2260, 1260 2220 C 1350 2180, 1320 2070, 1210 1970"
               fill="none"
-              stroke="rgba(116,199,255,0.85)"
+              stroke={colors.threadGlow}
               strokeWidth="12"
               strokeLinecap="round"
               style={reduceMotion ? { opacity: 0.2 } : { pathLength: threadDraw, opacity: threadGlow }}
             />
           </motion.svg>
 
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_24%,rgba(28,98,255,0.2),transparent_46%),radial-gradient(circle_at_88%_62%,rgba(89,189,255,0.14),transparent_46%)] blur-3xl" />
+          <div 
+            className="absolute inset-0 -z-10 blur-3xl"
+            style={{
+              background: `radial-gradient(circle_at_12%_24%, ${colors.threadMain}33, transparent 46%), radial-gradient(circle_at_88%_62%, ${colors.threadGlow}24, transparent 46%)`
+            }}
+          />
 
           <div className="relative z-10 space-y-7 lg:space-y-2">
             {GALLERY_ITEMS.map((item, index) => (
@@ -363,6 +443,7 @@ export default function GalleryPage() {
                 index={index}
                 reducedMotion={Boolean(reduceMotion)}
                 onSelect={setSelectedItem}
+                colors={colors}
               />
             ))}
           </div>
@@ -384,7 +465,12 @@ export default function GalleryPage() {
             className="fixed inset-0 z-[120] flex items-center justify-center p-4 md:p-8"
             onClick={() => setSelectedItem(null)}
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(47,122,255,0.4),transparent_42%),radial-gradient(circle_at_86%_86%,rgba(95,208,255,0.22),transparent_45%),rgba(8,14,28,0.62)] backdrop-blur-md" />
+            <div 
+              className="absolute inset-0 backdrop-blur-md"
+              style={{
+                background: `radial-gradient(circle_at_18%_20%, ${colors.threadMain}66, transparent 42%), radial-gradient(circle_at_86%_86%, ${colors.threadGlow}38, transparent 45%), rgba(8,14,28,0.62)`
+              }}
+            />
 
             <motion.article
               initial={{ opacity: 0, y: 28, scale: 0.96 }}

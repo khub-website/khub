@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 20 },
@@ -18,6 +19,20 @@ const campusPartners = ["KMIT", "NGIT", "KMEC", "KMCE"];
 
 export default function About() {
     const router = useRouter();
+    const [theme, setTheme] = useState("theme-1");
+
+    useEffect(() => {
+        const currentTheme = document.documentElement.getAttribute("data-theme") || "theme-1";
+        setTheme(currentTheme);
+        
+        const observer = new MutationObserver(() => {
+            const newTheme = document.documentElement.getAttribute("data-theme") || "theme-1";
+            setTheme(newTheme);
+        });
+        
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+        return () => observer.disconnect();
+    }, []);
 
     const openAboutPage = () => {
         router.push("/about");
@@ -109,7 +124,12 @@ export default function About() {
                                     }}
                                     className="bg-surface-container-lowest rounded-lg p-8 hover:shadow-[0_20px_40px_rgba(28,28,25,0.05)] transition-all duration-400"
                                 >
-                                    <p className="font-display text-[clamp(2rem,4vw,2.8rem)] text-primary font-bold leading-none mb-3">
+                                    <p 
+                                        className={`font-display text-[clamp(2rem,4vw,2.8rem)] font-bold leading-none mb-3 ${
+                                            theme === "theme-4" ? "" : "text-on-surface-variant"
+                                        }`}
+                                        style={theme === "theme-4" ? { color: '#F3722C' } : {}}
+                                    >
                                         {stat.number}
                                     </p>
                                     <p className="text-[0.8rem] text-on-surface-variant font-medium tracking-tight uppercase leading-tight">
@@ -133,7 +153,7 @@ export default function About() {
                                 {campusPartners.map((partner) => (
                                     <span
                                         key={partner}
-                                        className="px-5 py-2.5 rounded-lg border border-outline-variant/45 bg-surface-container-lowest text-primary text-sm font-semibold"
+                                        className="px-5 py-2.5 rounded-lg border border-outline-variant/45 bg-surface-container-lowest text-on-surface-variant text-sm font-semibold"
                                     >
                                         {partner}
                                     </span>
