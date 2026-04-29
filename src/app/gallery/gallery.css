@@ -218,6 +218,20 @@
   -webkit-backdrop-filter: blur(20px) saturate(85%);
 }
 
+.gallery-page-content {
+  transition: filter 0.24s ease;
+}
+
+.gallery-page-shell.gallery-lightbox-open .gallery-page-content {
+  filter: blur(10px) saturate(92%);
+}
+
+@supports ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+  .gallery-page-shell.gallery-lightbox-open .gallery-page-content {
+    filter: blur(6px) saturate(95%);
+  }
+}
+
 .gallery-lightbox-content {
   position: relative;
   width: 100%;

@@ -389,10 +389,11 @@ export default function GalleryPage() {
   const loopVideo = () => { const v = heroVideoRef.current; if (v && v.ended) { v.currentTime = 0; v.play(); } };
 
   return (
-    <div className="min-h-screen bg-surface font-body text-on-surface selection:bg-primary selection:text-white">
-      <Navbar />
+    <div className={`gallery-page-shell min-h-screen bg-surface font-body text-on-surface selection:bg-primary selection:text-white ${lightbox.open ? "gallery-lightbox-open" : ""}`}>
+      <div className="gallery-page-content">
+        <Navbar />
 
-      <main className="pt-24 lg:pt-0">
+        <main className="pt-24 lg:pt-0">
         {/* ── Hero ── */}
         <section className="relative min-h-[100svh] overflow-hidden bg-on-surface">
           <motion.div initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0">
@@ -452,14 +453,15 @@ export default function GalleryPage() {
 
 
         </section>
-      </main>
+        </main>
+        <Footer />
+      </div>
 
       {/* ── Lightbox ── */}
       <AnimatePresence>
         {lightbox.open && <Lightbox items={filtered} activeIndex={lightbox.idx} onClose={closeLightbox} onNavigate={navLightbox} />}
       </AnimatePresence>
 
-      <Footer />
     </div>
   );
 }
