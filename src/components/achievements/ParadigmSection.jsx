@@ -70,7 +70,7 @@ export function ParadigmSection({ paradigm }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.9, ease: "easeOut" }}
-        className="relative mx-3 sm:mx-6 lg:mx-16 rounded-2xl sm:rounded-3xl overflow-hidden mb-8 sm:mb-14 shadow-lg sm:shadow-2xl shadow-primary/5 border border-on-surface/5"
+        className="relative page-container rounded-2xl sm:rounded-3xl overflow-hidden mb-8 sm:mb-14 shadow-lg sm:shadow-2xl shadow-primary/5 border border-on-surface/5"
         style={{ minHeight: "clamp(200px, 40vw, 380px)" }}
       >
         {isLoading ? (
@@ -122,19 +122,25 @@ export function ParadigmSection({ paradigm }) {
           <p className="text-white/80 max-w-xl text-xs sm:text-base leading-relaxed font-light line-clamp-3 sm:line-clamp-none">
             {paradigm.description}
           </p>
-          <a
-            href={scraped?.siteUrl ?? paradigm.siteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 sm:mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/60"
-          >
-            Visit paradigm site
-            <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden />
-          </a>
+          { (scraped?.url ?? paradigm.url) ? (
+            <a
+              href={scraped?.url ?? paradigm.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 sm:mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/60 cursor-pointer"
+            >
+              Visit paradigm site
+              <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden />
+            </a>
+          ) : (
+            <div className="mt-3 sm:mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white/50 backdrop-blur-md cursor-default">
+              Coming soon
+            </div>
+          )}
         </div>
       </motion.div>
 
-      <div className="mx-3 sm:mx-6 lg:mx-16 flex justify-center">
+      <div className="page-container flex justify-center">
         {/* ── Achievements timeline ── */}
         <div className="w-full max-w-2xl">
           <motion.h3
@@ -270,9 +276,10 @@ export function ParadigmSection({ paradigm }) {
         </div>
       </div>
 
+
       {/* Section divider */}
       <div
-        className="mx-3 sm:mx-6 lg:mx-16 mt-12 sm:mt-24 h-px opacity-10"
+        className="page-container mt-12 sm:mt-24 h-px opacity-10"
         style={{ background: `linear-gradient(to right, transparent, ${paradigm.color}, transparent)` }}
       />
     </section>

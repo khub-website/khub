@@ -22,6 +22,7 @@ const domains = [
         accent: "117, 78, 173",
         secondaryAccent: "224, 168, 255",
         labelColor: "#ed5b00",
+        url: "https://drugparadigm.com/",
     },
     {
         name: "Cyberparadigm",
@@ -32,6 +33,7 @@ const domains = [
         accent: "87, 201, 70",
         secondaryAccent: "151, 230, 112",
         labelColor: "#ed5b00",
+        url: "https://cyberparadigm.in/",
     },
     {
         name: "Roboparadigm",
@@ -42,6 +44,7 @@ const domains = [
         accent: "204, 137, 63",
         secondaryAccent: "237, 184, 108",
         labelColor: "#ed5b00",
+        url: "https://roboparadigm.com/",
     },
     {
         name: "Neuroparadigm",
@@ -52,6 +55,7 @@ const domains = [
         accent: "228, 194, 72",
         secondaryAccent: "151, 88, 214",
         labelColor: "#d8ad2d",
+        url: "https://neuroparadigm.in/",
     },
     {
         name: "Neutraparadigm",
@@ -62,6 +66,7 @@ const domains = [
         accent: "34, 114, 61",
         secondaryAccent: "70, 157, 89",
         labelColor: "#207443",
+        url: null,
     },
     {
         name: "Crystalparadigm",
@@ -72,6 +77,7 @@ const domains = [
         accent: "62, 173, 248",
         secondaryAccent: "142, 209, 255",
         labelColor: "#ed5b00",
+        url: "https://crystalparadigm.in/",
     },
 ];
 
@@ -158,7 +164,11 @@ function ParadigmCard({ domain, index }) {
             }}
             onMouseMove={handleMove}
             onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={handleLeave}
+            onClick={() => {
+                if (domain.url) {
+                    window.open(domain.url, "_blank", "noopener,noreferrer");
+                }
+            }}
             style={{
                 rotateX,
                 rotateY,
@@ -168,6 +178,7 @@ function ParadigmCard({ domain, index }) {
                 rotateZ: cardRotateZ,
                 transformStyle: "preserve-3d",
                 backgroundImage: glow,
+                cursor: domain.url ? "pointer" : "default",
             }}
             className="group relative overflow-hidden rounded-2xl border border-white/45 bg-white/35 p-7 backdrop-blur-xl shadow-[0_20px_45px_rgba(26,24,20,0.15)] will-change-transform"
         >
@@ -215,6 +226,11 @@ function ParadigmCard({ domain, index }) {
                         <p className="text-[0.72rem] font-semibold uppercase tracking-[0.12em]" style={{ color: domain.labelColor }}>
                             {domain.tagline}
                         </p>
+                        {!domain.url && (
+                            <span className="mt-1 inline-block px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[0.6rem] font-bold uppercase tracking-wider">
+                                Coming Soon
+                            </span>
+                        )}
                     </div>
                 </div>
 
@@ -231,7 +247,7 @@ function ParadigmCard({ domain, index }) {
 export default function Domains() {
     return (
         <section id="domains" className="py-20 md:py-28 bg-surface-container-low">
-            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+            <div className="page-container">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -243,7 +259,7 @@ export default function Domains() {
                         Paradigms
                     </p>
                     <h2 className="font-display text-[clamp(1.8rem,4.5vw,3rem)] font-bold leading-[1.1] tracking-tight text-on-surface max-w-2xl">
-                        Six Verticals.
+                        Many Verticals.
                         <br />
                         <span className="text-on-surface-variant">One Mission.</span>
                     </h2>

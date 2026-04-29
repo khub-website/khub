@@ -121,7 +121,7 @@ export default function Navbar() {
                     transition={{ duration: 4.2, repeat: Infinity, ease: "linear" }}
                 />
 
-                <div className="relative px-4 sm:px-6 md:px-8 lg:px-10">
+                <div className="relative px-6 sm:px-10 lg:px-14">
                     <div className="flex items-center justify-between h-[68px]">
                         <a
                             href="/"

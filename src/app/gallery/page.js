@@ -373,11 +373,16 @@ export default function GalleryPage() {
                 A moving glimpse of the people, sessions, and spaces that shape
                 the K-Hub community.
               </p>
+              <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70 sm:text-base sm:leading-7">
+                Scroll to pull each memory from the thread. Every image rises
+                from below, pinned like a notice board and connected by one
+                cinematic curve.
+              </p>
             </motion.div>
           </div>
         </section>
 
-        <section ref={sectionRef} className="relative mx-auto max-w-[1320px] px-[5vw] pb-40">
+        <section ref={sectionRef} className="relative pb-40">
           <motion.svg
             aria-hidden
             viewBox="0 0 900 2100"
@@ -435,23 +440,25 @@ export default function GalleryPage() {
             }}
           />
 
-          <div className="relative z-10 space-y-7 lg:space-y-2">
-            {GALLERY_ITEMS.map((item, index) => (
-              <ThreadPhotoCard
-                key={item.id}
-                item={item}
-                index={index}
-                reducedMotion={Boolean(reduceMotion)}
-                onSelect={setSelectedItem}
-                colors={colors}
-              />
-            ))}
-          </div>
+          <div className="page-container relative z-10">
+            <div className="space-y-7 lg:space-y-2">
+              {GALLERY_ITEMS.map((item, index) => (
+                <ThreadPhotoCard
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  reducedMotion={Boolean(reduceMotion)}
+                  onSelect={setSelectedItem}
+                  colors={colors}
+                />
+              ))}
+            </div>
 
-          <div className="mt-20 border-t border-on-surface/12 pt-12">
-            <p className="max-w-2xl text-base leading-relaxed text-on-surface-variant md:text-lg">
-              A stitched archive of moments from Khub. The thread, pins, and staggered parallax are designed to make the gallery feel alive while you scroll.
-            </p>
+            <div className="mt-20 border-t border-on-surface/12 pt-12">
+              <p className="max-w-2xl text-base leading-relaxed text-on-surface-variant md:text-lg">
+                A stitched archive of moments from Khub. The thread, pins, and staggered parallax are designed to make the gallery feel alive while you scroll.
+              </p>
+            </div>
           </div>
         </section>
       </main>
@@ -532,3 +539,5 @@ export default function GalleryPage() {
     </div>
   );
 }
+
+

@@ -9,16 +9,7 @@ export function AchievementsPage() {
 
   const handleContactClick = (e) => {
     e.preventDefault();
-    router.push("/");
-    const scrollAfterNav = () => {
-      const el = document.querySelector("#contact");
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else {
-        requestAnimationFrame(scrollAfterNav);
-      }
-    };
-    setTimeout(scrollAfterNav, 400);
+    router.push("/contact");
   };
 
   return (
@@ -36,7 +27,7 @@ export function AchievementsPage() {
 
       <footer className="py-24 text-center border-t border-surface-container-low relative overflow-hidden bg-surface-container-lowest">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,108,81,0.03)_0%,transparent_60%)] pointer-events-none" />
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="page-container relative z-10">
           <h2
             className="font-display text-2xl md:text-3xl font-bold mb-4 text-on-surface"
           >
@@ -46,7 +37,7 @@ export function AchievementsPage() {
             A comprehensive archive of AI paradigms and their defining milestones across the decade.
           </p>
           <a
-            href="/#contact"
+            href="/contact"
             onClick={handleContactClick}
             className="inline-block px-10 py-3.5 rounded-lg bg-primary text-surface text-sm font-semibold tracking-tight shadow-lg shadow-primary/20 transition-all hover:brightness-95 hover:shadow-primary/30 hover:-translate-y-0.5 mb-10"
           >
