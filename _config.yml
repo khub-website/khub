@@ -1,0 +1,10 @@
+theme: jekyll-theme-primer
+
+exclude:
+  - AGENTS.md
+  - CLAUDE.md
+  - FRONTEND-DESIGN-SKILL.md
+  - gallery_fix.md
+  - khub-gallery-implementation-spec.md
+  - replit.md
+  - SKILL.md
