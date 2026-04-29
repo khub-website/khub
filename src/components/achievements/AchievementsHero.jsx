@@ -1,73 +1,81 @@
-import { motion } from "framer-motion";
-import { Award } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
 
 export function AchievementsHero() {
+  const reduceMotion = useReducedMotion();
+
+  const sectionIntro = {
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 18 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.62, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
+
   return (
-    <section className="relative min-h-[85dvh] flex items-center overflow-hidden py-24 bg-surface">
-      {/* Subtle warm gradient — mirrors K-Hub's clean off-white bg */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(0,108,81,0.05)_0%,transparent_60%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_80%,rgba(28,28,25,0.02)_0%,transparent_50%)]" />
-
-      <div className="page-container w-full relative z-10">
-        <div className="max-w-3xl">
-          {/* Page title */}
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="font-display text-[clamp(2.8rem,8vw,6rem)] font-bold tracking-tight text-on-surface leading-none mb-4 sm:mb-6"
-          >
-            Achievements
-          </motion.h1>
-
-          {/* Divider */}
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="origin-left h-px w-16 sm:w-24 bg-primary mb-6 sm:mb-10"
+    <section className="bg-surface pt-32 pb-16">
+      <div className="page-container">
+        <motion.div
+          variants={sectionIntro}
+          initial="hidden"
+          animate="show"
+          className="relative overflow-hidden rounded-[28px] border border-outline-variant/70 bg-surface-container-lowest p-8 md:p-12 shadow-[0_22px_60px_rgba(20,20,18,0.1)]"
+        >
+          <div
+            aria-hidden
+            className="absolute -top-24 -right-16 h-56 w-56 rounded-full blur-3xl opacity-40"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(var(--color-primary-rgb),0.42) 0%, rgba(var(--color-primary-rgb),0) 72%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute -bottom-20 -left-20 h-56 w-56 rounded-full blur-3xl opacity-35"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(var(--color-primary-container-rgb),0.42) 0%, rgba(var(--color-primary-container-rgb),0) 72%)",
+            }}
           />
 
-          {/* K-Hub-style small green uppercase label */}
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[0.72rem] font-body font-semibold tracking-[0.18em] uppercase text-primary mb-6"
+            variants={sectionIntro}
+            className="relative z-10 text-[0.74rem] font-semibold tracking-[0.16em] uppercase text-primary mb-4"
           >
-            Deep-Tech Innovation Hub
+            Our Achievements
           </motion.p>
-
-          {/* Subheading — demoted from h1 to h2 since Achievements is now the h1 */}
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="font-display text-[clamp(1.6rem,4vw,3rem)] font-bold tracking-tight text-on-surface leading-[1.1] mb-6"
+          <motion.h1
+            variants={sectionIntro}
+            className="relative z-10 font-display text-[clamp(2rem,5vw,3.7rem)] leading-[1.04] tracking-tight max-w-4xl"
           >
-            Celebrating Our{" "}
-            <br />
-            Milestones
-          </motion.h2>
-
-          {/* Body text */}
+            Celebrating Our Milestones & Applied Research Impact
+          </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="text-base md:text-xl text-on-surface-variant leading-relaxed max-w-xl mb-10 font-light"
+            variants={sectionIntro}
+            className="relative z-10 mt-6 max-w-3xl text-[0.97rem] leading-relaxed text-on-surface-variant"
           >
             K-Hub is the deep-tech incubator of KMIT Group of Institutions,
             empowering students to work on cutting-edge applied research in
-            drug discovery, cybersecurity, robotics, and beyond.
+            drug discovery, cybersecurity, robotics, and beyond. This portal
+            documents our journey and the tangible outcomes of our focus paradigms.
           </motion.p>
-
-          {/* Buttons removed as per user request */}
-        </div>
+          <motion.div variants={sectionIntro} className="relative z-10 mt-9 flex flex-wrap gap-3">
+            <Link
+              href="/contact"
+              className="px-5 py-3 rounded-xl bg-primary text-surface-container-lowest text-sm font-semibold tracking-tight hover:opacity-90 transition"
+            >
+              Connect With K-Hub
+            </Link>
+            <Link
+              href="/"
+              className="px-5 py-3 rounded-xl border border-outline-variant/70 bg-surface text-sm font-semibold text-on-surface-variant hover:text-primary transition"
+            >
+              Back to Home
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
-
-      {/* Subtle bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-surface to-transparent" />
     </section>
   );
 }

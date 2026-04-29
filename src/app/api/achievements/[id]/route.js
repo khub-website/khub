@@ -19,9 +19,7 @@ const paradigmsData = {
       },
     ],
     photos: [
-      { src: "https://picsum.photos/seed/drug-1/1200/600", alt: "Molecular simulation" },
-      { src: "https://picsum.photos/seed/drug-2/600/400", alt: "Lab automation" },
-      { src: "https://picsum.photos/seed/drug-3/600/400", alt: "Protein structure" },
+      { src: "/achievements/drug-hero.jpg", alt: "Molecular simulation" },
     ],
   },
   "robo-paradigm": {
@@ -42,9 +40,7 @@ const paradigmsData = {
       },
     ],
     photos: [
-      { src: "https://picsum.photos/seed/robo-1/1200/600", alt: "Humanoid robot" },
-      { src: "https://picsum.photos/seed/robo-2/600/400", alt: "Robotic assembly" },
-      { src: "https://picsum.photos/seed/robo-3/600/400", alt: "Spatial mapping" },
+      { src: "/achievements/robo-hero.jpg", alt: "Humanoid robot" },
     ],
   },
   "cyber-paradigm": {
@@ -65,9 +61,7 @@ const paradigmsData = {
       },
     ],
     photos: [
-      { src: "https://picsum.photos/seed/cyber-1/1200/600", alt: "Security dashboard" },
-      { src: "https://picsum.photos/seed/cyber-2/600/400", alt: "Network nodes" },
-      { src: "https://picsum.photos/seed/cyber-3/600/400", alt: "Encrypted data" },
+      { src: "/achievements/cyber-hero.jpg", alt: "Security dashboard" },
     ],
   },
   "neuro-paradigm": {
@@ -88,9 +82,7 @@ const paradigmsData = {
       },
     ],
     photos: [
-      { src: "https://picsum.photos/seed/neuro-1/1200/600", alt: "Neural interface" },
-      { src: "https://picsum.photos/seed/neuro-2/600/400", alt: "Brain mapping" },
-      { src: "https://picsum.photos/seed/neuro-3/600/400", alt: "Synaptic electronics" },
+      { src: "/achievements/neuro-hero.jpg", alt: "Neural interface" },
     ],
   },
   "crystal-paradigm": {
@@ -110,9 +102,7 @@ const paradigmsData = {
       },
     ],
     photos: [
-      { src: "https://picsum.photos/seed/crystal-1/1200/600", alt: "Crystal lattice" },
-      { src: "https://picsum.photos/seed/crystal-2/600/400", alt: "Material analysis" },
-      { src: "https://picsum.photos/seed/crystal-3/600/400", alt: "Quantum structure" },
+      { src: "/achievements/crystal-hero.jpg", alt: "Crystal lattice" },
     ],
   },
   "nutra-paradigm": {
@@ -133,9 +123,7 @@ const paradigmsData = {
       },
     ],
     photos: [
-      { src: "https://picsum.photos/seed/nutra-1/1200/600", alt: "Bio-data visualization" },
-      { src: "https://picsum.photos/seed/nutra-2/600/400", alt: "Healthy ingredients" },
-      { src: "https://picsum.photos/seed/nutra-3/600/400", alt: "Lab diagnostics" },
+      { src: "/achievements/nutra-hero.jpg", alt: "Bio-data visualization" },
     ],
   },
 };
@@ -175,15 +163,17 @@ export async function GET(request, { params }) {
     return NextResponse.json({ message: "Paradigm not found" }, { status: 404 });
   }
 
-  const result = { ...data };
+  const result = { ...data, isScraped: false };
 
   if (id === "drug-paradigm") {
     const dynamicAchievements = await getDynamicDrugAchievements();
     if (dynamicAchievements) {
       result.achievements = dynamicAchievements;
+      result.isScraped = true;
     }
     result.siteUrl = "https://drugparadigm.com/";
   } else {
+    // Other paradigms don't have scrapers yet, so they remain isScraped: false
     result.siteUrl = `https://k-hub.org/paradigms/${id}`;
   }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import { AnimatePresence, motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
@@ -50,7 +51,7 @@ export function ParadigmSection({ paradigm }) {
     queryFn: () => fetchParadigmScrape(paradigm.id),
   });
 
-  const achievements = scraped?.achievements ?? paradigm.achievements ?? [];
+  const achievements = scraped?.isScraped ? (scraped.achievements ?? []) : [];
   const photos = scraped?.photos ?? paradigm.photos ?? [];
   const hero = photos[0];
 
@@ -76,11 +77,12 @@ export function ParadigmSection({ paradigm }) {
         {isLoading ? (
           <Skeleton className="absolute inset-0 w-full h-full" />
         ) : hero ? (
-          <img
+          <Image
             src={hero.src}
             alt={hero.alt}
-            className="absolute inset-0 w-full h-full object-cover"
-            loading="lazy"
+            fill
+            className="object-cover"
+            priority={paradigm.id === "drug-paradigm"}
           />
         ) : (
           <div className="absolute inset-0 bg-primary/5" />
@@ -172,7 +174,7 @@ export function ParadigmSection({ paradigm }) {
                     <Skeleton className="flex-1 h-24 rounded-2xl" />
                   </div>
                 ))
-              ) : achievements.length > 0 ? (
+              ) : (scraped?.isScraped && achievements.length > 0) ? (
                 achievements.map((a, i) => {
                   const key = `${paradigm.id}-${i}`;
                   const showHoverPreview = hoveredAchievementKey === key;
@@ -269,7 +271,20 @@ export function ParadigmSection({ paradigm }) {
                   );
                 })
               ) : (
-                <p className="text-xs text-on-surface-variant ml-14 sm:ml-16 italic font-light">No achievements found.</p>
+                <div 
+                  className="ml-14 sm:ml-16 p-6 rounded-2xl border border-dashed border-on-surface/10 bg-on-surface/[0.02] flex flex-col items-center justify-center text-center group"
+                >
+                  <div 
+                    className="w-12 h-12 rounded-full mb-4 flex items-center justify-center opacity-20 group-hover:opacity-40 transition-opacity"
+                    style={{ backgroundColor: paradigm.color }}
+                  >
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <p className="text-sm font-semibold text-on-surface/60 mb-1">Coming Soon</p>
+                  <p className="text-xs text-on-surface-variant max-w-[240px] leading-relaxed">
+                    Achievements and live data for {paradigm.name} are currently being aggregated.
+                  </p>
+                </div>
               )}
             </div>
           </div>
