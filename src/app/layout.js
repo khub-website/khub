@@ -2,6 +2,13 @@ import "./globals.css";
 import ScrollResetOnReload from "@/components/ScrollResetOnReload";
 import Providers from "@/components/Providers";
 import { ElectricPointer } from "@/components/ElectricPointer";
+import { Caveat } from "next/font/google";
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
+  display: "swap",
+});
 
 export const metadata = {
   title: "K-Hub | Deep-Tech Innovation",
@@ -19,7 +26,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="theme-1" className="h-full antialiased smooth-scroll">
+    <html lang="en" data-theme="theme-1" className={`h-full antialiased smooth-scroll ${caveat.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning className="min-h-full flex flex-col font-body tracking-tight">
         <ScrollResetOnReload />
         <Providers>
