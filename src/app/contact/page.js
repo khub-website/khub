@@ -106,18 +106,12 @@ export default function ContactPage() {
           className="pointer-events-none absolute left-1/2 top-24 h-24 w-[70%] -translate-x-1/2 rounded-[999px] bg-[linear-gradient(90deg,transparent,rgba(var(--color-primary-rgb),0.2),transparent)]"
         />
         <div className="relative w-full page-container">
-          <header className="mb-8 sm:mb-10 md:mb-14 max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-lowest px-4 py-2 text-[0.72rem] font-semibold tracking-[0.2em] uppercase text-primary">
-              Studio Line
-              <span className="text-on-surface-variant">Open for ideas</span>
-            </div>
-            <h1 className="font-display mt-5 text-[clamp(2.1rem,5.6vw,4rem)] font-medium tracking-tight text-on-surface leading-[0.98]">
-              Let&apos;s sketch the next
-              <span className="block italic text-on-surface-variant">deep-tech story</span>
+          <header className="mb-8 sm:mb-10 md:mb-14 max-w-2xl text-left">
+            <h1 className="font-display text-[clamp(1.6rem,4.2vw,3rem)] font-medium tracking-tight text-on-surface leading-[1.02]">
+              Contact Us
             </h1>
-            <p className="mt-4 text-[0.95rem] sm:text-[1rem] leading-relaxed text-on-surface-variant max-w-xl">
-              Drop a note, request a visit, or share a bold idea. We&apos;ll reply with the
-              right mentor, team, or pathway.
+            <p className="mt-3 text-[0.88rem] sm:text-[0.95rem] leading-relaxed text-on-surface-variant max-w-md">
+              Send a note. We&apos;ll reply soon.
             </p>
           </header>
 
@@ -282,9 +276,7 @@ export default function ContactPage() {
                 allowFullScreen
               />
               <span className="absolute inset-0" aria-hidden="true" />
-              <span className="absolute left-3 top-3 rounded-full border border-white/70 bg-white/90 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-primary shadow-sm">
-                Map print
-              </span>
+              
               <span className="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-surface/95 backdrop-blur text-[0.72rem] font-semibold text-primary border border-primary/20 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                 Open in Google Maps ↗
               </span>
