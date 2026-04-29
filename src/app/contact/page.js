@@ -93,20 +93,38 @@ export default function ContactPage() {
               "radial-gradient(ellipse 80% 70% at 50% 40%, black 40%, transparent 90%)",
           }}
         />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-32 left-[-10%] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(var(--color-primary-rgb),0.25)_0%,rgba(var(--color-primary-rgb),0.08)_40%,transparent_70%)] blur-2xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute bottom-[-14%] right-[-8%] h-[520px] w-[520px] rounded-full bg-[conic-gradient(from_120deg,rgba(var(--color-primary-container-rgb),0.25),transparent_45%,rgba(var(--color-primary-rgb),0.18))] blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-24 h-24 w-[70%] -translate-x-1/2 rounded-[999px] bg-[linear-gradient(90deg,transparent,rgba(var(--color-primary-rgb),0.2),transparent)]"
+        />
         <div className="relative w-full page-container">
-          <header className="text-center mb-8 sm:mb-10 md:mb-14">
-            <h1 className="font-display text-[clamp(1.6rem,6vw,2.75rem)] font-bold tracking-tight text-on-surface">
-              Contact Us
+          <header className="mb-8 sm:mb-10 md:mb-14 max-w-3xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-lowest px-4 py-2 text-[0.72rem] font-semibold tracking-[0.2em] uppercase text-primary">
+              Studio Line
+              <span className="text-on-surface-variant">Open for ideas</span>
+            </div>
+            <h1 className="font-display mt-5 text-[clamp(2.1rem,5.6vw,4rem)] font-medium tracking-tight text-on-surface leading-[0.98]">
+              Let&apos;s sketch the next
+              <span className="block italic text-on-surface-variant">deep-tech story</span>
             </h1>
-            <p className="mt-3 text-[0.88rem] sm:text-[0.95rem] leading-relaxed text-on-surface-variant max-w-md sm:max-w-xl mx-auto">
-              We&apos;d love to hear from you. Send us a message or find us on the map.
+            <p className="mt-4 text-[0.95rem] sm:text-[1rem] leading-relaxed text-on-surface-variant max-w-xl">
+              Drop a note, request a visit, or share a bold idea. We&apos;ll reply with the
+              right mentor, team, or pathway.
             </p>
           </header>
 
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 items-start">
             <form
               onSubmit={handleSubmit}
-              className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 sm:p-7 md:p-8"
+              className="bg-surface-container-lowest/90 border border-outline-variant rounded-2xl p-5 sm:p-7 md:p-8 shadow-[0_24px_60px_rgba(15,22,20,0.08)] backdrop-blur"
               noValidate
             >
               <div className="grid sm:grid-cols-2 gap-4">
@@ -253,7 +271,7 @@ export default function ContactPage() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Open Teleparadigm Towers in Google Maps"
-              className="group relative block rounded-2xl overflow-hidden border border-outline-variant bg-surface-container-lowest"
+              className="group relative block rounded-2xl overflow-hidden border border-outline-variant bg-surface-container-lowest shadow-[0_18px_48px_rgba(15,22,20,0.08)]"
             >
               <iframe
                 title="Office location — Teleparadigm Towers"
@@ -264,6 +282,9 @@ export default function ContactPage() {
                 allowFullScreen
               />
               <span className="absolute inset-0" aria-hidden="true" />
+              <span className="absolute left-3 top-3 rounded-full border border-white/70 bg-white/90 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-primary shadow-sm">
+                Map print
+              </span>
               <span className="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-surface/95 backdrop-blur text-[0.72rem] font-semibold text-primary border border-primary/20 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                 Open in Google Maps ↗
               </span>

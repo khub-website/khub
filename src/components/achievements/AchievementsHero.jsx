@@ -8,7 +8,7 @@ export function AchievementsHero() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(0,108,81,0.05)_0%,transparent_60%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_80%,rgba(28,28,25,0.02)_0%,transparent_50%)]" />
 
-      <div className="page-container relative z-10">
+      <div className="page-container w-full relative z-10">
         <div className="max-w-3xl">
           {/* Page title */}
           <motion.h1
