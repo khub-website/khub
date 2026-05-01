@@ -1,7 +1,6 @@
 import { useRouter } from "next/navigation";
 import { AchievementsHero } from "./AchievementsHero";
 import { ParadigmSection } from "./ParadigmSection";
-import { PearlNav } from "./PearlNav";
 import { paradigms } from "./ParadigmData";
 
 export function AchievementsPage() {
@@ -52,7 +51,6 @@ export function AchievementsPage() {
         </div>
       </footer>
 
-      <PearlNav />
     </main>
   );
 }
