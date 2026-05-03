@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
-import OrbitRing from "./OrbitRing";
+import { useEffect, useMemo, useState } from "react";
 
 const CYCLING_WORDS = [
     "Deep Tech",
@@ -19,19 +19,38 @@ const THEMES = ["theme-1", "theme-3", "theme-4", "theme-7", "theme-8"];
 const WORD_SWITCH_MS = 2200;
 const WORD_TRANSITION_SECONDS = 0.4;
 
-const container = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.12, delayChildren: 0.3 } },
-};
+const HERO_SLIDES = [
+    {
+        title: "K-Hub Deep-Tech Innovation Hub",
+        tag: "Student-led applied research, built on campus.",
+        image: "/achievements/drug-hero.jpg",
+    },
+    {
+        title: "Research and Innovation at Scale",
+        tag: "From idea to experiments, fast and rigorous.",
+        image: "/achievements/cyber-hero.jpg",
+    },
+    {
+        title: "Student Venture Studio Momentum",
+        tag: "Engineering founders through execution.",
+        image: "/achievements/robo-hero.jpg",
+    },
+    {
+        title: "One Campus, Multiple Paradigms",
+        tag: "A connected ecosystem for deep-tech progress.",
+        image: "/achievements/crystal-hero.jpg",
+    },
+];
 
-const fadeUp = {
-    hidden: { opacity: 0, y: 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
-};
+const SLIDE_SWITCH_MS = 6000;
 
 export default function Hero() {
     const [wordIndex, setWordIndex] = useState(0);
     const [themeIndex, setThemeIndex] = useState(0);
+    const [slideIndex, setSlideIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+
+    const activeSlide = useMemo(() => HERO_SLIDES[slideIndex], [slideIndex]);
 
     useEffect(() => {
         const saved = window.localStorage.getItem("khub-theme-index");
@@ -51,6 +70,14 @@ export default function Hero() {
     }, []);
 
     useEffect(() => {
+        if (isPaused) return;
+        const interval = setInterval(() => {
+            setSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
+        }, SLIDE_SWITCH_MS);
+        return () => clearInterval(interval);
+    }, [isPaused]);
+
+    useEffect(() => {
         const theme = THEMES[themeIndex];
         document.documentElement.setAttribute("data-theme", theme);
         window.localStorage.setItem("khub-theme-index", String(themeIndex));
@@ -65,42 +92,51 @@ export default function Hero() {
         setThemeIndex((prev) => (prev + 1) % THEMES.length);
     };
 
-    return (
-        <section className="relative min-h-[100dvh] flex items-center overflow-hidden pt-16">
-            <div className="absolute top-24 right-[5%] w-80 h-80 bg-primary/[0.05] rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-20 left-[4%] w-72 h-72 bg-primary/[0.04] rounded-full blur-3xl pointer-events-none" />
+    const goToSlide = (nextIndex) => {
+        const safeIndex = (nextIndex + HERO_SLIDES.length) % HERO_SLIDES.length;
+        setSlideIndex(safeIndex);
+    };
 
-            <div className="relative z-10 w-full page-container flex flex-col lg:flex-row items-center gap-8 lg:gap-4">
+    return (
+        <section
+            className="relative h-[100dvh] w-[100vw] overflow-hidden pt-16"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+        >
+            <AnimatePresence mode="wait">
                 <motion.div
-                    variants={container}
-                    initial="hidden"
-                    animate="show"
-                    className="flex-1 flex flex-col items-start text-left max-w-lg"
+                    key={activeSlide.image}
+                    initial={{ opacity: 0.2, scale: 1.02 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0.2 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute inset-0"
                 >
+                    <Image src={activeSlide.image} alt={activeSlide.title} fill priority sizes="100vw" className="object-cover object-center" />
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.72)_40%,rgba(0,0,0,0.35)_100%)]" />
+                </motion.div>
+            </AnimatePresence>
+
+            <div className="relative z-10 h-full w-full page-container flex items-center">
+                <div className="max-w-2xl text-white">
                     <motion.button
-                        variants={fadeUp}
                         onClick={cycleTheme}
-                        className="mb-5 h-8 px-3 rounded-full border border-primary/30 bg-surface-container-low text-primary text-[0.65rem] font-semibold tracking-[0.12em] uppercase hover:bg-surface-container-lowest transition-all duration-300"
+                        className="mb-5 h-8 px-3 rounded-full border border-white/35 bg-white/10 text-white text-[0.65rem] font-semibold tracking-[0.12em] uppercase hover:bg-white/20 transition-all duration-300"
                         aria-label="Switch website theme"
                     >
                         {`Theme-${themeIndex + 1}`}
                     </motion.button>
 
-                    <motion.p
-                        variants={fadeUp}
-                        className="text-[0.72rem] font-body font-semibold tracking-[0.18em] uppercase text-primary mb-5"
-                    >
+                    <p className="text-[0.72rem] font-body font-semibold tracking-[0.18em] uppercase text-white/80 mb-5">
                         Deep-Tech Innovation Hub
-                    </motion.p>
+                    </p>
 
-                    <motion.h1
-                        variants={fadeUp}
-                        className="font-display font-bold tracking-tight text-on-surface mb-6"
+                    <h1
+                        className="font-display font-bold tracking-tight text-white mb-3"
                         style={{ fontSize: "clamp(2rem, 3.8vw, 3.4rem)", lineHeight: 1.12 }}
                     >
-                        <span className="block">Building the Future</span>
-                        <span className="block">Through</span>
-                        <span className="block overflow-hidden" style={{ height: "1.12em", position: "relative" }}>
+                        <span className="block">Building the Future Through</span>
+                        <span className="block overflow-hidden h-[1.12em] relative">
                             <AnimatePresence mode="wait">
                                 <motion.span
                                     key={wordIndex}
@@ -115,18 +151,12 @@ export default function Hero() {
                                 </motion.span>
                             </AnimatePresence>
                         </span>
-                    </motion.h1>
+                    </h1>
+                    <p className="text-base md:text-lg text-white/80 leading-relaxed mb-9 font-light">
+                        {activeSlide.tag}
+                    </p>
 
-                    <motion.p
-                        variants={fadeUp}
-                        className="text-base md:text-lg text-on-surface-variant leading-relaxed mb-9 font-light"
-                    >
-                        K-Hub is the deep-tech incubator of KMIT Group of Institutions,
-                        empowering students to work on cutting-edge applied research in drug
-                        discovery, cybersecurity, robotics, and beyond.
-                    </motion.p>
-
-                    <motion.div variants={fadeUp} className="flex items-center gap-5 flex-wrap">
+                    <div className="flex items-center gap-5 flex-wrap">
                         <button
                             onClick={() => scrollTo("#domains")}
                             className="px-8 py-3.5 text-surface text-sm font-semibold tracking-tight rounded-lg bg-[var(--hero-cta-from)] hover:brightness-95 hover:shadow-[0_20px_40px_rgba(var(--color-primary-rgb),0.24)] transition-all duration-300"
@@ -139,13 +169,37 @@ export default function Hero() {
                         >
                             Learn More
                         </button>
-                    </motion.div>
-                </motion.div>
-
-                <div className="flex-[1.3] flex items-center justify-center lg:justify-end lg:pr-0">
-                    <OrbitRing />
+                    </div>
                 </div>
             </div>
+
+            <button
+                onClick={() => goToSlide(slideIndex - 1)}
+                aria-label="Previous slide"
+                className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 h-11 w-11 md:h-12 md:w-12 rounded-full bg-black/30 text-white text-2xl leading-none hover:bg-black/45 transition-colors"
+            >
+                &#8249;
+            </button>
+            <button
+                onClick={() => goToSlide(slideIndex + 1)}
+                aria-label="Next slide"
+                className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 h-11 w-11 md:h-12 md:w-12 rounded-full bg-black/30 text-white text-2xl leading-none hover:bg-black/45 transition-colors"
+            >
+                &#8250;
+            </button>
+
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+                {HERO_SLIDES.map((slide, index) => (
+                    <button
+                        key={slide.title}
+                        type="button"
+                        aria-label={`Go to slide ${index + 1}`}
+                        onClick={() => goToSlide(index)}
+                        className={`h-3 w-3 rounded-full transition-all ${slideIndex === index ? "bg-white" : "bg-white/40 hover:bg-white/65"}`}
+                    />
+                ))}
+            </div>
+
         </section>
     );
 }

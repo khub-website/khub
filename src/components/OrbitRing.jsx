@@ -16,7 +16,7 @@ const logos = [
 const NORMAL_DURATION = 28;
 const SLOW_DURATION = 120;
 
-export default function OrbitRing() {
+export default function OrbitRing({ onNodeSelect, activeIndex = null, suppressNavigation = false, sizeMultiplier = 1 }) {
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [isOrbitHovered, setIsOrbitHovered] = useState(false);
     const [viewportWidth, setViewportWidth] = useState(1200);
@@ -47,26 +47,27 @@ export default function OrbitRing() {
         tooltipOffset,
     } = useMemo(() => {
         const isMobile = viewportWidth < 640;
-        const safeWidth = isMobile ? Math.max(280, Math.min(viewportWidth - 32, 370)) : 740;
-        const calcLogoSize = isMobile ? (viewportWidth < 360 ? 64 : 78) : 132;
-        const calcPadding = isMobile ? 8 : 48;
+        const safeWidthBase = isMobile ? Math.max(280, Math.min(viewportWidth - 32, 370)) : 740;
+        const safeWidth = safeWidthBase * sizeMultiplier;
+        const calcLogoSize = (isMobile ? (viewportWidth < 360 ? 64 : 78) : 132) * sizeMultiplier;
+        const calcPadding = (isMobile ? 8 : 48) * sizeMultiplier;
         const calcRadius = isMobile
             ? Math.max(100, (safeWidth - calcLogoSize - calcPadding) / 2.2)
             : Math.max(120, (safeWidth - calcLogoSize - calcPadding) / 2.5);
-        const calcCenterSize = isMobile ? 86 : 116;
-        const calcCenterLogoSize = isMobile ? 62 : 86;
+        const calcCenterSize = (isMobile ? 86 : 116) * sizeMultiplier;
+        const calcCenterLogoSize = (isMobile ? 62 : 86) * sizeMultiplier;
 
         return {
             radius: calcRadius,
             logoSize: calcLogoSize,
             centerSize: calcCenterSize,
             centerLogoSize: calcCenterLogoSize,
-            outerRingInset: isMobile ? 32 : 64,
+            outerRingInset: (isMobile ? 32 : 64) * sizeMultiplier,
             containerSize: Math.min(viewportWidth - 16, calcRadius * 2 + calcLogoSize + calcPadding),
-            hoverScale: isMobile ? 1.15 : 1.28,
+            hoverScale: isMobile ? 1.06 : 1.1,
             tooltipOffset: isMobile ? -32 : -44,
         };
-    }, [viewportWidth]);
+    }, [viewportWidth, sizeMultiplier]);
 
     useAnimationFrame((_, delta) => {
         if (!canAnimate) return;
@@ -171,23 +172,26 @@ export default function OrbitRing() {
                                 onTouchStart={() => setHoveredIndex(i)}
                                 onTouchEnd={() => setHoveredIndex(null)}
                                 onClick={() => {
+                                    if (onNodeSelect) onNodeSelect(i, logo.name);
                                     if (logo.url) {
-                                        window.open(logo.url, "_blank", "noopener,noreferrer");
+                                        if (!suppressNavigation) {
+                                            window.open(logo.url, "_blank", "noopener,noreferrer");
+                                        }
                                     }
                                 }}
                             >
                                 <motion.div
-                                    animate={isHovered ? { scale: hoverScale } : { scale: 1 }}
+                                    animate={isHovered || activeIndex === i ? { scale: hoverScale } : { scale: 1 }}
                                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                     style={{
                                         width: logoSize,
                                         height: logoSize,
                                         borderRadius: "50%",
                                         background: "rgba(255,255,255,0.95)",
-                                        border: isHovered
+                                        border: isHovered || activeIndex === i
                                             ? "2px solid rgba(var(--color-primary-rgb),0.5)"
                                             : "1.5px solid rgba(var(--color-primary-rgb),0.16)",
-                                        boxShadow: isHovered
+                                        boxShadow: isHovered || activeIndex === i
                                             ? "0 8px 40px rgba(var(--color-primary-rgb),0.24), 0 2px 12px rgba(0,0,0,0.1), inset 0 1px 3px rgba(0,0,0,0.1)"
                                             : "0 4px 24px rgba(0,0,0,0.07), inset 0 1px 2px rgba(0,0,0,0.05)",
                                         overflow: "hidden",

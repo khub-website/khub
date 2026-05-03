@@ -3,13 +3,15 @@
 import Image from "next/image";
 import {
     useAnimationFrame,
+    AnimatePresence,
     motion,
     useMotionTemplate,
     useMotionValue,
     useSpring,
     useTransform,
 } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import OrbitRing from "./OrbitRing";
 // Removed old logo imports and switched to public paths in domains array
 
 const domains = [
@@ -36,17 +38,6 @@ const domains = [
         url: "https://cyberparadigm.in/",
     },
     {
-        name: "Roboparadigm",
-        tagline: "Robotics & Lab Automation",
-        description:
-            "Building robotic systems and lab automation for deep-tech verticals.",
-        logo: "/logo-roboparadigm.webp",
-        accent: "204, 137, 63",
-        secondaryAccent: "237, 184, 108",
-        labelColor: "#ed5b00",
-        url: "https://roboparadigm.com/",
-    },
-    {
         name: "Neuroparadigm",
         tagline: "AI-Driven Mental Wellness",
         description:
@@ -56,6 +47,17 @@ const domains = [
         secondaryAccent: "151, 88, 214",
         labelColor: "#d8ad2d",
         url: "https://neuroparadigm.in/",
+    },
+    {
+        name: "Roboparadigm",
+        tagline: "Robotics & Lab Automation",
+        description:
+            "Building robotic systems and lab automation for deep-tech verticals.",
+        logo: "/logo-roboparadigm.webp",
+        accent: "204, 137, 63",
+        secondaryAccent: "237, 184, 108",
+        labelColor: "#ed5b00",
+        url: "https://roboparadigm.com/",
     },
     {
         name: "Neutraparadigm",
@@ -123,11 +125,11 @@ function ParadigmCard({ domain, index }) {
 
         jitterX.set(
             Math.sin((t + seed) * freq) * 1.1 +
-                Math.cos((t + seed * 0.7) * highFreq) * 0.55
+            Math.cos((t + seed * 0.7) * highFreq) * 0.55
         );
         jitterY.set(
             Math.cos((t + seed) * (freq + 2.1)) * 0.95 +
-                Math.sin((t + seed * 0.35) * (highFreq - 3.4)) * 0.45
+            Math.sin((t + seed * 0.35) * (highFreq - 3.4)) * 0.45
         );
         jitterRotateZ.set(Math.sin((t + seed * 0.5) * 15.2) * 0.22);
     });
@@ -199,9 +201,9 @@ function ParadigmCard({ domain, index }) {
             />
             <div className="relative z-10">
                 <div className="mb-6 flex items-center gap-4">
-                    <div 
-                        className="relative h-20 w-20 shrink-0 rounded-full bg-white overflow-hidden" 
-                        style={{ 
+                    <div
+                        className="relative h-20 w-20 shrink-0 rounded-full bg-white overflow-hidden"
+                        style={{
                             boxShadow: "0 10px 24px rgba(18,18,18,0.1), inset 0 1px 3px rgba(0,0,0,0.08)",
                             border: "1px solid rgba(255,255,255,0.65)"
                         }}
@@ -212,9 +214,9 @@ function ParadigmCard({ domain, index }) {
                             fill
                             sizes="80px"
                             className={domain.name.toLowerCase().includes("neutra") ? "object-contain p-1" : "object-cover"}
-                            style={{ 
-                                transform: domain.name.toLowerCase().includes("neutra") ? "none" : 
-                                           (domain.name.toLowerCase().includes("drug") || domain.name.toLowerCase().includes("robo")) ? "scale(1.02)" : "scale(1.12)",
+                            style={{
+                                transform: domain.name.toLowerCase().includes("neutra") ? "none" :
+                                    (domain.name.toLowerCase().includes("drug") || domain.name.toLowerCase().includes("robo")) ? "scale(1.02)" : "scale(1.12)",
                                 filter: "contrast(1.02) brightness(0.98)"
                             }}
                         />
@@ -245,15 +247,45 @@ function ParadigmCard({ domain, index }) {
 }
 
 export default function Domains() {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+    const orbitOrder = ["Drugparadigm", "Cyberparadigm", "Neuroparadigm", "Roboparadigm", "Neutraparadigm", "Crystalparadigm"];
+
+    useEffect(() => {
+        if (isPaused) return;
+        const interval = setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % domains.length);
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [isPaused]);
+
+    const goToDomain = (nextIndex) => {
+        setActiveIndex((nextIndex + domains.length) % domains.length);
+    };
+
+    const handleNodeSelect = (index, nodeName) => {
+        const normalized = (nodeName || "").replace(/\s+/g, "").toLowerCase();
+        const direct = domains.findIndex((domain) => domain.name.toLowerCase() === normalized);
+        if (direct >= 0) {
+            goToDomain(direct);
+            return;
+        }
+        const fallbackName = orbitOrder[index];
+        const fallback = domains.findIndex((domain) => domain.name === fallbackName);
+        if (fallback >= 0) goToDomain(fallback);
+    };
+
+    const activeOrbitIndex = orbitOrder.findIndex((name) => name === domains[activeIndex].name);
+
     return (
-        <section id="domains" className="py-20 md:py-28 bg-surface-container-low">
+        <section id="domains" className="scroll-mt-28 py-16 md:py-22 bg-surface-container-low">
             <div className="page-container">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-60px" }}
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="mb-16 md:mb-20"
+                    className="mb-10 md:mb-14"
                 >
                     <p className="text-[0.75rem] font-body font-semibold tracking-[0.15em] uppercase text-primary mb-6">
                         Paradigms
@@ -265,10 +297,63 @@ export default function Domains() {
                     </h2>
                 </motion.div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 [perspective:1200px]">
-                    {domains.map((domain, i) => (
-                        <ParadigmCard key={domain.name} domain={domain} index={i} />
-                    ))}
+                <div className="grid lg:grid-cols-[40%_60%] gap-8 lg:gap-12 items-center">
+                    <div className="flex items-center justify-center lg:justify-start">
+                        <OrbitRing
+                            onNodeSelect={handleNodeSelect}
+                            activeIndex={activeOrbitIndex}
+                            suppressNavigation
+                            sizeMultiplier={0.8}
+                        />
+                    </div>
+
+                    <div
+                        className="[perspective:1200px] max-w-[720px] w-full lg:justify-self-end"
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
+                    >
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={domains[activeIndex].name}
+                                initial={{ opacity: 0, x: 28 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -28 }}
+                                transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                <ParadigmCard domain={domains[activeIndex]} index={activeIndex} />
+                            </motion.div>
+                        </AnimatePresence>
+
+                        <div className="mt-5 flex items-center justify-center gap-5 md:gap-8">
+                            <button
+                                type="button"
+                                aria-label="Previous domain"
+                                onClick={() => goToDomain(activeIndex - 1)}
+                                className="h-11 w-11 rounded-full bg-primary/15 text-on-surface text-2xl hover:bg-primary/25 transition-colors"
+                            >
+                                &#8249;
+                            </button>
+                            <div className="flex items-center gap-2 min-w-[132px] justify-center">
+                                {domains.map((domain, index) => (
+                                    <button
+                                        key={domain.name}
+                                        type="button"
+                                        aria-label={`Go to ${domain.name}`}
+                                        onClick={() => goToDomain(index)}
+                                        className={`h-3 w-3 rounded-full transition-all ${activeIndex === index ? "bg-primary scale-110" : "bg-primary/35 hover:bg-primary/60"}`}
+                                    />
+                                ))}
+                            </div>
+                            <button
+                                type="button"
+                                aria-label="Next domain"
+                                onClick={() => goToDomain(activeIndex + 1)}
+                                className="h-11 w-11 rounded-full bg-primary/15 text-on-surface text-2xl hover:bg-primary/25 transition-colors"
+                            >
+                                &#8250;
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
