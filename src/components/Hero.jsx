@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const CYCLING_WORDS = [
     "Deep Tech",
@@ -49,17 +49,21 @@ export default function Hero() {
     const [themeIndex, setThemeIndex] = useState(0);
     const [slideIndex, setSlideIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const themeInitializedRef = useRef(false);
 
     const activeSlide = useMemo(() => HERO_SLIDES[slideIndex], [slideIndex]);
 
     useEffect(() => {
         const saved = window.localStorage.getItem("khub-theme-index");
-        if (saved !== null) {
-            const parsed = Number(saved);
-            if (Number.isInteger(parsed) && parsed >= 0 && parsed < THEMES.length) {
+        const parsed = saved === null ? null : Number(saved);
+        const isValid = Number.isInteger(parsed) && parsed >= 0 && parsed < THEMES.length;
+
+        queueMicrotask(() => {
+            if (isValid) {
                 setThemeIndex(parsed);
             }
-        }
+            themeInitializedRef.current = true;
+        });
     }, []);
 
     useEffect(() => {
@@ -80,7 +84,9 @@ export default function Hero() {
     useEffect(() => {
         const theme = THEMES[themeIndex];
         document.documentElement.setAttribute("data-theme", theme);
-        window.localStorage.setItem("khub-theme-index", String(themeIndex));
+        if (themeInitializedRef.current) {
+            window.localStorage.setItem("khub-theme-index", String(themeIndex));
+        }
     }, [themeIndex]);
 
     const scrollTo = (id) => {
@@ -99,7 +105,7 @@ export default function Hero() {
 
     return (
         <section
-            className="relative h-[100dvh] w-[100vw] overflow-hidden pt-16"
+            className="relative h-dvh w-screen overflow-hidden pt-16"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
         >
@@ -159,13 +165,13 @@ export default function Hero() {
                     <div className="flex items-center gap-5 flex-wrap">
                         <button
                             onClick={() => scrollTo("#domains")}
-                            className="px-8 py-3.5 text-surface text-sm font-semibold tracking-tight rounded-lg bg-[var(--hero-cta-from)] hover:brightness-95 hover:shadow-[0_20px_40px_rgba(var(--color-primary-rgb),0.24)] transition-all duration-300"
+                            className="px-8 py-3.5 text-surface text-sm font-semibold tracking-tight rounded-lg bg-(--hero-cta-from) hover:brightness-95 hover:shadow-[0_20px_40px_rgba(var(--color-primary-rgb),0.24)] transition-all duration-300"
                         >
                             Explore Our Work
                         </button>
                         <button
                             onClick={() => scrollTo("#about")}
-                            className="px-8 py-3.5 text-sm font-medium tracking-tight text-[var(--hero-secondary-text)] bg-[var(--hero-secondary-bg)] hover:bg-[var(--hero-secondary-bg-hover)] transition-all duration-300 rounded-lg"
+                            className="px-8 py-3.5 text-sm font-medium tracking-tight text-(--hero-secondary-text) bg-(--hero-secondary-bg) hover:bg-(--hero-secondary-bg-hover) transition-all duration-300 rounded-lg"
                         >
                             Learn More
                         </button>
