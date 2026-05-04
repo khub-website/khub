@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -131,6 +132,47 @@ const paradigmHeads = [
     bio: "Heads materials research and simulation-to-prototype delivery.",
     image: "/logo-crystalparadigm.webp",
     isLogo: true,
+  },
+];
+
+const facilitySlides = [
+  {
+    label: "Deep-Tech Hub",
+    title: "A Deep-Tech Hub",
+    description:
+      "A launchpad for student-led research with real-world outcomes across every K-Hub vertical.",
+    image: null,
+    video: "/about/khub.mp4",
+    poster: "/about/infra_1.jpg",
+    background:
+      "radial-gradient(circle at 18% 24%, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%), linear-gradient(135deg, #bde0fe, #ffafcc)",
+  },
+  {
+    label: "Compute",
+    title: "A100 + H100 GPU Cluster",
+    description:
+      "High-performance compute for model training, simulation, and intensive AI workloads.",
+    image: "/about/gpu_pic.jpg",
+    background:
+      "radial-gradient(circle at 18% 24%, rgba(255,255,255,0.3), rgba(255,255,255,0) 60%), linear-gradient(135deg, #a3b18a, #588157)",
+  },
+  {
+    label: "Infrastructure",
+    title: "In-House Infrastructure",
+    description:
+      "Dedicated labs, fabrication bays, and testing areas designed for rapid iteration.",
+    image: "/about/infra.jpg",
+    background:
+      "radial-gradient(circle at 18% 24%, rgba(255,255,255,0.3), rgba(255,255,255,0) 60%), linear-gradient(135deg, #56cfe1, #4ea8de)",
+  },
+  {
+    label: "Campus Life",
+    title: "TT Table + Cafeteria",
+    description:
+      "Spaces to recharge, connect, and collaborate between sprints.",
+    image: "/about/cafiteria.jpg",
+    background:
+      "radial-gradient(circle at 18% 24%, rgba(255,255,255,0.3), rgba(255,255,255,0) 60%), linear-gradient(135deg, #ffe66d, #ff6b6b)",
   },
 ];
 
@@ -335,6 +377,27 @@ function TeamMarquee({ title, description, people, reduceMotion, duration, loop 
 
 export default function AboutPage() {
   const reduceMotion = useReducedMotion();
+  const [isClient, setIsClient] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const totalSlides = facilitySlides.length;
+  const activeSlideData = facilitySlides[activeSlide];
+  const posterImage = activeSlideData.poster || activeSlideData.image;
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion || activeSlideData.video) {
+      return undefined;
+    }
+
+    const intervalId = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % totalSlides);
+    }, 7000);
+
+    return () => clearInterval(intervalId);
+  }, [activeSlide, activeSlideData.video, reduceMotion, totalSlides]);
 
   const sectionIntro = {
     hidden: { opacity: 0, y: reduceMotion ? 0 : 18 },
@@ -366,55 +429,129 @@ export default function AboutPage() {
             animate="show"
             className="relative overflow-hidden rounded-[28px] border border-outline-variant/70 bg-surface-container-lowest p-8 md:p-12 shadow-[0_22px_60px_rgba(20,20,18,0.1)]"
           >
-            <div
-              aria-hidden
-              className="absolute -top-24 -right-16 h-56 w-56 rounded-full blur-3xl opacity-40"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(var(--color-primary-rgb),0.42) 0%, rgba(var(--color-primary-rgb),0) 72%)",
-              }}
-            />
-            <div
-              aria-hidden
-              className="absolute -bottom-20 -left-20 h-56 w-56 rounded-full blur-3xl opacity-35"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(var(--color-primary-container-rgb),0.42) 0%, rgba(var(--color-primary-container-rgb),0) 72%)",
-              }}
-            />
+            <div className="absolute inset-0">
+              {activeSlideData.video && isClient ? (
+                <video
+                  key={activeSlideData.video}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  autoPlay
+                  muted
+                  playsInline
+                  preload="metadata"
+                  poster={activeSlideData.poster}
+                  onEnded={() =>
+                    setActiveSlide((prev) => (prev + 1) % totalSlides)
+                  }
+                >
+                  <source src={activeSlideData.video} type="video/mp4" />
+                </video>
+              ) : posterImage ? (
+                <Image
+                  src={posterImage}
+                  alt={activeSlideData.title}
+                  fill
+                  sizes="(min-width: 1024px) 70vw, 100vw"
+                  className="object-cover"
+                  priority
+                />
+              ) : (
+                <div
+                  className="absolute inset-0"
+                  style={{ background: facilitySlides[activeSlide].background }}
+                  aria-hidden
+                />
+              )}
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/15"
+                aria-hidden
+              />
+            </div>
 
-            <motion.p
-              variants={sectionIntro}
-              className="relative z-10 text-[0.74rem] font-semibold tracking-[0.16em] uppercase text-primary mb-4"
+            <div
+              className="relative z-10 flex h-full min-h-[420px] flex-col justify-between"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="K-Hub in-house highlights"
             >
-              About Us
-            </motion.p>
-            <motion.h1
-              variants={sectionIntro}
-              className="relative z-10 font-display text-[clamp(2rem,5vw,3.7rem)] leading-[1.04] tracking-tight max-w-4xl"
-            >
-              A Deep-Tech Hub Built to Turn Student Potential into Real Outcomes
-            </motion.h1>
-            <motion.p
-              variants={sectionIntro}
-              className="relative z-10 mt-6 max-w-3xl text-[0.97rem] leading-relaxed text-on-surface-variant"
-            >
-              Replace this section with your final institutional story. The design is structured for evidence-first messaging: flagship outcomes, people involved, and clear pathways from exploration to execution.
-            </motion.p>
-            <motion.div variants={sectionIntro} className="relative z-10 mt-9 flex flex-wrap gap-3">
-              <Link
-                href="/#contact"
-                className="px-5 py-3 rounded-xl bg-primary text-surface-container-lowest text-sm font-semibold tracking-tight hover:opacity-90 transition"
-              >
-                Connect With K-Hub
-              </Link>
-              <Link
-                href="/"
-                className="px-5 py-3 rounded-xl border border-outline-variant/70 bg-surface text-sm font-semibold text-on-surface-variant hover:text-primary transition"
-              >
-                Back to Home
-              </Link>
-            </motion.div>
+              <div className="max-w-3xl">
+                <p className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-surface-container-lowest/80">
+                  About Us
+                </p>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={facilitySlides[activeSlide].title}
+                    initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={reduceMotion ? {} : { opacity: 0, y: -10 }}
+                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                    className="mt-4"
+                  >
+                    <p className="text-xs uppercase tracking-[0.18em] text-surface-container-lowest/70 mb-3">
+                      {facilitySlides[activeSlide].label}
+                    </p>
+                    <h1 className="font-display text-[clamp(2.1rem,5.2vw,3.9rem)] leading-[1.02] text-surface-container-lowest">
+                      {facilitySlides[activeSlide].title}
+                    </h1>
+                    <p className="mt-6 text-[0.98rem] leading-relaxed text-surface-container-lowest/85">
+                      {facilitySlides[activeSlide].description}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    href="/#contact"
+                    className="px-5 py-3 rounded-xl bg-surface-container-lowest text-sm font-semibold tracking-tight text-primary hover:opacity-90 transition"
+                  >
+                    Connect With K-Hub
+                  </Link>
+                  <Link
+                    href="/"
+                    className="px-5 py-3 rounded-xl border border-surface-container-lowest/60 text-sm font-semibold text-surface-container-lowest/90 hover:text-surface-container-lowest transition"
+                  >
+                    Back to Home
+                  </Link>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    className="h-10 w-10 rounded-full border border-surface-container-lowest/60 text-surface-container-lowest hover:bg-surface-container-lowest/15 transition"
+                    onClick={() =>
+                      setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides)
+                    }
+                    aria-label="Previous slide"
+                  >
+                    &lt;
+                  </button>
+                  <div className="flex items-center gap-2">
+                    {facilitySlides.map((_, index) => (
+                      <button
+                        key={`facility-dot-${index}`}
+                        type="button"
+                        className={`h-2.5 w-2.5 rounded-full transition ${
+                          index === activeSlide
+                            ? "bg-surface-container-lowest"
+                            : "bg-surface-container-lowest/40"
+                        }`}
+                        onClick={() => setActiveSlide(index)}
+                        aria-label={`Go to slide ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    className="h-10 w-10 rounded-full border border-surface-container-lowest/60 text-surface-container-lowest hover:bg-surface-container-lowest/15 transition"
+                    onClick={() => setActiveSlide((prev) => (prev + 1) % totalSlides)}
+                    aria-label="Next slide"
+                  >
+                    &gt;
+                  </button>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </section>
 
