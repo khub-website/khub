@@ -62,46 +62,15 @@ export default function Impact() {
                         className="relative"
                     >
                         <div className="absolute -inset-6 bg-primary/10 rounded-[2rem] blur-2xl" aria-hidden />
-                        <article className="relative overflow-hidden rounded-[1.4rem] border border-primary/20 bg-surface-container-lowest shadow-[0_20px_50px_rgba(17,20,30,0.12)] min-h-[560px]">
-                            <div className="absolute left-0 right-0 top-[32%] h-[44%] bg-gradient-to-r from-cyan-300/35 via-pink-300/35 to-orange-300/35 blur-2xl" aria-hidden />
-                            <div className="absolute inset-0" aria-hidden>
-                                {Array.from({ length: 14 }).map((_, i) => (
-                                    <span
-                                        key={i}
-                                        className="absolute top-[24%] w-[2px] bg-primary/20"
-                                        style={{
-                                            left: `${6 + i * 6.5}%`,
-                                            height: `${36 + ((i * 9) % 38)}%`,
-                                        }}
-                                    />
-                                ))}
-                            </div>
-
-                            <div className="relative z-10 p-8 md:p-10">
-                                <div className="mb-8">
-                                    <Image src="/logo-khub.png" alt="K-Hub" width={84} height={32} style={{ width: "auto", height: "auto" }} />
-                                </div>
-
-                                <h3 className="font-display text-[clamp(2rem,5vw,3.5rem)] leading-[0.95] font-bold text-on-surface mb-1">
-                                    PARADIGM
-                                </h3>
-                                <p className="font-display text-[clamp(2rem,5vw,3.5rem)] leading-[0.95] text-on-surface-variant mb-12">
-                                    CHRONICLES
-                                </p>
-
-                                <div className="pt-56 flex items-end justify-between text-on-surface-variant">
-                                    <div>
-                                        <p className="text-xs uppercase tracking-[0.12em] mb-1">Issue - 01</p>
-                                        <p className="font-display text-2xl font-bold text-on-surface leading-none">
-                                            Paradigm Chronicles
-                                        </p>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-xs uppercase tracking-[0.12em] mb-1">Published</p>
-                                        <p className="font-semibold text-on-surface">17 Dec 2025</p>
-                                    </div>
-                                </div>
-                            </div>
+                        <article className="relative overflow-hidden rounded-[1.4rem] border border-primary/20 bg-surface-container-lowest shadow-[0_20px_50px_rgba(17,20,30,0.12)] min-h-[680px] p-6">
+                            <Image
+                                src="/Paradigm_Chronicles_Issue_-_01_Fortnightly_Newsletter_K-Hub_Media_Labs-2.webp"
+                                alt="Paradigm Chronicles Issue 01 newsletter"
+                                fill
+                                sizes="(min-width: 1024px) 48vw, (min-width: 768px) 50vw, 100vw"
+                                className="object-contain"
+                                priority
+                            />
                         </article>
                     </motion.div>
                 </div>
