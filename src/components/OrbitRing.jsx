@@ -16,7 +16,14 @@ const logos = [
 const NORMAL_DURATION = 28;
 const SLOW_DURATION = 120;
 
-export default function OrbitRing({ onNodeSelect, activeIndex = null, suppressNavigation = false, sizeMultiplier = 1 }) {
+export default function OrbitRing({
+    onNodeSelect,
+    onCenterSelect,
+    activeIndex = null,
+    isCenterActive = false,
+    suppressNavigation = false,
+    sizeMultiplier = 1,
+}) {
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [isOrbitHovered, setIsOrbitHovered] = useState(false);
     const [viewportWidth, setViewportWidth] = useState(1200);
@@ -123,18 +130,23 @@ export default function OrbitRing({ onNodeSelect, activeIndex = null, suppressNa
                 transition={{ type: "spring", stiffness: 80, damping: 14, delay: 0.3 }}
                 style={{ position: "absolute", zIndex: 20 }}
             >
-                <motion.div
-                    animate={isOrbitHovered ? { scale: 1.08 } : { scale: 1 }}
+                <motion.button
+                    type="button"
+                    aria-label="Select K-Hub paradigm"
+                    onClick={() => {
+                        if (onCenterSelect) onCenterSelect();
+                    }}
+                    animate={isOrbitHovered || isCenterActive ? { scale: 1.08 } : { scale: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 18 }}
                     style={{
                         width: centerSize,
                         height: centerSize,
                         borderRadius: "50%",
                         background: "rgba(255,255,255,0.97)",
-                        border: isOrbitHovered
-                            ? "2px solid rgba(var(--color-primary-rgb),0.32)"
+                        border: isOrbitHovered || isCenterActive
+                            ? "2px solid rgba(var(--color-primary-rgb),0.5)"
                             : "1.5px solid rgba(var(--color-primary-rgb),0.18)",
-                        boxShadow: isOrbitHovered
+                        boxShadow: isOrbitHovered || isCenterActive
                             ? "0 8px 40px rgba(var(--color-primary-rgb),0.2), 0 2px 12px rgba(0,0,0,0.09)"
                             : "0 6px 32px rgba(0,0,0,0.09), 0 1.5px 6px rgba(var(--color-primary-rgb),0.12)",
                         display: "flex",
@@ -143,10 +155,11 @@ export default function OrbitRing({ onNodeSelect, activeIndex = null, suppressNa
                         backdropFilter: "blur(8px)",
                         transition: "border 0.3s ease, box-shadow 0.3s ease",
                         overflow: "hidden",
+                        cursor: "pointer",
                     }}
                 >
                     <Image src="/logo-khub.png" alt="K-Hub" width={centerLogoSize} height={centerLogoSize} priority style={{ objectFit: "contain" }} />
-                </motion.div>
+                </motion.button>
             </motion.div>
 
             <motion.div style={{ position: "absolute", width: radius * 2, height: radius * 2, rotate: orbitAngle }}>

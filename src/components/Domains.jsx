@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import {
-    useAnimationFrame,
     AnimatePresence,
     motion,
+    useAnimationFrame,
     useMotionTemplate,
     useMotionValue,
     useSpring,
@@ -12,9 +12,22 @@ import {
 } from "framer-motion";
 import { useEffect, useState } from "react";
 import OrbitRing from "./OrbitRing";
-// Removed old logo imports and switched to public paths in domains array
 
 const domains = [
+    {
+        name: "K-Hub",
+        tagline: "Deep-Tech Innovation Hub",
+        description:
+            "The student-led deep-tech incubator and venture studio of KMIT Group of Institutions - accelerating research across drug, cyber, neuro, robo, nutra, and crystal domains.",
+        logo: "/logo-khub.png",
+        accent: "237, 91, 0",
+        secondaryAccent: "27, 126, 135",
+        labelColor: "#ed5b00",
+        gradientFrom: "#ed5b00",
+        gradientTo: "#1b7e87",
+        corner: "khub",
+        url: null,
+    },
     {
         name: "Drugparadigm",
         tagline: "AI-Driven Drug Discovery",
@@ -22,8 +35,11 @@ const domains = [
             "Using generative models to design new molecules and accelerate pharmaceutical research.",
         logo: "/logo-drugparadigm.webp",
         accent: "117, 78, 173",
-        secondaryAccent: "224, 168, 255",
+        secondaryAccent: "120, 163, 255",
         labelColor: "#ed5b00",
+        gradientFrom: "#6f3ca6",
+        gradientTo: "#2d7dca",
+        corner: "drug",
         url: "https://drugparadigm.com/",
     },
     {
@@ -32,9 +48,12 @@ const domains = [
         description:
             'Hands-on cybersecurity challenges through "Let Us Hack" - a dedicated training platform.',
         logo: "/logo-cyberparadigm.webp",
-        accent: "87, 201, 70",
-        secondaryAccent: "151, 230, 112",
+        accent: "23, 194, 89",
+        secondaryAccent: "0, 255, 65",
         labelColor: "#ed5b00",
+        gradientFrom: "#05201a",
+        gradientTo: "#0a3b34",
+        corner: "cyber",
         url: "https://cyberparadigm.in/",
     },
     {
@@ -43,9 +62,12 @@ const domains = [
         description:
             "Developing digital therapeutics and AI tools for mental health support.",
         logo: "/logo-neuroparadigm.webp",
-        accent: "228, 194, 72",
+        accent: "236, 126, 64",
         secondaryAccent: "151, 88, 214",
         labelColor: "#d8ad2d",
+        gradientFrom: "#df6b45",
+        gradientTo: "#8d55dc",
+        corner: "neuro",
         url: "https://neuroparadigm.in/",
     },
     {
@@ -54,20 +76,26 @@ const domains = [
         description:
             "Building robotic systems and lab automation for deep-tech verticals.",
         logo: "/logo-roboparadigm.webp",
-        accent: "204, 137, 63",
-        secondaryAccent: "237, 184, 108",
+        accent: "80, 129, 162",
+        secondaryAccent: "142, 195, 237",
         labelColor: "#ed5b00",
+        gradientFrom: "#44627f",
+        gradientTo: "#6a9cd1",
+        corner: "robo",
         url: "https://roboparadigm.com/",
     },
     {
-        name: "Neutraparadigm",
+        name: "Nutraparadigm",
         tagline: "Functional Foods & Supplements",
         description:
             "Researching nutrition science and functional food development.",
         logo: "/logo-neutraparadigm.webp",
-        accent: "34, 114, 61",
-        secondaryAccent: "70, 157, 89",
+        accent: "45, 132, 65",
+        secondaryAccent: "110, 178, 97",
         labelColor: "#207443",
+        gradientFrom: "#2b6c44",
+        gradientTo: "#7cb467",
+        corner: "nutra",
         url: null,
     },
     {
@@ -79,6 +107,9 @@ const domains = [
         accent: "62, 173, 248",
         secondaryAccent: "142, 209, 255",
         labelColor: "#ed5b00",
+        gradientFrom: "#4aa4de",
+        gradientTo: "#8be7ef",
+        corner: "crystal",
         url: "https://crystalparadigm.in/",
     },
 ];
@@ -97,18 +128,18 @@ function ParadigmCard({ domain, index }) {
 
     const rotateX = useSpring(rotateXRaw, { stiffness: 170, damping: 16, mass: 0.35 });
     const rotateY = useSpring(rotateYRaw, { stiffness: 170, damping: 16, mass: 0.35 });
-    const cardScale = useSpring(isHovering ? 1.02 : 1, {
+    const cardScale = useSpring(isHovering ? 1.018 : 1, {
         stiffness: 200,
         damping: 14,
         mass: 0.4,
     });
-    const raiseY = useTransform(cardScale, [1, 1.02], [0, -8]);
+    const raiseY = useTransform(cardScale, [1, 1.018], [0, -6]);
     const cardX = useTransform(() => jitterX.get());
     const cardY = useTransform(() => raiseY.get() + jitterY.get());
     const cardRotateZ = useTransform(() => jitterRotateZ.get());
-    const glow = useMotionTemplate`radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(${domain.accent}, 0.32), rgba(${domain.accent}, 0.12) 26%, rgba(255,255,255,0.04) 56%, rgba(255,255,255,0) 70%)`;
-    const edgeTint = useMotionTemplate`linear-gradient(140deg, rgba(${domain.accent}, 0.45), rgba(255,255,255,0.42))`;
-    const chromaGlow = useMotionTemplate`radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(${domain.secondaryAccent}, 0.22), rgba(${domain.accent}, 0.2) 32%, rgba(${domain.accent}, 0.14) 56%, rgba(255,255,255,0) 78%)`;
+    const glow = useMotionTemplate`radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(${domain.accent}, 0.34), rgba(${domain.accent}, 0.1) 28%, rgba(255,255,255,0.03) 57%, rgba(255,255,255,0) 71%)`;
+    const edgeTint = useMotionTemplate`linear-gradient(140deg, rgba(${domain.accent}, 0.32), rgba(255,255,255,0.46))`;
+    const chromaGlow = useMotionTemplate`radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(${domain.secondaryAccent}, 0.24), rgba(${domain.accent}, 0.18) 34%, rgba(${domain.accent}, 0.1) 58%, rgba(255,255,255,0) 78%)`;
 
     useAnimationFrame((time) => {
         if (!isHovering) {
@@ -156,16 +187,9 @@ function ParadigmCard({ domain, index }) {
 
     return (
         <motion.article
-            initial={{ opacity: 0, y: 44, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-70px" }}
-            transition={{
-                delay: index * 0.08,
-                duration: 0.75,
-                ease: [0.19, 1, 0.22, 1],
-            }}
             onMouseMove={handleMove}
             onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={handleLeave}
             onClick={() => {
                 if (domain.url) {
                     window.open(domain.url, "_blank", "noopener,noreferrer");
@@ -181,31 +205,33 @@ function ParadigmCard({ domain, index }) {
                 transformStyle: "preserve-3d",
                 backgroundImage: glow,
                 cursor: domain.url ? "pointer" : "default",
+                background: `linear-gradient(145deg, ${domain.gradientFrom}1e, ${domain.gradientTo}1f)`,
             }}
             className="group relative overflow-hidden rounded-2xl border border-white/45 bg-white/35 p-7 backdrop-blur-xl shadow-[0_20px_45px_rgba(26,24,20,0.15)] will-change-transform"
         >
             <motion.div
                 aria-hidden
                 style={{ backgroundImage: edgeTint }}
-                className="pointer-events-none absolute inset-0 rounded-2xl opacity-45"
+                className="pointer-events-none absolute inset-0 rounded-2xl opacity-40"
             />
             <motion.div
                 aria-hidden
                 style={{ backgroundImage: chromaGlow }}
-                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-200 group-hover:opacity-100"
             />
             <motion.div
                 aria-hidden
                 style={{ x: jitterOverlayX, y: jitterOverlayY }}
-                className="pointer-events-none absolute inset-0 rounded-2xl border border-white/25 mix-blend-screen opacity-0 transition-opacity duration-150 group-hover:opacity-70"
+                className="pointer-events-none absolute inset-0 rounded-2xl border border-white/25 mix-blend-screen opacity-0 transition-opacity duration-200 group-hover:opacity-70"
             />
+
             <div className="relative z-10">
                 <div className="mb-6 flex items-center gap-4">
                     <div
-                        className="relative h-20 w-20 shrink-0 rounded-full bg-white overflow-hidden"
+                        className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-white"
                         style={{
-                            boxShadow: "0 10px 24px rgba(18,18,18,0.1), inset 0 1px 3px rgba(0,0,0,0.08)",
-                            border: "1px solid rgba(255,255,255,0.65)"
+                            boxShadow: "0 10px 24px rgba(18,18,18,0.12), inset 0 1px 3px rgba(0,0,0,0.08)",
+                            border: "1px solid rgba(255,255,255,0.68)",
                         }}
                     >
                         <Image
@@ -213,35 +239,39 @@ function ParadigmCard({ domain, index }) {
                             alt={`${domain.name} logo`}
                             fill
                             sizes="80px"
-                            className={domain.name.toLowerCase().includes("neutra") ? "object-contain p-1" : "object-cover"}
+                            className={domain.name.toLowerCase().includes("nutra") ? "object-contain p-1" : "object-cover"}
                             style={{
-                                transform: domain.name.toLowerCase().includes("neutra") ? "none" :
-                                    (domain.name.toLowerCase().includes("drug") || domain.name.toLowerCase().includes("robo")) ? "scale(1.02)" : "scale(1.12)",
-                                filter: "contrast(1.02) brightness(0.98)"
+                                transform: domain.name.toLowerCase().includes("nutra")
+                                    ? "none"
+                                    : domain.name === "Drugparadigm" || domain.name === "Roboparadigm"
+                                        ? "scale(1.02)"
+                                        : "scale(1.12)",
+                                filter: "contrast(1.02) brightness(0.98)",
                             }}
                         />
                     </div>
                     <div>
-                        <h3 className="font-display text-[1.15rem] font-bold tracking-tight text-[#2c2019]">
+                        <h3 className="font-display text-[1.22rem] font-bold tracking-tight text-[#2c2019]">
                             {domain.name}
                         </h3>
                         <p className="text-[0.72rem] font-semibold uppercase tracking-[0.12em]" style={{ color: domain.labelColor }}>
                             {domain.tagline}
                         </p>
-                        {!domain.url && (
-                            <span className="mt-1 inline-block px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[0.6rem] font-bold uppercase tracking-wider">
+                        {!domain.url && domain.name !== "K-Hub" && (
+                            <span className="mt-1 inline-block rounded-full bg-primary/10 px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wider text-primary">
                                 Coming Soon
                             </span>
                         )}
                     </div>
                 </div>
 
-                <div className="rounded-xl border border-white/45 bg-white/35 p-5">
-                    <p className="text-sm text-[#8d6654] leading-relaxed font-light">
+                <div className="rounded-xl border border-white/45 bg-white/38 p-5">
+                    <p className="text-sm font-light leading-relaxed text-[#744f3f]">
                         {domain.description}
                     </p>
                 </div>
             </div>
+
         </motion.article>
     );
 }
@@ -249,7 +279,7 @@ function ParadigmCard({ domain, index }) {
 export default function Domains() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
-    const orbitOrder = ["Drugparadigm", "Cyberparadigm", "Neuroparadigm", "Roboparadigm", "Neutraparadigm", "Crystalparadigm"];
+    const orbitOrder = ["Drugparadigm", "Cyberparadigm", "Neuroparadigm", "Roboparadigm", "Nutraparadigm", "Crystalparadigm"];
 
     useEffect(() => {
         if (isPaused) return;
@@ -276,9 +306,10 @@ export default function Domains() {
     };
 
     const activeOrbitIndex = orbitOrder.findIndex((name) => name === domains[activeIndex].name);
+    const isKhubActive = domains[activeIndex].name === "K-Hub";
 
     return (
-        <section id="domains" className="scroll-mt-28 py-16 md:py-22 bg-surface-container-low">
+        <section id="domains" className="scroll-mt-28 bg-surface-container-low py-16 md:py-22">
             <div className="page-container">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -287,28 +318,19 @@ export default function Domains() {
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="mb-10 md:mb-14"
                 >
-                    <p className="text-[0.75rem] font-body font-semibold tracking-[0.15em] uppercase text-primary mb-6">
+                    <p className="mb-6 text-[0.75rem] font-body font-semibold uppercase tracking-[0.15em] text-primary">
                         Paradigms
                     </p>
-                    <h2 className="font-display text-[clamp(1.8rem,4.5vw,3rem)] font-bold leading-[1.1] tracking-tight text-on-surface max-w-2xl">
+                    <h2 className="max-w-2xl font-display text-[clamp(1.8rem,4.5vw,3rem)] font-bold leading-[1.1] tracking-tight text-on-surface">
                         Many Verticals.
                         <br />
                         <span className="text-on-surface-variant">One Mission.</span>
                     </h2>
                 </motion.div>
 
-                <div className="grid lg:grid-cols-[40%_60%] gap-8 lg:gap-12 items-center">
-                    <div className="flex items-center justify-center lg:justify-start">
-                        <OrbitRing
-                            onNodeSelect={handleNodeSelect}
-                            activeIndex={activeOrbitIndex}
-                            suppressNavigation
-                            sizeMultiplier={0.8}
-                        />
-                    </div>
-
+                <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,520px)_1fr] lg:gap-12">
                     <div
-                        className="[perspective:1200px] max-w-[720px] w-full lg:justify-self-end"
+                        className="[perspective:1200px] w-full max-w-[520px]"
                         onMouseEnter={() => setIsPaused(true)}
                         onMouseLeave={() => setIsPaused(false)}
                     >
@@ -329,18 +351,18 @@ export default function Domains() {
                                 type="button"
                                 aria-label="Previous domain"
                                 onClick={() => goToDomain(activeIndex - 1)}
-                                className="h-11 w-11 rounded-full bg-primary/15 text-on-surface text-2xl hover:bg-primary/25 transition-colors"
+                                className="h-11 w-11 rounded-full bg-primary/15 text-2xl text-on-surface transition-colors hover:bg-primary/25"
                             >
                                 &#8249;
                             </button>
-                            <div className="flex items-center gap-2 min-w-[132px] justify-center">
+                            <div className="flex min-w-[132px] items-center justify-center gap-2">
                                 {domains.map((domain, index) => (
                                     <button
                                         key={domain.name}
                                         type="button"
                                         aria-label={`Go to ${domain.name}`}
                                         onClick={() => goToDomain(index)}
-                                        className={`h-3 w-3 rounded-full transition-all ${activeIndex === index ? "bg-primary scale-110" : "bg-primary/35 hover:bg-primary/60"}`}
+                                        className={`h-3 w-3 rounded-full transition-all ${activeIndex === index ? "scale-110 bg-primary" : "bg-primary/35 hover:bg-primary/60"}`}
                                     />
                                 ))}
                             </div>
@@ -348,11 +370,25 @@ export default function Domains() {
                                 type="button"
                                 aria-label="Next domain"
                                 onClick={() => goToDomain(activeIndex + 1)}
-                                className="h-11 w-11 rounded-full bg-primary/15 text-on-surface text-2xl hover:bg-primary/25 transition-colors"
+                                className="h-11 w-11 rounded-full bg-primary/15 text-2xl text-on-surface transition-colors hover:bg-primary/25"
                             >
                                 &#8250;
                             </button>
                         </div>
+                    </div>
+
+                    <div className="flex items-center justify-center lg:justify-end">
+                        <OrbitRing
+                            onNodeSelect={handleNodeSelect}
+                            onCenterSelect={() => {
+                                const khubIndex = domains.findIndex((domain) => domain.name === "K-Hub");
+                                if (khubIndex >= 0) goToDomain(khubIndex);
+                            }}
+                            activeIndex={activeOrbitIndex}
+                            isCenterActive={isKhubActive}
+                            suppressNavigation
+                            sizeMultiplier={0.85}
+                        />
                     </div>
                 </div>
             </div>
