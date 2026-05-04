@@ -21,12 +21,12 @@ const SHORT_NAMES = {
 };
 
 const PARADIGM_LOGOS = {
-  "drug-paradigm": "/logo-drugparadigm.webp",
-  "robo-paradigm": "/logo-roboparadigm.webp",
-  "cyber-paradigm": "/logo-cyberparadigm.webp",
-  "neuro-paradigm": "/logo-neuroparadigm.webp",
-  "crystal-paradigm": "/logo-crystalparadigm.webp",
-  "nutra-paradigm": "/logo-neutraparadigm.webp",
+  "drug-paradigm": "/drugparadigm.png",
+  "robo-paradigm": "/roboparadigm.png",
+  "cyber-paradigm": "/cyberparadigm.webp",
+  "neuro-paradigm": "/neuroparadigm.webp",
+  "crystal-paradigm": "/crystalparadigm.webp",
+  "nutra-paradigm": "/nutraparadigm.jpg",
 };
 
 function useDiscSize() {
@@ -77,7 +77,7 @@ export function PearlNav() {
   const isMobile = DISC_SIZE < 400;
   const ARM_RADIUS = ARM_RADIUS_RATIO * DISC_SIZE;
   const LABEL_RADIUS = LABEL_RADIUS_RATIO * DISC_SIZE;
-  // Desktop: 1.12× bump; Mobile: 1.28× bump for logos
+  // Desktop: 1.12x bump; Mobile: 1.28x bump for logos
   const logoScale = isMobile ? 1.28 : 1.12;
   const LOGO_SIZE = {
     inactive: Math.round(LOGO_SIZE_RATIO.inactive * DISC_SIZE * logoScale),
@@ -402,13 +402,11 @@ export function PearlNav() {
                               borderRadius: "50%",
                               flexShrink: 0,
                               overflow: "hidden",
-                              background: (p.id === "drug-paradigm" || p.id === "nutra-paradigm") 
-                                 ? `radial-gradient(circle at 32% 28%, #fff 0%, #f9f9f9 100%)`
-                                 : `radial-gradient(circle at 32% 28%, #fff 0%, ${p.color} 50%, rgba(0,0,0,0.2) 100%)`,
+                              background: "radial-gradient(circle at 32% 28%, #fff 0%, #f4f7fb 100%)",
                               boxShadow: isActive
-                                ? `0 0 30px ${p.color}, inset -1px -1px 4px rgba(0,0,0,0.2)`
-                                : `0 0 15px ${p.color}66`,
-                              border: `2px solid ${isActive ? "#fff" : "rgba(255,255,255,0.8)"}`,
+                                ? `0 0 18px ${p.color}55, 0 6px 18px rgba(0,0,0,0.24), inset 0 1px 2px rgba(0,0,0,0.08)`
+                                : `0 0 10px ${p.color}3d, 0 5px 12px rgba(0,0,0,0.2)`,
+                              border: `2px solid ${isActive ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.88)"}`,
                               transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
                               display: "grid",
                               placeItems: "center",
@@ -425,9 +423,10 @@ export function PearlNav() {
                                   width: "100%",
                                   height: "100%",
                                   objectFit: p.id === "nutra-paradigm" ? "contain" : "cover",
-                                  transform: p.id === "nutra-paradigm" ? "scale(0.86)" : 
-                                             (p.id === "drug-paradigm" || p.id === "robo-paradigm") ? "scale(1.02)" : "scale(1.12)",
+                                  transform: p.id === "nutra-paradigm" ? "scale(1)" : 
+                                             (p.id === "drug-paradigm" || p.id === "robo-paradigm") ? "scale(0.94)" : "scale(1.12)",
                                   filter: "contrast(1.02) brightness(0.98)",
+                                  backgroundColor: "#fff",
                                 }}
                               />
                             ) : null}
@@ -436,7 +435,7 @@ export function PearlNav() {
                           <span
                             title={SHORT_NAMES[p.id] ?? p.name}
                             style={{
-                              color: isActive ? "var(--color-on-surface)" : "var(--color-on-surface-variant)",
+                              color: isActive ? "#0f2d3a" : "#1a3f4d",
                               fontSize: isActive ? Math.round(DISC_SIZE * 13 / 560 * labelFontScale) : Math.round(DISC_SIZE * 12 / 560 * labelFontScale),
                               fontWeight: isActive ? 850 : 650,
                               fontFamily: "var(--font-display)",
@@ -457,10 +456,10 @@ export function PearlNav() {
                                 : `${Math.round(DISC_SIZE * 3 / 560)}px ${Math.round(DISC_SIZE * 9 / 560)}px`,
                               borderRadius: 999,
                               background: isActive 
-                                  ? "color-mix(in oklab, var(--color-surface-container-low) 78%, var(--color-on-surface) 22%)" 
-                                  : "color-mix(in oklab, var(--color-surface-container-low) 88%, var(--color-on-surface) 12%)",
-                              border: "1px solid color-mix(in oklab, var(--color-surface-container-high) 60%, var(--color-on-surface) 40%)",
-                              boxShadow: isActive ? "0 10px 22px rgba(0,0,0,0.12)" : "0 8px 18px rgba(0,0,0,0.08)",
+                                  ? "rgba(220, 241, 255, 0.95)" 
+                                  : "rgba(233, 247, 255, 0.86)",
+                              border: "1px solid rgba(var(--color-primary-rgb),0.42)",
+                              boxShadow: isActive ? "0 10px 22px rgba(0,0,0,0.2)" : "0 8px 18px rgba(0,0,0,0.16)",
                             }}
                           >
                             {SHORT_NAMES[p.id] ?? p.name}

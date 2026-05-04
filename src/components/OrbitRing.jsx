@@ -5,12 +5,12 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 const logos = [
-    { src: "/logo-drugparadigm.webp", name: "Drug paradigm", url: "https://drugparadigm.com/" },
-    { src: "/logo-cyberparadigm.webp", name: "Cyber paradigm", url: "https://cyberparadigm.in/" },
-    { src: "/logo-neuroparadigm.webp", name: "Neuro paradigm", url: "https://neuroparadigm.in/" },
-    { src: "/logo-roboparadigm.webp", name: "Robo paradigm", url: "https://roboparadigm.com/" },
-    { src: "/logo-neutraparadigm.webp", name: "Nutra paradigm", url: null },
-    { src: "/logo-crystalparadigm.webp", name: "Crystal paradigm", url: "https://crystalparadigm.in/" },
+    { src: "/drugparadigm.png", name: "Drug paradigm", url: "https://drugparadigm.com/" },
+    { src: "/cyberparadigm.webp", name: "Cyber paradigm", url: "https://cyberparadigm.in/" },
+    { src: "/neuroparadigm.webp", name: "Neuro paradigm", url: "https://neuroparadigm.in/" },
+    { src: "/roboparadigm.png", name: "Robo paradigm", url: "https://roboparadigm.com/" },
+    { src: "/nutraparadigm.jpg", name: "Nutra paradigm", url: null },
+    { src: "/crystalparadigm.webp", name: "Crystal paradigm", url: "https://crystalparadigm.in/" },
 ];
 
 const NORMAL_DURATION = 28;
@@ -158,7 +158,20 @@ export default function OrbitRing({
                         cursor: "pointer",
                     }}
                 >
-                    <Image src="/logo-khub.png" alt="K-Hub" width={centerLogoSize} height={centerLogoSize} priority style={{ objectFit: "contain" }} />
+                    <Image
+                        src="/logo-khub.png"
+                        alt="K-Hub"
+                        width={centerLogoSize}
+                        height={centerLogoSize}
+                        priority
+                        style={{
+                            objectFit: "contain",
+                            width: "100%",
+                            height: "100%",
+                            transform: "scale(0.84)",
+                            backgroundColor: "#fff",
+                        }}
+                    />
                 </motion.button>
             </motion.div>
 
@@ -227,9 +240,10 @@ export default function OrbitRing({
                                             objectFit: logo.name === "Nutra paradigm" ? "contain" : "cover",
                                             width: "100%",
                                             height: "100%",
-                                            transform: logo.name === "Nutra paradigm" ? "scale(0.82)" :
-                                                (logo.name === "Drug paradigm" || logo.name === "Robo paradigm") ? "scale(1.02)" : "scale(1.12)",
-                                            filter: "contrast(1.02) brightness(0.98)"
+                                            transform: logo.name === "Nutra paradigm" ? "scale(1)" :
+                                                (logo.name === "Drug paradigm" || logo.name === "Robo paradigm") ? "scale(0.94)" : "scale(1.12)",
+                                            filter: "contrast(1.02) brightness(0.98)",
+                                            backgroundColor: "#fff",
                                         }}
                                     />
                                 </motion.div>

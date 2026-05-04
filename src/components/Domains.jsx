@@ -33,7 +33,7 @@ const domains = [
         tagline: "AI-Driven Drug Discovery",
         description:
             "Using generative models to design new molecules and accelerate pharmaceutical research.",
-        logo: "/logo-drugparadigm.webp",
+        logo: "/drugparadigm.png",
         accent: "117, 78, 173",
         secondaryAccent: "120, 163, 255",
         labelColor: "#ed5b00",
@@ -47,7 +47,7 @@ const domains = [
         tagline: "Cybersecurity Training",
         description:
             'Hands-on cybersecurity challenges through "Let Us Hack" - a dedicated training platform.',
-        logo: "/logo-cyberparadigm.webp",
+        logo: "/cyberparadigm.webp",
         accent: "23, 194, 89",
         secondaryAccent: "0, 255, 65",
         labelColor: "#ed5b00",
@@ -61,7 +61,7 @@ const domains = [
         tagline: "AI-Driven Mental Wellness",
         description:
             "Developing digital therapeutics and AI tools for mental health support.",
-        logo: "/logo-neuroparadigm.webp",
+        logo: "/neuroparadigm.webp",
         accent: "236, 126, 64",
         secondaryAccent: "151, 88, 214",
         labelColor: "#d8ad2d",
@@ -75,7 +75,7 @@ const domains = [
         tagline: "Robotics & Lab Automation",
         description:
             "Building robotic systems and lab automation for deep-tech verticals.",
-        logo: "/logo-roboparadigm.webp",
+        logo: "/roboparadigm.png",
         accent: "80, 129, 162",
         secondaryAccent: "142, 195, 237",
         labelColor: "#ed5b00",
@@ -89,7 +89,7 @@ const domains = [
         tagline: "Functional Foods & Supplements",
         description:
             "Researching nutrition science and functional food development.",
-        logo: "/logo-neutraparadigm.webp",
+        logo: "/nutraparadigm.jpg",
         accent: "45, 132, 65",
         secondaryAccent: "110, 178, 97",
         labelColor: "#207443",
@@ -103,7 +103,7 @@ const domains = [
         tagline: "Materials Science",
         description:
             "Exploring crystallography and advanced materials for next-gen applications.",
-        logo: "/logo-crystalparadigm.webp",
+        logo: "/crystalparadigm.webp",
         accent: "62, 173, 248",
         secondaryAccent: "142, 209, 255",
         labelColor: "#ed5b00",
@@ -239,12 +239,14 @@ function ParadigmCard({ domain, index }) {
                             alt={`${domain.name} logo`}
                             fill
                             sizes="80px"
-                            className={domain.name.toLowerCase().includes("nutra") ? "object-contain p-1" : "object-cover"}
+                            className={domain.name.toLowerCase().includes("nutra") || domain.name === "K-Hub" ? "object-contain p-1.5" : "object-cover"}
                             style={{
                                 transform: domain.name.toLowerCase().includes("nutra")
-                                    ? "none"
+                                    ? "scale(1)"
+                                    : domain.name === "K-Hub"
+                                        ? "scale(0.84)"
                                     : domain.name === "Drugparadigm" || domain.name === "Roboparadigm"
-                                        ? "scale(1.02)"
+                                        ? "scale(0.94)"
                                         : "scale(1.12)",
                                 filter: "contrast(1.02) brightness(0.98)",
                             }}
