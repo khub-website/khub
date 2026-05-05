@@ -142,7 +142,7 @@ export default function Hero() {
                         style={{ fontSize: "clamp(2rem, 3.8vw, 3.4rem)", lineHeight: 1.12 }}
                     >
                         <span className="block">Building the Future Through</span>
-                        <span className="block overflow-hidden h-[1.12em] relative">
+                        <span className="block overflow-hidden h-[1.2em] pb-[0.06em] relative">
                             <AnimatePresence mode="wait">
                                 <motion.span
                                     key={wordIndex}

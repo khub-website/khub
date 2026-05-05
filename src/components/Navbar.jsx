@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const navLinks = [
     { label: "Home", href: "/" },
@@ -52,6 +53,13 @@ export default function Navbar() {
         
         // For Home button specifically, if already on home, scroll to top
         if (href === "/" && pathname === "/") {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    };
+
+    const handleLogoClick = (e) => {
+        if (pathname === "/") {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: "smooth" });
         }
@@ -123,14 +131,9 @@ export default function Navbar() {
 
                 <div className="relative px-6 sm:px-10 lg:px-14">
                     <div className="flex items-center justify-between h-[68px]">
-                        <a
+                        <Link
                             href="/"
-                            onClick={(e) => {
-                                if (window.location.pathname === "/") {
-                                    e.preventDefault();
-                                    window.scrollTo({ top: 0, behavior: "smooth" });
-                                }
-                            }}
+                            onClick={handleLogoClick}
                             className="group flex items-center gap-3.5"
                         >
                             <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/78 ring-1 ring-white/70 shadow-[0_6px_18px_rgba(2,44,34,0.14)] flex items-center justify-center overflow-hidden">
@@ -144,23 +147,26 @@ export default function Navbar() {
                                     Deep-Tech Innovation
                                 </span>
                             </div>
-                        </a>
+                        </Link>
 
                         <div className="hidden md:flex items-center gap-2 p-1 rounded-full bg-[linear-gradient(135deg,rgba(255,255,255,0.5),rgba(255,255,255,0.2))] ring-1 ring-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_6px_16px_rgba(2,44,34,0.12)] backdrop-blur-[14px]">
                             {navLinks.map((link, i) => (
-                                <motion.a
+                                <motion.div
                                     key={link.href}
-                                    href={link.href}
-                                    onClick={(e) => handleLinkClick(e, link.href)}
                                     initial={{ opacity: 0, y: -8 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 + i * 0.06, duration: 0.5 }}
                                     whileHover={{ y: -2, scale: 1.03 }}
                                     whileTap={{ scale: 0.97 }}
-                                    className="px-4 py-2.5 rounded-full text-[0.84rem] font-semibold tracking-[0.02em] text-on-surface-variant hover:text-primary bg-transparent hover:bg-white/70 hover:shadow-[0_8px_22px_rgba(2,44,34,0.14),inset_0_1px_0_rgba(255,255,255,0.85)] transition-all duration-300"
                                 >
-                                    {link.label}
-                                </motion.a>
+                                    <Link
+                                        href={link.href}
+                                        onClick={(e) => handleLinkClick(e, link.href)}
+                                        className="block px-4 py-2.5 rounded-full text-[0.84rem] font-semibold tracking-[0.02em] text-on-surface-variant hover:text-primary bg-transparent hover:bg-white/70 hover:shadow-[0_8px_22px_rgba(2,44,34,0.14),inset_0_1px_0_rgba(255,255,255,0.85)] transition-all duration-300"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                </motion.div>
                             ))}
                         </div>
 
@@ -190,18 +196,21 @@ export default function Navbar() {
                     >
                         <div className="px-4 sm:px-6 py-4 flex flex-col gap-2">
                             {navLinks.map((link, i) => (
-                                <motion.a
+                                <motion.div
                                     key={link.href}
-                                    href={link.href}
-                                    onClick={(e) => handleLinkClick(e, link.href)}
                                     initial={{ opacity: 0, x: -12 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: i * 0.06 }}
                                     whileHover={{ x: 5 }}
-                                    className="px-4 py-3 rounded-xl text-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-white/72 transition-all"
                                 >
-                                    {link.label}
-                                </motion.a>
+                                    <Link
+                                        href={link.href}
+                                        onClick={(e) => handleLinkClick(e, link.href)}
+                                        className="block px-4 py-3 rounded-xl text-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-white/72 transition-all"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                </motion.div>
                             ))}
                         </div>
                     </motion.div>

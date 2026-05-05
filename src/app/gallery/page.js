@@ -40,28 +40,19 @@ function useThemeColors() {
 }
 
 /* ─── Data ─── */
-const CATEGORIES = ["All", "Events", "Mentor Rounds", "Builds", "Launch"];
+const CATEGORIES = ["What We Do", "Resources", "Events", "Highlights", "Partnerships"];
 
 const GALLERY_ITEMS = [
   { id: 1, title: "All-Hands Energy", caption: "Builders syncing ideas at full speed.", location: "K-Hub Demo Arena", date: "Innovation Day", category: "Events", detail: "A high-focus team moment captured during live founder demos, where problem statements were translated into working prototypes.", image: gallery1 },
-  { id: 2, title: "Experiment Table", caption: "Sketches, screens, and rapid prototypes.", location: "Product Sprint Room", date: "Build Week", category: "Builds", detail: "Quick iterations, idea boards, and deep feedback loops helped shape feature decisions for launch-ready experiences.", image: gallery2 },
-  { id: 3, title: "Afterhours Build", caption: "Late-night focus where momentum compounds.", location: "Night Lab", date: "Late Session", category: "Builds", detail: "After-hours execution where small decisions and code refinements turned experiments into stable product flows.", image: gallery3 },
-  { id: 4, title: "Studio Session", caption: "Concepts shaped into product stories.", location: "Creative Studio", date: "Story Pass", category: "Builds", detail: "Cross-functional collaboration between design and engineering teams to align narrative, interface, and user impact.", image: gallery4 },
-  { id: 5, title: "Mentor Rounds", caption: "Feedback loops powering sharper execution.", location: "Mentor Bay", date: "Review Round", category: "Mentor Rounds", detail: "Focused mentor critique sessions that tightened clarity, improved delivery, and accelerated go-to-market confidence.", image: gallery5 },
-  { id: 6, title: "Demo Prep", caption: "Polishing details before launch day.", location: "Launch Control", date: "Final Prep", category: "Launch", detail: "Final QA checks, communication sync, and release readiness work to ensure a smooth and reliable public rollout.", image: gallery6 },
+  { id: 2, title: "Experiment Table", caption: "Sketches, screens, and rapid prototypes.", location: "Product Sprint Room", date: "Build Week", category: "Resources", detail: "Quick iterations, idea boards, and deep feedback loops helped shape feature decisions for launch-ready experiences.", image: gallery2 },
+  { id: 3, title: "Afterhours Build", caption: "Late-night focus where momentum compounds.", location: "Night Lab", date: "Late Session", category: "Resources", detail: "After-hours execution where small decisions and code refinements turned experiments into stable product flows.", image: gallery3 },
+  { id: 4, title: "Studio Session", caption: "Concepts shaped into product stories.", location: "Creative Studio", date: "Story Pass", category: "Resources", detail: "Cross-functional collaboration between design and engineering teams to align narrative, interface, and user impact.", image: gallery4 },
+  { id: 5, title: "Mentor Rounds", caption: "Feedback loops powering sharper execution.", location: "Mentor Bay", date: "Review Round", category: "Highlights", detail: "Focused mentor critique sessions that tightened clarity, improved delivery, and accelerated go-to-market confidence.", image: gallery5 },
+  { id: 6, title: "Demo Prep", caption: "Polishing details before launch day.", location: "Launch Control", date: "Final Prep", category: "Partnerships", detail: "Final QA checks, communication sync, and release readiness work to ensure a smooth and reliable public rollout.", image: gallery6 },
   { id: 7, title: "Creative Debrief", caption: "Insights pinned and shared in real-time.", location: "Collab Wall", date: "Debrief", category: "Events", detail: "Instant capture of learnings and action points, turning observations into concrete next-step execution plans.", image: gallery7 },
-  { id: 8, title: "Launch Window", caption: "A final check before pushing live.", location: "Release Desk", date: "Go Live", category: "Launch", detail: "Critical last-mile validation to verify performance, UX consistency, and operational reliability before launch.", image: gallery8 },
+  { id: 8, title: "Launch Window", caption: "A final check before pushing live.", location: "Release Desk", date: "Go Live", category: "Partnerships", detail: "Critical last-mile validation to verify performance, UX consistency, and operational reliability before launch.", image: gallery8 },
   { id: 9, title: "Founder Pulse", caption: "A moment captured from the core team.", location: "Founder Circle", date: "Core Team", category: "Events", detail: "A candid founder snapshot reflecting ownership, velocity, and the collective mindset driving K-Hub initiatives.", image: gallery9 },
 ];
-
-/* ─── Per-filter thread gradient colors ─── */
-const THREAD_COLORS = {
-  All: { from: "#818cf8", mid: "#6366f1", to: "#f59e0b" },
-  Events: { from: "#ec4899", mid: "#f43f5e", to: "#fb923c" },
-  "Mentor Rounds": { from: "#14b8a6", mid: "#0d9488", to: "#06b6d4" },
-  Builds: { from: "#8b5cf6", mid: "#7c3aed", to: "#a78bfa" },
-  Launch: { from: "#f59e0b", mid: "#d97706", to: "#ef4444" },
-};
 
 /* ─── Helpers ─── */
 function getCardTilt(index) { return ((index * 37) % 7) - 3; }
@@ -80,132 +71,8 @@ function PinSVG({ colors }) {
   );
 }
 
-/* ─── Dynamic Thread Line ─── */
-function ThreadLine({ containerRef, cardRefs, itemCount, filterKey }) {
-  const pathRef = useRef(null);
-  const [pathD, setPathD] = useState("");
-  const [anchors, setAnchors] = useState([]);
-  const reduceMotion = useReducedMotion();
-  const tc = THREAD_COLORS[filterKey] || THREAD_COLORS.All;
-  const gradId = `tg-${filterKey.replace(/\s/g, "")}`;
-
-  // Calculate bezier path through PIN positions (top-center of each polaroid)
-  useEffect(() => {
-    let cancelled = false;
-    let resizeObs;
-    let pollTimer;
-    let pollCount = 0;
-
-    function calculate() {
-      if (cancelled || !containerRef.current) return false;
-      const container = containerRef.current.getBoundingClientRect();
-      if (container.height < 10) return false;
-
-      // Collect pin positions from all card polaroid refs
-      const pts = [];
-      for (let i = 0; i < itemCount; i++) {
-        const polaroid = cardRefs.current[i];
-        if (!polaroid) return false; // Not all refs ready yet
-        const rect = polaroid.getBoundingClientRect();
-        // Pin position = top-center of the polaroid card
-        pts.push({
-          x: rect.left - container.left + rect.width / 2,
-          y: rect.top - container.top,
-        });
-      }
-      if (pts.length < 2) { setPathD(""); setAnchors([]); return false; }
-
-      // Build smooth S-curve through all pin points
-      let d = `M ${pts[0].x} ${pts[0].y} `;
-      for (let i = 0; i < pts.length - 1; i++) {
-        const c = pts[i], n = pts[i + 1];
-        const midY = (c.y + n.y) / 2;
-        // Control points create a smooth S-curve between cards
-        d += `C ${c.x} ${midY}, ${n.x} ${midY}, ${n.x} ${n.y} `;
-      }
-      setPathD(d);
-      setAnchors(pts);
-      return true;
-    }
-
-    // Poll until all refs are populated, then calculate
-    function poll() {
-      if (cancelled) return;
-      pollCount++;
-      const success = calculate();
-      if (!success && pollCount < 30) {
-        pollTimer = setTimeout(poll, 150);
-      }
-    }
-    // Start polling after a short delay for initial render
-    pollTimer = setTimeout(poll, 100);
-
-    // Recalculate on resize
-    function onResize() { calculate(); }
-    window.addEventListener("resize", onResize);
-    if (containerRef.current && typeof ResizeObserver !== "undefined") {
-      resizeObs = new ResizeObserver(() => setTimeout(() => calculate(), 50));
-      resizeObs.observe(containerRef.current);
-    }
-
-    return () => {
-      cancelled = true;
-      clearTimeout(pollTimer);
-      window.removeEventListener("resize", onResize);
-      if (resizeObs) resizeObs.disconnect();
-    };
-  }, [containerRef, cardRefs, itemCount, filterKey]);
-
-  // Draw-on-scroll animation
-  useEffect(() => {
-    const path = pathRef.current;
-    if (!path || !pathD) return;
-    const length = path.getTotalLength();
-    path.style.strokeDasharray = length;
-    path.style.strokeDashoffset = reduceMotion ? 0 : length;
-    if (reduceMotion) return;
-
-    let raf;
-    function onScroll() {
-      raf = requestAnimationFrame(() => {
-        const c = containerRef.current;
-        if (!c) return;
-        const rect = c.getBoundingClientRect();
-        const denom = rect.height - window.innerHeight;
-        const progress = denom > 0 ? Math.min(1, Math.max(0, -rect.top / denom)) : 1;
-        path.style.strokeDashoffset = length * (1 - progress);
-      });
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
-  }, [pathD, containerRef, reduceMotion]);
-
-  if (!pathD) return null;
-
-  return (
-    <svg
-      style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0, overflow: "visible" }}
-      aria-hidden
-    >
-      <defs>
-        <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={tc.from} />
-          <stop offset="50%" stopColor={tc.mid} />
-          <stop offset="100%" stopColor={tc.to} />
-        </linearGradient>
-      </defs>
-      <path d={pathD} fill="none" stroke={`url(#${gradId})`} strokeWidth="6" strokeLinecap="round" opacity="0.10" style={{ filter: "blur(6px)" }} />
-      <path ref={pathRef} d={pathD} fill="none" stroke={`url(#${gradId})`} strokeWidth="2.5" strokeLinecap="round" />
-      {anchors.map((a, i) => (
-        <circle key={i} cx={a.x} cy={a.y} r="6" fill={`url(#${gradId})`} stroke="white" strokeWidth="2" />
-      ))}
-    </svg>
-  );
-}
-
 /* ─── Gallery Card ─── */
-function GalleryCard({ item, index, onSelect, colors, registerRef }) {
+function GalleryCard({ item, index, onSelect, colors }) {
   const rowRef = useRef(null);
   const imgRef = useRef(null);
   const polaroidRef = useRef(null);
@@ -213,11 +80,6 @@ function GalleryCard({ item, index, onSelect, colors, registerRef }) {
   const reduceMotion = useReducedMotion();
   const isLeft = index % 2 === 0;
   const tilt = getCardTilt(index);
-
-  // Register the POLAROID ref for thread anchor (pin is at its top-center)
-  useEffect(() => {
-    if (polaroidRef.current) registerRef(index, polaroidRef.current);
-  }, [index, registerRef]);
 
   // IntersectionObserver reveal
   useEffect(() => {
@@ -349,21 +211,15 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
 export default function GalleryPage() {
   const heroVideoRef = useRef(null);
   const containerRef = useRef(null);
-  const cardRefs = useRef([]);
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState("What We Do");
   const [lightbox, setLightbox] = useState({ open: false, idx: 0 });
   const [scrollProg, setScrollProg] = useState(0);
   const colors = useThemeColors();
 
   const filtered = useMemo(() => {
-    if (activeFilter === "All") return GALLERY_ITEMS;
+    if (activeFilter === "What We Do") return GALLERY_ITEMS;
     return GALLERY_ITEMS.filter((i) => i.category === activeFilter);
   }, [activeFilter]);
-
-  // Reset cardRefs on filter change so thread recalculates fresh
-  useEffect(() => { cardRefs.current = new Array(filtered.length).fill(null); }, [filtered]);
-
-  const registerRef = useCallback((idx, el) => { cardRefs.current[idx] = el; }, []);
 
   // Scroll progress — rAF for perf
   useEffect(() => {
@@ -407,7 +263,7 @@ export default function GalleryPage() {
               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-white/75">Gallery</p>
               <h1 className="text-4xl font-semibold leading-none tracking-tight sm:text-6xl lg:text-7xl">Moments from K-Hub.</h1>
               <p className="mt-5 max-w-2xl text-sm leading-6 text-white/82 sm:mt-6 sm:text-lg sm:leading-7">A moving glimpse of the people, sessions, and spaces that shape the K-Hub community.</p>
-              <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70 sm:text-base sm:leading-7">Scroll to pull each memory from the thread. Every image rises from below, pinned like a notice board and connected by one cinematic curve.</p>
+              <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70 sm:text-base sm:leading-7">Explore snapshots of people, sessions, and milestones from across the K-Hub journey.</p>
             </motion.div>
           </div>
         </section>
@@ -423,17 +279,6 @@ export default function GalleryPage() {
         <section ref={containerRef} className="relative pb-40" style={{ minHeight: "50vh" }}>
           <div className="gallery-progress-bar" style={{ width: `${scrollProg * 100}%` }} />
 
-          {/* Thread — keyed by filter so it fully remounts & recalculates per tab */}
-          {filtered.length >= 2 && (
-            <ThreadLine
-              key={activeFilter}
-              containerRef={containerRef}
-              cardRefs={cardRefs}
-              itemCount={filtered.length}
-              filterKey={activeFilter}
-            />
-          )}
-
           <div className="page-container relative z-10" style={{ paddingTop: 40 }}>
             <AnimatePresence mode="popLayout">
               {filtered.map((item, index) => (
@@ -445,7 +290,7 @@ export default function GalleryPage() {
                   exit={{ opacity: 0, scale: 0.9, height: 0, marginTop: 0, marginBottom: 0, overflow: "hidden" }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <GalleryCard item={item} index={index} onSelect={openLightbox} colors={colors} registerRef={registerRef} />
+                  <GalleryCard item={item} index={index} onSelect={openLightbox} colors={colors} />
                 </motion.div>
               ))}
             </AnimatePresence>

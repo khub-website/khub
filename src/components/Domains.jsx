@@ -96,7 +96,7 @@ const domains = [
         gradientFrom: "#2b6c44",
         gradientTo: "#7cb467",
         corner: "nutra",
-        url: null,
+        url: "https://nutradrug.in/",
     },
     {
         name: "Crystalparadigm",
@@ -207,7 +207,7 @@ function ParadigmCard({ domain, index }) {
                 cursor: domain.url ? "pointer" : "default",
                 background: `linear-gradient(145deg, ${domain.gradientFrom}1e, ${domain.gradientTo}1f)`,
             }}
-            className="group relative overflow-hidden rounded-2xl border border-white/45 bg-white/35 p-7 backdrop-blur-xl shadow-[0_20px_45px_rgba(26,24,20,0.15)] will-change-transform"
+            className="group relative min-h-[314px] overflow-hidden rounded-2xl border border-white/45 bg-white/35 p-7 backdrop-blur-xl shadow-[0_20px_45px_rgba(26,24,20,0.15)] will-change-transform"
         >
             <motion.div
                 aria-hidden
@@ -225,7 +225,7 @@ function ParadigmCard({ domain, index }) {
                 className="pointer-events-none absolute inset-0 rounded-2xl border border-white/25 mix-blend-screen opacity-0 transition-opacity duration-200 group-hover:opacity-70"
             />
 
-            <div className="relative z-10">
+            <div className="relative z-10 flex h-full flex-col">
                 <div className="mb-6 flex items-center gap-4">
                     <div
                         className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-white"
@@ -267,7 +267,7 @@ function ParadigmCard({ domain, index }) {
                     </div>
                 </div>
 
-                <div className="rounded-xl border border-white/45 bg-white/38 p-5">
+                <div className="rounded-xl border border-white/45 bg-white/38 p-5 grow">
                     <p className="text-sm font-light leading-relaxed text-[#744f3f]">
                         {domain.description}
                     </p>
@@ -279,19 +279,22 @@ function ParadigmCard({ domain, index }) {
 }
 
 export default function Domains() {
-    const [activeIndex, setActiveIndex] = useState(0);
+    const khubIndex = domains.findIndex((domain) => domain.name === "K-Hub");
+    const [activeIndex, setActiveIndex] = useState(khubIndex >= 0 ? khubIndex : 0);
     const [isPaused, setIsPaused] = useState(false);
+    const [autoRotateStarted, setAutoRotateStarted] = useState(false);
     const orbitOrder = ["Drugparadigm", "Cyberparadigm", "Neuroparadigm", "Roboparadigm", "Nutraparadigm", "Crystalparadigm"];
 
     useEffect(() => {
-        if (isPaused) return;
+        if (isPaused || !autoRotateStarted) return;
         const interval = setInterval(() => {
             setActiveIndex((prev) => (prev + 1) % domains.length);
         }, 5000);
         return () => clearInterval(interval);
-    }, [isPaused]);
+    }, [isPaused, autoRotateStarted]);
 
-    const goToDomain = (nextIndex) => {
+    const goToDomain = (nextIndex, fromUser = false) => {
+        if (fromUser) setAutoRotateStarted(true);
         setActiveIndex((nextIndex + domains.length) % domains.length);
     };
 
@@ -299,12 +302,12 @@ export default function Domains() {
         const normalized = (nodeName || "").replace(/\s+/g, "").toLowerCase();
         const direct = domains.findIndex((domain) => domain.name.toLowerCase() === normalized);
         if (direct >= 0) {
-            goToDomain(direct);
+            goToDomain(direct, true);
             return;
         }
         const fallbackName = orbitOrder[index];
         const fallback = domains.findIndex((domain) => domain.name === fallbackName);
-        if (fallback >= 0) goToDomain(fallback);
+        if (fallback >= 0) goToDomain(fallback, true);
     };
 
     const activeOrbitIndex = orbitOrder.findIndex((name) => name === domains[activeIndex].name);
@@ -352,7 +355,7 @@ export default function Domains() {
                             <button
                                 type="button"
                                 aria-label="Previous domain"
-                                onClick={() => goToDomain(activeIndex - 1)}
+                                onClick={() => goToDomain(activeIndex - 1, true)}
                                 className="h-11 w-11 rounded-full bg-primary/15 text-2xl text-on-surface transition-colors hover:bg-primary/25"
                             >
                                 &#8249;
@@ -363,7 +366,7 @@ export default function Domains() {
                                         key={domain.name}
                                         type="button"
                                         aria-label={`Go to ${domain.name}`}
-                                        onClick={() => goToDomain(index)}
+                                        onClick={() => goToDomain(index, true)}
                                         className={`h-3 w-3 rounded-full transition-all ${activeIndex === index ? "scale-110 bg-primary" : "bg-primary/35 hover:bg-primary/60"}`}
                                     />
                                 ))}
@@ -371,7 +374,7 @@ export default function Domains() {
                             <button
                                 type="button"
                                 aria-label="Next domain"
-                                onClick={() => goToDomain(activeIndex + 1)}
+                                onClick={() => goToDomain(activeIndex + 1, true)}
                                 className="h-11 w-11 rounded-full bg-primary/15 text-2xl text-on-surface transition-colors hover:bg-primary/25"
                             >
                                 &#8250;
@@ -384,7 +387,7 @@ export default function Domains() {
                             onNodeSelect={handleNodeSelect}
                             onCenterSelect={() => {
                                 const khubIndex = domains.findIndex((domain) => domain.name === "K-Hub");
-                                if (khubIndex >= 0) goToDomain(khubIndex);
+                                if (khubIndex >= 0) goToDomain(khubIndex, true);
                             }}
                             activeIndex={activeOrbitIndex}
                             isCenterActive={isKhubActive}

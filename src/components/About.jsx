@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 20 },
@@ -10,16 +10,18 @@ const fadeUp = {
 };
 
 const stats = [
-    { number: "400+", label: "Trained Learners" },
-    { number: "6", label: "Deep-Tech Paradigms" },
-    { number: "4", label: "Campus Partners" },
-    { number: "9", label: "Programs" },
+    { number: 400, suffix: "+", label: "Trained Learners" },
+    { number: 6, suffix: "", label: "Deep-Tech Paradigms" },
+    { number: 4, suffix: "", label: "Campus Partners" },
+    { number: 9, suffix: "", label: "Programs" },
 ];
 const campusPartners = ["KMIT", "NGIT", "KMEC", "KMCE"];
 
 export default function About() {
-    const router = useRouter();
     const [theme, setTheme] = useState("theme-1");
+    const [hasAnimated, setHasAnimated] = useState(false);
+    const [animatedValues, setAnimatedValues] = useState(stats.map(() => 0));
+    const statsRef = useRef(null);
 
     useEffect(() => {
         const currentTheme = document.documentElement.getAttribute("data-theme") || "theme-1";
@@ -34,30 +36,47 @@ export default function About() {
         return () => observer.disconnect();
     }, []);
 
-    const openAboutPage = () => {
-        router.push("/about");
-    };
+    useEffect(() => {
+        const node = statsRef.current;
+        if (!node || hasAnimated) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (!entry.isIntersecting) return;
+                setHasAnimated(true);
+                observer.disconnect();
+            },
+            { threshold: 0.35 }
+        );
+
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, [hasAnimated]);
+
+    useEffect(() => {
+        if (!hasAnimated) return;
+
+        const durationMs = 1400;
+        const start = performance.now();
+
+        const tick = (now) => {
+            setAnimatedValues(
+                stats.map((stat, i) => {
+                    const staggerMs = i * 100;
+                    const localProgress = Math.min(Math.max((now - start - staggerMs) / durationMs, 0), 1);
+                    const eased = 1 - Math.pow(1 - localProgress, 3);
+                    return Math.round(stat.number * eased);
+                })
+            );
+            if (now - start < durationMs + stats.length * 100) requestAnimationFrame(tick);
+        };
+
+        requestAnimationFrame(tick);
+    }, [hasAnimated]);
 
     return (
-        <section
-            id="about"
-            role="link"
-            tabIndex={0}
-            onClick={openAboutPage}
-            onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    openAboutPage();
-                }
-            }}
-            className="py-20 md:py-28 bg-surface cursor-pointer"
-            aria-label="Open full About Us page"
-        >
+        <section id="about" className="py-20 md:py-28 bg-surface">
             <div className="page-container">
-                <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-lowest px-4 py-2 text-[0.72rem] font-semibold tracking-[0.08em] uppercase text-primary">
-                    About Us Preview
-                    <span className="text-on-surface-variant">Open full page</span>
-                </div>
                 <div className="grid md:grid-cols-2 gap-20 md:gap-28 items-center">
                     <div>
                         <motion.p
@@ -109,7 +128,7 @@ export default function About() {
                         </motion.div>
                     </div>
 
-                    <div>
+                    <div ref={statsRef}>
                         <div className="grid grid-cols-2 gap-8">
                             {stats.map((stat, i) => (
                                 <motion.div
@@ -130,7 +149,7 @@ export default function About() {
                                         }`}
                                         style={theme === "theme-4" ? { color: '#F3722C' } : {}}
                                     >
-                                        {stat.number}
+                                        {animatedValues[i]}{stat.suffix}
                                     </p>
                                     <p className="text-[0.8rem] text-on-surface-variant font-medium tracking-tight uppercase leading-tight">
                                         {stat.label}
@@ -161,6 +180,15 @@ export default function About() {
                             </div>
                         </motion.div>
                     </div>
+                </div>
+
+                <div className="mt-10 flex justify-end">
+                    <Link
+                        href="/about"
+                        className="inline-flex items-center rounded-full border border-primary/35 bg-gradient-to-r from-primary/12 to-primary/6 px-5 py-2.5 text-sm font-semibold text-primary shadow-[0_0_0_1px_rgba(var(--color-primary-rgb),0.2),0_0_24px_rgba(var(--color-primary-rgb),0.3),0_8px_20px_rgba(var(--color-primary-rgb),0.16)] transition-all duration-300 hover:from-primary/20 hover:to-primary/10 hover:shadow-[0_0_0_1px_rgba(var(--color-primary-rgb),0.34),0_0_36px_rgba(var(--color-primary-rgb),0.42),0_14px_26px_rgba(var(--color-primary-rgb),0.22)]"
+                    >
+                        Learn More &rarr;
+                    </Link>
                 </div>
             </div>
         </section>

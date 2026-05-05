@@ -9,7 +9,7 @@ const logos = [
     { src: "/cyberparadigm.webp", name: "Cyber paradigm", url: "https://cyberparadigm.in/" },
     { src: "/neuroparadigm.webp", name: "Neuro paradigm", url: "https://neuroparadigm.in/" },
     { src: "/roboparadigm.png", name: "Robo paradigm", url: "https://roboparadigm.com/" },
-    { src: "/nutraparadigm.jpg", name: "Nutra paradigm", url: null },
+    { src: "/nutraparadigm.jpg", name: "Nutra paradigm", url: "https://nutradrug.in/" },
     { src: "/crystalparadigm.webp", name: "Crystal paradigm", url: "https://crystalparadigm.in/" },
 ];
 
@@ -272,7 +272,7 @@ export default function OrbitRing({
                                             pointerEvents: "none",
                                         }}
                                     >
-                                        {logo.name === "Nutra paradigm" ? "Nutra paradigm (Coming Soon)" : logo.name}
+                                        {logo.name}
                                     </motion.div>
                                 )}
                             </motion.div>
