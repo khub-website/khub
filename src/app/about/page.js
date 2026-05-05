@@ -41,7 +41,7 @@ const flagshipProjects = [
     logo: "/nutraparadigm.jpg",
     outcome: "4 functional formulations tested",
     detail: "Placeholder project summary with pilot cohorts and findings.",
-    url: null,
+    url: "https://nutradrug.in/",
   },
   {
     name: "CrystalParadigm Forge",
@@ -531,8 +531,8 @@ export default function AboutPage() {
                         key={`facility-dot-${index}`}
                         type="button"
                         className={`h-2.5 w-2.5 rounded-full transition ${index === activeSlide
-                            ? "bg-surface-container-lowest"
-                            : "bg-surface-container-lowest/40"
+                          ? "bg-surface-container-lowest"
+                          : "bg-surface-container-lowest/40"
                           }`}
                         onClick={() => setActiveSlide(index)}
                         aria-label={`Go to slide ${index + 1}`}

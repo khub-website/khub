@@ -94,7 +94,7 @@ export const paradigms = [
   {
     id: "nutra-paradigm",
     name: "NutraParadigm",
-    url: null,
+    url: "https://nutradrug.in/",
     tagline: "Personalizing health through precision biology",
     description: "Analyzing the complex interplay between diet, microbiome, and metabolism. NutraParadigm uses AI to design bespoke nutritional interventions for optimal human performance.",
     color: "#ec4899",
