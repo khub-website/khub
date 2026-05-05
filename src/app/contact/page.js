@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 const INQUIRY_TYPES = [
   { value: "internship", label: "Internship" },
@@ -77,9 +75,7 @@ export default function ContactPage() {
     "w-full px-4 py-3 rounded-xl bg-surface-container-lowest border border-outline-variant text-[0.9rem] text-on-surface placeholder:text-on-surface-variant/60 outline-none focus:border-primary focus:ring-2 focus:ring-[rgba(var(--color-primary-rgb),0.18)] transition-all duration-200";
 
   return (
-    <>
-      <Navbar />
-      <main className="relative min-h-[100dvh] bg-surface flex items-center pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-14 md:pb-20 overflow-hidden">
+    <main className="relative min-h-[100dvh] bg-surface flex items-center pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-14 md:pb-20 overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
@@ -284,7 +280,5 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </>
   );
 }

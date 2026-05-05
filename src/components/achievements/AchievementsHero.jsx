@@ -1,81 +1,116 @@
-import { motion, useReducedMotion } from "framer-motion";
+"use client";
+
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Trophy, FlaskConical, ArrowDown } from "lucide-react";
 import Link from "next/link";
 
-export function AchievementsHero() {
-  const reduceMotion = useReducedMotion();
+const HERO_IMAGE = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80";
 
-  const sectionIntro = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : 18 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.62, ease: [0.22, 1, 0.36, 1] },
-    },
+export function AchievementsHero({ onSwitchTab }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const contentScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="bg-surface pt-32 pb-16">
-      <div className="page-container">
-        <motion.div
-          variants={sectionIntro}
-          initial="hidden"
-          animate="show"
-          className="relative overflow-hidden rounded-[28px] border border-outline-variant/70 bg-surface-container-lowest p-8 md:p-12 shadow-[0_22px_60px_rgba(20,20,18,0.1)]"
-        >
-          <div
-            aria-hidden
-            className="absolute -top-24 -right-16 h-56 w-56 rounded-full blur-3xl opacity-40"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(var(--color-primary-rgb),0.42) 0%, rgba(var(--color-primary-rgb),0) 72%)",
-            }}
-          />
-          <div
-            aria-hidden
-            className="absolute -bottom-20 -left-20 h-56 w-56 rounded-full blur-3xl opacity-35"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(var(--color-primary-container-rgb),0.42) 0%, rgba(var(--color-primary-container-rgb),0) 72%)",
-            }}
-          />
+    <section 
+      id="hero" 
+      ref={ref} 
+      className="relative overflow-hidden w-full" 
+      style={{ minHeight: "100svh" }}
+    >
+      {/* ... (image and gradient code remains the same) */}
+      <motion.div
+        className="absolute inset-0 w-full h-full"
+        style={{ y: imgY }}
+      >
+        <img
+          src={HERO_IMAGE}
+          alt="Research hub"
+          className="w-full h-full object-cover scale-110"
+        />
+      </motion.div>
 
-          <motion.p
-            variants={sectionIntro}
-            className="relative z-10 text-[0.74rem] font-semibold tracking-[0.16em] uppercase text-primary mb-4"
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-surface" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
+
+      <motion.div 
+        style={{ opacity: contentOpacity, scale: contentScale }}
+        className="relative z-10 page-container flex flex-col justify-center min-h-[100svh] py-24"
+      >
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="text-xs font-bold tracking-[0.24em] uppercase text-primary mb-4"
+        >
+          Research Hub · Achievements Portal
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-[clamp(2.4rem,6vw,5rem)] font-bold leading-[1.02] tracking-tight text-white max-w-4xl font-display"
+        >
+          Celebrating Milestones &<br />
+          <span className="text-primary hero-shine-word">Applied Research Impact</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.32, duration: 0.6 }}
+          className="mt-6 max-w-2xl text-[1rem] leading-relaxed text-white/75 font-light"
+        >
+          A living archive of breakthroughs, research publications, and milestones across K-Hub's paradigms — from drug discovery and robotics to materials science and neural interfaces.
+        </motion.p>
+
+        {/* CTA buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.44, duration: 0.5 }}
+          className="mt-10 flex flex-wrap gap-4"
+        >
+          <motion.button
+            onClick={() => onSwitchTab("achievements")}
+            className="flex items-center gap-2 px-7 py-4 rounded-xl bg-primary text-white text-sm font-bold shadow-xl shadow-primary/30"
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97 }}
           >
-            Our Achievements
-          </motion.p>
-          <motion.h1
-            variants={sectionIntro}
-            className="relative z-10 font-display text-[clamp(2rem,5vw,3.7rem)] leading-[1.04] tracking-tight max-w-4xl"
+            <Trophy className="w-4 h-4" /> Browse Achievements
+          </motion.button>
+          <motion.button
+            onClick={() => onSwitchTab("research")}
+            className="flex items-center gap-2 px-7 py-4 rounded-xl border border-white/25 bg-white/10 text-white text-sm font-bold backdrop-blur-sm transition-all hover:bg-white/20 hover:-translate-y-0.5"
           >
-            Celebrating Our Milestones & Applied Research Impact
-          </motion.h1>
-          <motion.p
-            variants={sectionIntro}
-            className="relative z-10 mt-6 max-w-3xl text-[0.97rem] leading-relaxed text-on-surface-variant"
-          >
-            K-Hub is the deep-tech incubator of KMIT Group of Institutions,
-            empowering students to work on cutting-edge applied research in
-            drug discovery, cybersecurity, robotics, and beyond. This portal
-            documents our journey and the tangible outcomes of our focus paradigms.
-          </motion.p>
-          <motion.div variants={sectionIntro} className="relative z-10 mt-9 flex flex-wrap gap-3">
-            <Link
-              href="/contact"
-              className="px-5 py-3 rounded-xl bg-primary text-surface-container-lowest text-sm font-semibold tracking-tight hover:opacity-90 transition"
-            >
-              Connect With K-Hub
-            </Link>
-            <Link
-              href="/"
-              className="px-5 py-3 rounded-xl border border-outline-variant/70 bg-surface text-sm font-semibold text-on-surface-variant hover:text-primary transition"
-            >
-              Back to Home
-            </Link>
-          </motion.div>
+            <FlaskConical className="w-4 h-4" /> Research Papers
+          </motion.button>
         </motion.div>
-      </div>
+
+        {/* Scroll hint */}
+        <motion.button
+          onClick={() => scrollToSection("stats")}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <span className="text-[10px] tracking-[0.2em] font-bold uppercase">Scroll</span>
+          <ArrowDown className="w-4 h-4" />
+        </motion.button>
+      </motion.div>
     </section>
   );
 }

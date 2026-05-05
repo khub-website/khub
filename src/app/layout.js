@@ -2,6 +2,8 @@ import "./globals.css";
 import ScrollResetOnReload from "@/components/ScrollResetOnReload";
 import Providers from "@/components/Providers";
 import { ElectricPointer } from "@/components/ElectricPointer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Caveat } from "next/font/google";
 
 const caveat = Caveat({
@@ -31,7 +33,11 @@ export default function RootLayout({ children }) {
         <ScrollResetOnReload />
         <Providers>
           <ElectricPointer />
-          {children}
+          <Navbar />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
         </Providers>
       </body>
     </html>

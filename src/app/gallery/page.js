@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import "./gallery.css";
 
@@ -247,8 +245,6 @@ export default function GalleryPage() {
   return (
     <div className={`gallery-page-shell min-h-screen bg-surface font-body text-on-surface selection:bg-primary selection:text-white ${lightbox.open ? "gallery-lightbox-open" : ""}`}>
       <div className="gallery-page-content">
-        <Navbar />
-
         <main className="pt-24 lg:pt-0">
         {/* ── Hero ── */}
         <section className="relative min-h-[100svh] overflow-hidden bg-on-surface">
@@ -299,7 +295,6 @@ export default function GalleryPage() {
 
         </section>
         </main>
-        <Footer />
       </div>
 
       {/* ── Lightbox ── */}

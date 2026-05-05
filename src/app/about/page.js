@@ -221,7 +221,7 @@ function PearlProjectCard({ project, index, reduceMotion }) {
       </div>
 
       <div>
-        <h4 
+        <h4
           className={`text-[0.92rem] font-semibold leading-tight text-on-surface mb-2 ${project.url ? "hover:text-primary cursor-pointer transition-colors" : ""}`}
           onClick={() => {
             if (project.url) {
@@ -420,7 +420,6 @@ export default function AboutPage() {
 
   return (
     <>
-      <Navbar />
       <main className="bg-surface text-on-surface pt-32 pb-20">
         <section className="page-container">
           <motion.div
@@ -531,11 +530,10 @@ export default function AboutPage() {
                       <button
                         key={`facility-dot-${index}`}
                         type="button"
-                        className={`h-2.5 w-2.5 rounded-full transition ${
-                          index === activeSlide
+                        className={`h-2.5 w-2.5 rounded-full transition ${index === activeSlide
                             ? "bg-surface-container-lowest"
                             : "bg-surface-container-lowest/40"
-                        }`}
+                          }`}
                         onClick={() => setActiveSlide(index)}
                         aria-label={`Go to slide ${index + 1}`}
                       />
@@ -629,7 +627,7 @@ export default function AboutPage() {
           </motion.div>
         </section>
 
-  <section className="page-container mt-16 space-y-10">
+        <section className="page-container mt-16 space-y-10">
           <motion.div
             variants={sectionIntro}
             initial="hidden"
@@ -666,7 +664,6 @@ export default function AboutPage() {
           />
         </section>
       </main>
-      <Footer />
     </>
   );
 }
