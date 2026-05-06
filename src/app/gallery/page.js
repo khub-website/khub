@@ -5,15 +5,41 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import "./gallery.css";
 
-import gallery1 from "../../../gallery_images/1.jpg";
-import gallery2 from "../../../gallery_images/2.jpg";
-import gallery3 from "../../../gallery_images/3.jpg";
-import gallery4 from "../../../gallery_images/4.jpg";
-import gallery5 from "../../../gallery_images/5.jpg";
-import gallery6 from "../../../gallery_images/6.jpg";
-import gallery7 from "../../../gallery_images/7.jpg";
-import gallery8 from "../../../gallery_images/8.jpg";
-import gallery9 from "../../../gallery_images/9.avif";
+// Events images
+import eventImg1 from "../../../gallery_images/events/1.jpg";
+import eventImg2 from "../../../gallery_images/events/3.jpg";
+import eventImg3 from "../../../gallery_images/events/5.jpg";
+import eventImg4 from "../../../gallery_images/events/7.jpg";
+import eventImg5 from "../../../gallery_images/events/8.jpg";
+import eventImg6 from "../../../gallery_images/events/DOC-20260218-WA0006.jpg";
+import eventImg7 from "../../../gallery_images/events/IMG_9798.jpg";
+
+// Resources images
+import resourceImg1 from "../../../gallery_images/resources/20260430_144001.webp";
+import resourceImg2 from "../../../gallery_images/resources/20260430_144233.webp";
+import resourceImg3 from "../../../gallery_images/resources/20260430_152715.webp";
+import resourceImg4 from "../../../gallery_images/resources/IMG_2719.webp";
+import resourceImg5 from "../../../gallery_images/resources/IMG_2721.webp";
+import resourceImg6 from "../../../gallery_images/resources/IMG_2722.webp";
+import resourceImg7 from "../../../gallery_images/resources/IMG_2725.webp";
+import resourceImg8 from "../../../gallery_images/resources/IMG_2734.webp";
+import resourceImg9 from "../../../gallery_images/resources/IMG_2737.webp";
+
+// What We Do images
+import whatWeDoImg1 from "../../../gallery_images/what_we_do/20260430_144656.webp";
+import whatWeDoImg2 from "../../../gallery_images/what_we_do/20260430_145206.webp";
+import whatWeDoImg3 from "../../../gallery_images/what_we_do/20260430_145459.webp";
+import whatWeDoImg4 from "../../../gallery_images/what_we_do/20260430_145932.webp";
+import whatWeDoImg5 from "../../../gallery_images/what_we_do/20260430_150438.webp";
+import whatWeDoImg6 from "../../../gallery_images/what_we_do/20260430_150516.webp";
+import whatWeDoImg7 from "../../../gallery_images/what_we_do/20260430_150556.webp";
+import whatWeDoImg8 from "../../../gallery_images/what_we_do/20260430_150742.webp";
+import whatWeDoImg9 from "../../../gallery_images/what_we_do/20260430_150849.webp";
+import whatWeDoImg10 from "../../../gallery_images/what_we_do/20260430_151844.webp";
+import whatWeDoImg11 from "../../../gallery_images/what_we_do/20260430_162310.webp";
+import whatWeDoImg12 from "../../../gallery_images/what_we_do/IMG_2721.webp";
+import whatWeDoImg13 from "../../../gallery_images/what_we_do/IMG_2722.webp";
+import whatWeDoImg14 from "../../../gallery_images/what_we_do/IMG_2725.webp";
 
 /* ─── Theme Colors Hook ─── */
 function useThemeColors() {
@@ -40,17 +66,57 @@ function useThemeColors() {
 /* ─── Data ─── */
 const CATEGORIES = ["What We Do", "Resources", "Events", "Highlights", "Partnerships"];
 
-const GALLERY_ITEMS = [
-  { id: 1, title: "All-Hands Energy", caption: "Builders syncing ideas at full speed.", location: "K-Hub Demo Arena", date: "Innovation Day", category: "Events", detail: "A high-focus team moment captured during live founder demos, where problem statements were translated into working prototypes.", image: gallery1 },
-  { id: 2, title: "Experiment Table", caption: "Sketches, screens, and rapid prototypes.", location: "Product Sprint Room", date: "Build Week", category: "Resources", detail: "Quick iterations, idea boards, and deep feedback loops helped shape feature decisions for launch-ready experiences.", image: gallery2 },
-  { id: 3, title: "Afterhours Build", caption: "Late-night focus where momentum compounds.", location: "Night Lab", date: "Late Session", category: "Resources", detail: "After-hours execution where small decisions and code refinements turned experiments into stable product flows.", image: gallery3 },
-  { id: 4, title: "Studio Session", caption: "Concepts shaped into product stories.", location: "Creative Studio", date: "Story Pass", category: "Resources", detail: "Cross-functional collaboration between design and engineering teams to align narrative, interface, and user impact.", image: gallery4 },
-  { id: 5, title: "Mentor Rounds", caption: "Feedback loops powering sharper execution.", location: "Mentor Bay", date: "Review Round", category: "Highlights", detail: "Focused mentor critique sessions that tightened clarity, improved delivery, and accelerated go-to-market confidence.", image: gallery5 },
-  { id: 6, title: "Demo Prep", caption: "Polishing details before launch day.", location: "Launch Control", date: "Final Prep", category: "Partnerships", detail: "Final QA checks, communication sync, and release readiness work to ensure a smooth and reliable public rollout.", image: gallery6 },
-  { id: 7, title: "Creative Debrief", caption: "Insights pinned and shared in real-time.", location: "Collab Wall", date: "Debrief", category: "Events", detail: "Instant capture of learnings and action points, turning observations into concrete next-step execution plans.", image: gallery7 },
-  { id: 8, title: "Launch Window", caption: "A final check before pushing live.", location: "Release Desk", date: "Go Live", category: "Partnerships", detail: "Critical last-mile validation to verify performance, UX consistency, and operational reliability before launch.", image: gallery8 },
-  { id: 9, title: "Founder Pulse", caption: "A moment captured from the core team.", location: "Founder Circle", date: "Core Team", category: "Events", detail: "A candid founder snapshot reflecting ownership, velocity, and the collective mindset driving K-Hub initiatives.", image: gallery9 },
+// Events items
+const eventsData = [
+  { title: "All-Hands Energy", caption: "Builders syncing ideas at full speed.", location: "K-Hub Demo Arena", date: "Innovation Day", detail: "A high-focus team moment captured during live founder demos, where problem statements were translated into working prototypes.", image: eventImg1 },
+  { title: "Team Collaboration", caption: "Synergy in motion across teams.", location: "Collab Space", date: "Build Week", detail: "Cross-team alignment sessions that drove clarity, improved coordination, and accelerated project delivery timelines.", image: eventImg2 },
+  { title: "Focused Execution", caption: "Deep work sessions for real impact.", location: "Work Studio", date: "Sprint Session", detail: "Concentrated effort where team members channeled energy into solving complex problems and shipping features.", image: eventImg3 },
+  { title: "Mentorship Moment", caption: "Guidance shaping future builders.", location: "Mentor Hub", date: "Feedback Round", detail: "One-on-one mentorship sessions that provided clarity, accelerated growth, and refined execution strategies.", image: eventImg4 },
+  { title: "Launch Readiness", caption: "Final preparations for release.", location: "Launch Control", date: "Go Live", detail: "Last-mile quality checks and operational validation ensuring smooth and reliable public rollout.", image: eventImg5 },
+  { title: "Community Moment", caption: "K-Hub in motion and energy.", location: "Main Venue", date: "Community Event", detail: "A snapshot of the collective energy, collaboration, and shared mission driving K-Hub forward.", image: eventImg6 },
+  { title: "Team Pulse", caption: "The heartbeat of K-Hub culture.", location: "Core Circle", date: "Team Sync", detail: "A candid moment reflecting the ownership, momentum, and collaborative spirit defining K-Hub initiatives.", image: eventImg7 },
 ];
+
+// Resources items
+const resourcesData = [
+  { title: "Deep Learning Session", caption: "Knowledge exchange in motion.", location: "Learning Hub", date: "Skill Build", detail: "Immersive learning moments where teams acquired new skills and strengthened their technical capabilities.", image: resourceImg1 },
+  { title: "Workshop Moments", caption: "Hands-on creation and learning.", location: "Workshop Area", date: "Build Sprint", detail: "Interactive sessions where team members applied concepts and built solutions from scratch.", image: resourceImg2 },
+  { title: "Brainstorm Session", caption: "Ideas taking shape collaboratively.", location: "Innovation Lab", date: "Ideation Round", detail: "Creative brainstorming sessions where diverse perspectives converged into actionable project plans.", image: resourceImg3 },
+  { title: "Design Sprint", caption: "Prototyping ideas at speed.", location: "Design Studio", date: "Fast Build", detail: "Rapid prototyping sessions where concepts transformed into tangible, testable products.", image: resourceImg4 },
+  { title: "Team Sync", caption: "Alignment and momentum building.", location: "Core Room", date: "Status Check", detail: "Regular synchronization ensuring all team members stayed aligned and moving in the same direction.", image: resourceImg5 },
+  { title: "Code Review Session", caption: "Quality assurance in practice.", location: "Dev Lab", date: "Quality Pass", detail: "Collaborative code review sessions ensuring high standards of code quality and best practices.", image: resourceImg6 },
+  { title: "Testing & QA", caption: "Excellence through rigor.", location: "QA Lab", date: "Testing Phase", detail: "Comprehensive testing processes ensuring products met the highest standards before launch.", image: resourceImg7 },
+  { title: "Knowledge Sharing", caption: "Elevating collective expertise.", location: "Learning Arena", date: "Knowledge Base", detail: "Sessions where team members shared expertise and documented learnings for the broader community.", image: resourceImg8 },
+  { title: "Collaboration Tools", caption: "Technology enabling teamwork.", location: "Tech Hub", date: "Infrastructure", detail: "Setup and optimization of collaboration tools that enhanced team productivity and communication.", image: resourceImg9 },
+];
+
+// What We Do items
+const whatWeDoData = [
+  { title: "Initiative Overview", caption: "What We Do - Vision in action.", location: "Strategy Room", date: "Planning Phase", detail: "Strategic overview of K-Hub's core initiatives and the impact-driven approach that guides every project.", image: whatWeDoImg1 },
+  { title: "Core Team Alignment", caption: "Strategic sync for execution.", location: "War Room", date: "Strategy Sync", detail: "Deep-dive alignment sessions ensuring all initiatives are coordinated and moving toward shared goals.", image: whatWeDoImg2 },
+  { title: "Community Impact", caption: "Serving the broader ecosystem.", location: "Community Center", date: "Outreach Day", detail: "K-Hub's commitment to community building and creating meaningful impact beyond the walls.", image: whatWeDoImg3 },
+  { title: "Market Research", caption: "Understanding the landscape.", location: "Research Lab", date: "Data Gathering", detail: "In-depth market analysis and user research that informed strategic direction and product decisions.", image: whatWeDoImg4 },
+  { title: "Product Development", caption: "Building solutions that matter.", location: "Dev Center", date: "Build Cycle", detail: "End-to-end product development showcasing K-Hub's commitment to quality and innovation.", image: whatWeDoImg5 },
+  { title: "Strategic Planning", caption: "Mapping the future path.", location: "Strategy Hub", date: "Long-term Vision", detail: "Forward-looking planning sessions that shaped K-Hub's strategic initiatives and long-term vision.", image: whatWeDoImg6 },
+  { title: "User Feedback Loop", caption: "Learning from our community.", location: "Feedback Hub", date: "User Testing", detail: "Active engagement with users to gather feedback and continuously improve offerings.", image: whatWeDoImg7 },
+  { title: "Portfolio Growth", caption: "Expanding our impact reach.", location: "Portfolio Hub", date: "Growth Track", detail: "Tracking and celebrating the expanding portfolio of successful projects and initiatives.", image: whatWeDoImg8 },
+  { title: "Project Showcase", caption: "Celebrating shipped work.", location: "Showcase Stage", date: "Demo Day", detail: "Showcasing completed projects and the positive impact created through K-Hub initiatives.", image: whatWeDoImg9 },
+  { title: "Growth Milestone", caption: "Tracking progress and momentum.", location: "Growth Center", date: "Milestone Check", detail: "Regular milestone reviews tracking progress toward major goals and celebrating achievements.", image: whatWeDoImg10 },
+  { title: "Creative Insights", caption: "Collaborative discovery sessions.", location: "Innovation Lab", date: "Workshop", detail: "Workshops focused on creative problem-solving and innovative approaches to challenges.", image: whatWeDoImg11 },
+  { title: "Team Connection", caption: "Strengthening bonds and partnerships.", location: "Partnership Desk", date: "Collaboration", detail: "Meetings with partners and stakeholders exploring opportunities for mutual growth and collaboration.", image: whatWeDoImg12 },
+  { title: "Excellence Culture", caption: "Building standards that matter.", location: "Excellence Hub", date: "Culture Building", detail: "Fostering a culture of excellence where quality and impact are non-negotiable standards.", image: whatWeDoImg13 },
+  { title: "Future Vision", caption: "Tomorrow starts with today's choices.", location: "Vision Room", date: "Future Planning", detail: "Visionary sessions imagining K-Hub's future and planning initiatives to bring that vision to life.", image: whatWeDoImg14 },
+];
+
+// Build gallery items in original order (no shuffling)
+const buildGalleryItems = () => {
+  const events = eventsData.map((item, idx) => ({ id: idx + 1, category: "Events", ...item }));
+  const resources = resourcesData.map((item, idx) => ({ id: idx + 8, category: "Resources", ...item }));
+  const whatWeDo = whatWeDoData.map((item, idx) => ({ id: idx + 17, category: "What We Do", ...item }));
+  return [...events, ...resources, ...whatWeDo];
+};
+
+const GALLERY_ITEMS = buildGalleryItems();
 
 /* ─── Helpers ─── */
 function getCardTilt(index) { return ((index * 37) % 7) - 3; }
@@ -86,7 +152,7 @@ function GalleryCard({ item, index, onSelect, colors }) {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVisible(true); obs.unobserve(el); } },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0, rootMargin: "0px 0px 300px 0px" }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -116,7 +182,7 @@ function GalleryCard({ item, index, onSelect, colors }) {
     <div
       ref={rowRef}
       className={`gallery-card-row ${visible ? "gallery-card-visible" : ""}`}
-      style={{ flexDirection: isLeft ? "row" : "row-reverse", transitionDelay: `${index * 80}ms` }}
+      style={{ flexDirection: isLeft ? "row" : "row-reverse", transitionDelay: `${index * 20}ms` }}
     >
       {/* Image Column */}
       <div className="gallery-card-image-col">
@@ -127,7 +193,7 @@ function GalleryCard({ item, index, onSelect, colors }) {
               <Image
                 src={item.image} alt={item.title} fill placeholder="blur"
                 sizes="(max-width: 768px) 90vw, 45vw"
-                priority={index < 2}
+                priority={index < 6}
                 className="object-cover"
                 style={{ transition: "transform 0.15s linear" }}
               />
@@ -215,7 +281,6 @@ export default function GalleryPage() {
   const colors = useThemeColors();
 
   const filtered = useMemo(() => {
-    if (activeFilter === "What We Do") return GALLERY_ITEMS;
     return GALLERY_ITEMS.filter((i) => i.category === activeFilter);
   }, [activeFilter]);
 
