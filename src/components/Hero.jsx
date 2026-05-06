@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const CYCLING_WORDS = [
     "Deep Tech",
@@ -19,39 +18,12 @@ const THEMES = ["theme-1", "theme-3", "theme-4", "theme-7", "theme-8"];
 const WORD_SWITCH_MS = 2200;
 const WORD_TRANSITION_SECONDS = 0.4;
 
-const HERO_SLIDES = [
-    {
-        title: "K-Hub Deep-Tech Innovation Hub",
-        tag: "Student-led applied research, built on campus.",
-        image: "/achievements/drug-hero.jpg",
-    },
-    {
-        title: "Research and Innovation at Scale",
-        tag: "From idea to experiments, fast and rigorous.",
-        image: "/achievements/cyber-hero.jpg",
-    },
-    {
-        title: "Student Venture Studio Momentum",
-        tag: "Engineering founders through execution.",
-        image: "/achievements/robo-hero.jpg",
-    },
-    {
-        title: "One Campus, Multiple Paradigms",
-        tag: "A connected ecosystem for deep-tech progress.",
-        image: "/achievements/crystal-hero.jpg",
-    },
-];
-
-const SLIDE_SWITCH_MS = 6000;
+const HERO_TAG = "Student-led applied research, built on campus.";
 
 export default function Hero() {
     const [wordIndex, setWordIndex] = useState(0);
     const [themeIndex, setThemeIndex] = useState(0);
-    const [slideIndex, setSlideIndex] = useState(0);
-    const [isPaused, setIsPaused] = useState(false);
     const themeInitializedRef = useRef(false);
-
-    const activeSlide = useMemo(() => HERO_SLIDES[slideIndex], [slideIndex]);
 
     useEffect(() => {
         const saved = window.localStorage.getItem("khub-theme-index");
@@ -74,14 +46,6 @@ export default function Hero() {
     }, []);
 
     useEffect(() => {
-        if (isPaused) return;
-        const interval = setInterval(() => {
-            setSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
-        }, SLIDE_SWITCH_MS);
-        return () => clearInterval(interval);
-    }, [isPaused]);
-
-    useEffect(() => {
         const theme = THEMES[themeIndex];
         document.documentElement.setAttribute("data-theme", theme);
         if (themeInitializedRef.current) {
@@ -98,30 +62,22 @@ export default function Hero() {
         setThemeIndex((prev) => (prev + 1) % THEMES.length);
     };
 
-    const goToSlide = (nextIndex) => {
-        const safeIndex = (nextIndex + HERO_SLIDES.length) % HERO_SLIDES.length;
-        setSlideIndex(safeIndex);
-    };
-
     return (
-        <section
-            className="relative h-dvh w-screen overflow-hidden pt-16"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-        >
-            <AnimatePresence mode="wait">
-                <motion.div
-                    key={activeSlide.image}
-                    initial={{ opacity: 0.2, scale: 1.02 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0.2 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute inset-0"
+        <section className="relative h-dvh w-screen overflow-hidden pt-16">
+            <div className="absolute inset-0">
+                <video
+                    className="h-full w-full object-cover object-center"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    aria-label="K-Hub campus innovation video"
                 >
-                    <Image src={activeSlide.image} alt={activeSlide.title} fill priority sizes="100vw" className="object-cover object-center" />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.72)_40%,rgba(0,0,0,0.35)_100%)]" />
-                </motion.div>
-            </AnimatePresence>
+                    <source src="/khub.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.72)_40%,rgba(0,0,0,0.35)_100%)]" />
+            </div>
 
             <div className="relative z-10 h-full w-full page-container flex items-center">
                 <div className="max-w-2xl text-white">
@@ -159,7 +115,7 @@ export default function Hero() {
                         </span>
                     </h1>
                     <p className="text-base md:text-lg text-white/80 leading-relaxed mb-9 font-light">
-                        {activeSlide.tag}
+                        {HERO_TAG}
                     </p>
 
                     <div className="flex items-center gap-5 flex-wrap">
@@ -178,34 +134,6 @@ export default function Hero() {
                     </div>
                 </div>
             </div>
-
-            <button
-                onClick={() => goToSlide(slideIndex - 1)}
-                aria-label="Previous slide"
-                className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 h-11 w-11 md:h-12 md:w-12 rounded-full bg-black/30 text-white text-2xl leading-none hover:bg-black/45 transition-colors"
-            >
-                &#8249;
-            </button>
-            <button
-                onClick={() => goToSlide(slideIndex + 1)}
-                aria-label="Next slide"
-                className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 h-11 w-11 md:h-12 md:w-12 rounded-full bg-black/30 text-white text-2xl leading-none hover:bg-black/45 transition-colors"
-            >
-                &#8250;
-            </button>
-
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-                {HERO_SLIDES.map((slide, index) => (
-                    <button
-                        key={slide.title}
-                        type="button"
-                        aria-label={`Go to slide ${index + 1}`}
-                        onClick={() => goToSlide(index)}
-                        className={`h-3 w-3 rounded-full transition-all ${slideIndex === index ? "bg-white" : "bg-white/40 hover:bg-white/65"}`}
-                    />
-                ))}
-            </div>
-
         </section>
     );
 }
