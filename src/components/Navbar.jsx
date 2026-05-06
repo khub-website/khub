@@ -9,7 +9,7 @@ import Link from "next/link";
 const navLinks = [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
-    { label: "Domains", href: "/#domains" },
+    { label: "Paradigms", href: "/#domains" },
     { label: "Gallery", href: "/gallery" },
     { label: "Achievements", href: "/achievements" },
     { label: "Programs", href: "/#programs" },
@@ -164,8 +164,8 @@ export default function Navbar() {
                                         href={link.href}
                                         onClick={() => setMobileOpen(false)}
                                         className={`px-4 py-2.5 rounded-full text-[0.84rem] font-semibold tracking-[0.02em] transition-all duration-300 ${isActive
-                                                ? "text-primary bg-white/80 shadow-[0_8px_22px_rgba(2,44,34,0.12)]"
-                                                : "text-on-surface-variant hover:text-primary bg-transparent hover:bg-white/70"
+                                            ? "text-primary bg-white/80 shadow-[0_8px_22px_rgba(2,44,34,0.12)]"
+                                            : "text-on-surface-variant hover:text-primary bg-transparent hover:bg-white/70"
                                             }`}
                                     >
                                         {link.label}
