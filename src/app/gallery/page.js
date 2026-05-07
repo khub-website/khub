@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import PhotoSlider from "@/components/PhotoSlider";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import "./gallery.css";
 
@@ -311,54 +314,41 @@ export default function GalleryPage() {
     <div className={`gallery-page-shell min-h-screen bg-surface font-body text-on-surface selection:bg-primary selection:text-white ${lightbox.open ? "gallery-lightbox-open" : ""}`}>
       <div className="gallery-page-content">
         <main className="pt-24 lg:pt-0">
-        {/* ── Hero ── */}
-        <section className="relative min-h-[100svh] overflow-hidden bg-on-surface">
-          <motion.div initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }} className="absolute inset-0">
-            <video ref={heroVideoRef} className="h-full w-full object-cover" autoPlay muted playsInline preload="metadata" onTimeUpdate={loopVideo}>
-              <source src="/hero_video_for_gallery.mp4" type="video/mp4" />
-            </video>
-          </motion.div>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, ease: "easeOut" }} className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.58),rgba(0,0,0,0.18)_54%,rgba(0,0,0,0.38))]" />
-          <div className="relative z-10 flex min-h-[100svh] flex-col justify-end px-5 pb-10 pt-28 text-white sm:px-8 sm:pb-16 md:pb-20 lg:px-12">
-            <motion.div initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.75, ease: [0.22, 1, 0.36, 1] }} className="max-w-4xl">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-white/75">Gallery</p>
-              <h1 className="text-4xl font-semibold leading-none tracking-tight sm:text-6xl lg:text-7xl">Moments from K-Hub.</h1>
-              <p className="mt-5 max-w-2xl text-sm leading-6 text-white/82 sm:mt-6 sm:text-lg sm:leading-7">A moving glimpse of the people, sessions, and spaces that shape the K-Hub community.</p>
-              <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70 sm:text-base sm:leading-7">Explore snapshots of people, sessions, and milestones from across the K-Hub journey.</p>
-            </motion.div>
-          </div>
-        </section>
+          {/* ── Photo Slider Hero ── */}
+          <section className="relative">
+            <PhotoSlider />
+          </section>
 
-        {/* ── Filter Tabs ── */}
-        <div className="gallery-filter-bar">
-          {CATEGORIES.map((cat) => (
-            <button key={cat} className={`gallery-filter-pill ${activeFilter === cat ? "active" : ""}`} onClick={() => setActiveFilter(cat)}>{cat}</button>
-          ))}
-        </div>
-
-        {/* ── Gallery Section ── */}
-        <section ref={containerRef} className="relative pb-40" style={{ minHeight: "50vh" }}>
-          <div className="gallery-progress-bar" style={{ width: `${scrollProg * 100}%` }} />
-
-          <div className="page-container relative z-10" style={{ paddingTop: 40 }}>
-            <AnimatePresence mode="popLayout">
-              {filtered.map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.92 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9, height: 0, marginTop: 0, marginBottom: 0, overflow: "hidden" }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <GalleryCard item={item} index={index} onSelect={openLightbox} colors={colors} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
+          {/* ── Filter Tabs ── */}
+          <div className="gallery-filter-bar">
+            {CATEGORIES.map((cat) => (
+              <button key={cat} className={`gallery-filter-pill ${activeFilter === cat ? "active" : ""}`} onClick={() => setActiveFilter(cat)}>{cat}</button>
+            ))}
           </div>
 
+          {/* ── Gallery Section ── */}
+          <section ref={containerRef} className="relative pb-40" style={{ minHeight: "50vh" }}>
+            <div className="gallery-progress-bar" style={{ width: `${scrollProg * 100}%` }} />
 
-        </section>
+            <div className="page-container relative z-10" style={{ paddingTop: 40 }}>
+              <AnimatePresence mode="popLayout">
+                {filtered.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.92 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9, height: 0, marginTop: 0, marginBottom: 0, overflow: "hidden" }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <GalleryCard item={item} index={index} onSelect={openLightbox} colors={colors} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+
+
+          </section>
         </main>
       </div>
 
