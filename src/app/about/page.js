@@ -9,45 +9,45 @@ import Footer from "@/components/Footer";
 
 const flagshipProjects = [
   {
-    name: "DrugParadigm X-47",
+    name: "Drugparadigm",
     logo: "/logo-drugparadigm.webp",
-    outcome: "2 candidate molecules shortlisted",
-    detail: "Placeholder project summary and measurable research outcome.",
+    outcome: "AI-driven drug discovery",
+    detail: "",
     url: "https://drugparadigm.com/",
   },
   {
-    name: "CyberParadigm Sentinel",
+    name: "Cyberparadigm",
     logo: "/logo-cyberparadigm.webp",
-    outcome: "1,200+ security drills completed",
-    detail: "Placeholder project summary with benchmark and deployment context.",
+    outcome: "Indigenous Cybersecurity learning platform",
+    detail: "",
     url: "https://cyberparadigm.in/",
   },
   {
-    name: "RoboParadigm Atlas Arm",
+    name: "Roboparadigm",
     logo: "/logo-roboparadigm.webp",
-    outcome: "3 prototype iterations validated",
-    detail: "Placeholder project summary with lab-to-field conversion details.",
+    outcome: "AI-driven robotic systems for industrial and laboratory automation",
+    detail: "",
     url: "https://roboparadigm.com/",
   },
   {
-    name: "NeuroParadigm Echo",
+    name: "Neuroparadigm",
     logo: "/logo-neuroparadigm.webp",
-    outcome: "87% model reliability in pilot",
-    detail: "Placeholder project summary with validation data and use case.",
+    outcome: "AI-assisted clinical decsion support for psychiatry and neurodevelopment care",
+    detail: "",
     url: "https://neuroparadigm.in/",
   },
   {
-    name: "NutraParadigm N-One",
+    name: "Nutraparadigm",
     logo: "/logo-neutraparadigm.webp",
-    outcome: "4 functional formulations tested",
-    detail: "Placeholder project summary with pilot cohorts and findings.",
-    url: null,
+    outcome: "AI-driven nutraceutical and natural drug design research ",
+    detail: "",
+    url: "https://nutradrug.in",
   },
   {
-    name: "CrystalParadigm Forge",
+    name: "Crystalparadigm",
     logo: "/logo-crystalparadigm.webp",
-    outcome: "9 material candidates simulated",
-    detail: "Placeholder project summary around material performance targets.",
+    outcome: " AI-driven material discovery and Energy storage materials ",
+    detail: "",
     url: "https://crystalparadigm.in/",
   },
   {
@@ -61,76 +61,82 @@ const flagshipProjects = [
 ];
 
 const evidenceBlocks = [
-  { label: "Startups Launched", value: "03" },
-  { label: "Publications", value: "18" },
-  { label: "Mentors", value: "32" },
-  { label: "Labs", value: "07" },
-  { label: "Partner Institutions", value: "11" },
-  { label: "Application Pathways", value: "06" },
+  { label: "Startups Incubated", value: "09" },
+  { label: "Preprints", value: "10" },
+  { label: "Mentors & SMEs", value: "17" },
+  { label: "Domain specific Labs", value: "02" },
+  { label: "Backing Institutions", value: "4" },
+  // { label: "Application Pathways", value: "06" },
 ];
 
 const leadershipTeam = [
   {
     name: "Shri. Neil Gogte",
     role: "Chairman, KMIT Group of Institutions",
-    bio: "Guides K-Hub strategy, partnerships, and the cross-domain research pipeline.",
+    bio: "Guides K-Hub strategy, partnerships, and technical direction across the cross-domain research pipelines.",
     image: "/team/leader-01.png",
   },
   {
     name: "Sudarsh Lal",
     role: "Director, K-Hub",
-    bio: "Shapes the program cadence, mentor network, and founder readiness milestones.",
+    bio: "Provides business development mentorship and strategic guidance for K-Hub incubated startups.",
     image: "/team/leader-02.png",
   },
   {
     name: "Venkateshwar Rao Boinapally",
-    role: "Leadership",
-    bio: "Keeps lab pipelines, grants, and student teams moving from idea to demo.",
+    role: "Director, K-Hub",
+    bio: "Provides technical mentorship and guidance in execution from idea to implementation.",
     image: "/team/leader-03.png",
   },
 ];
 
 const paradigmHeads = [
   {
-    name: "Paradigm Head 01",
+    name: "Sanjana Gogte",
     role: "DrugParadigm",
     bio: "Leads discovery work and translational pathways for drug innovation.",
     image: "/logo-drugparadigm.webp",
+    headImage: "/team/paradigm-01.png",
     isLogo: true,
   },
   {
-    name: "Paradigm Head 02",
+    name: "Sripooja M",
     role: "CyberParadigm",
     bio: "Oversees secure systems research and applied security pilots.",
     image: "/logo-cyberparadigm.webp",
+    headImage: "/team/paradigm-02.png",
     isLogo: true,
   },
   {
-    name: "Paradigm Head 03",
+    name: "Mahesh",
     role: "RoboParadigm",
     bio: "Guides robotics prototyping, automation, and field testing cycles.",
     image: "/logo-roboparadigm.webp",
+    headImage: "/team/paradigm-03.png",
     isLogo: true,
   },
   {
-    name: "Paradigm Head 04",
+    name: "Sireesha",
     role: "NeuroParadigm",
     bio: "Directs neurotech research, experimentation, and model validation.",
     image: "/logo-neuroparadigm.webp",
+    headImage: "/team/paradigm-04.png",
     isLogo: true,
   },
   {
-    name: "Paradigm Head 05",
+    name: "Dr. Devika",
     role: "NutraParadigm",
     bio: "Leads nutrition science pilots and functional formulation testing.",
     image: "/logo-neutraparadigm.webp",
+    headImage: "/team/paradigm-05.png",
     isLogo: true,
   },
   {
-    name: "Paradigm Head 06",
+    name: "Shilpa",
     role: "CrystalParadigm",
     bio: "Heads materials research and simulation-to-prototype delivery.",
     image: "/logo-crystalparadigm.webp",
+    headImage: "/team/paradigm-06.png",
     isLogo: true,
   },
 ];
@@ -140,7 +146,7 @@ const facilitySlides = [
     label: "Deep-Tech Hub",
     title: "A Deep-Tech Hub",
     description:
-      "A launchpad for student-led research with real-world outcomes across every K-Hub vertical.",
+      "A launchpad for applied  deep-tech research startups across various domains.",
     image: null,
     video: "/about/khub.mp4",
     poster: "/about/infra_1.jpg",
@@ -149,7 +155,7 @@ const facilitySlides = [
   },
   {
     label: "Compute",
-    title: "A100 + H100 GPU Cluster",
+    title: "A100,H100,H200 GPU Cluster",
     description:
       "High-performance compute for model training, simulation, and intensive AI workloads.",
     image: "/about/gpu_pic.jpg",
@@ -167,7 +173,7 @@ const facilitySlides = [
   },
   {
     label: "Campus Life",
-    title: "TT Table + Cafeteria",
+    title: "Playarea & Cafeteria",
     description:
       "Spaces to recharge, connect, and collaborate between sprints.",
     image: "/about/cafiteria.jpg",
@@ -252,6 +258,7 @@ function PearlProjectCard({ project, index, reduceMotion }) {
 
 function TeamCard({ person, reduceMotion }) {
   const logoFloat = reduceMotion || !person.isLogo ? {} : { y: [0, -6, 0] };
+  const flipCard = Boolean(person.isLogo);
 
   return (
     <motion.article
@@ -260,34 +267,76 @@ function TeamCard({ person, reduceMotion }) {
       aria-label={`${person.name} - ${person.role}`}
       className="group relative w-[230px] sm:w-[250px] md:w-[270px] shrink-0 overflow-hidden rounded-2xl border border-outline-variant/70 bg-surface-container-lowest shadow-[0_18px_40px_rgba(18,20,24,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
     >
-      <div className="relative h-60 md:h-64 w-full overflow-hidden">
-        {person.isLogo ? (
-          <div className="relative h-full w-full bg-surface-container-low">
-            <div
-              aria-hidden
-              className="absolute -top-6 right-6 h-20 w-20 rounded-full opacity-40 blur-2xl"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(var(--color-primary-rgb),0.45) 0%, rgba(var(--color-primary-rgb),0) 70%)",
-              }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <motion.div
-                animate={logoFloat}
-                transition={reduceMotion ? {} : { duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-                className="flex h-28 w-28 items-center justify-center rounded-full border border-white/80 bg-white/80 shadow-[0_18px_40px_rgba(15,20,25,0.18)]"
-              >
-                <Image
-                  src={person.image}
-                  alt={`${person.role} logo`}
-                  width={96}
-                  height={96}
-                  className="h-16 w-16 object-contain"
+      {flipCard ? (
+        <div className="relative h-60 md:h-64 w-full [perspective:1200px]">
+          <div className="relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] group-focus-within:[transform:rotateY(180deg)]">
+            <div className="absolute inset-0 [backface-visibility:hidden]">
+              <div className="relative h-full w-full bg-surface-container-low">
+                <div
+                  aria-hidden
+                  className="absolute -top-6 right-6 h-20 w-20 rounded-full opacity-40 blur-2xl"
+                  style={{
+                    background:
+                      "radial-gradient(circle, rgba(var(--color-primary-rgb),0.45) 0%, rgba(var(--color-primary-rgb),0) 70%)",
+                  }}
                 />
-              </motion.div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.div
+                    animate={logoFloat}
+                    transition={reduceMotion ? {} : { duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                    className="flex h-28 w-28 items-center justify-center rounded-full border border-white/80 bg-white/80 shadow-[0_18px_40px_rgba(15,20,25,0.18)]"
+                  >
+                    <Image
+                      src={person.image}
+                      alt={`${person.role} logo`}
+                      width={96}
+                      height={96}
+                      className="h-16 w-16 object-contain"
+                    />
+                  </motion.div>
+                </div>
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent opacity-70"
+                />
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <p className="text-[0.95rem] font-semibold leading-tight">{person.name}</p>
+                  <p className="text-[0.75rem] uppercase tracking-[0.18em] text-white/80 mt-1">
+                    {person.role}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute inset-0 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+              <Image
+                src={person.headImage}
+                alt={`${person.name} headshot`}
+                width={320}
+                height={420}
+                className="h-full w-full object-cover"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-linear-to-t from-black/75 via-black/35 to-transparent"
+              />
+              <div className="absolute bottom-4 left-4 right-4 text-white">
+                <p className="text-[0.95rem] font-semibold leading-tight">{person.name}</p>
+                <p className="text-[0.7rem] uppercase tracking-[0.18em] text-white/75 mt-1">
+                  {person.role}
+                </p>
+                <p className="text-[0.7rem] uppercase tracking-[0.18em] text-white/70 mt-3">
+                  About
+                </p>
+                <p className="text-[0.85rem] leading-relaxed text-white/90 mt-2">
+                  {person.bio}
+                </p>
+              </div>
             </div>
           </div>
-        ) : (
+        </div>
+      ) : (
+        <div className="relative h-60 md:h-64 w-full overflow-hidden">
           <Image
             src={person.image}
             alt={person.name}
@@ -295,29 +344,31 @@ function TeamCard({ person, reduceMotion }) {
             height={420}
             className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
           />
-        )}
-        <div
-          aria-hidden
-          className={`absolute inset-0 bg-linear-to-t ${person.isLogo ? "from-black/50" : "from-black/65"} via-black/10 to-transparent opacity-70`}
-        />
-        <div className="absolute bottom-4 left-4 right-4 text-white">
-          <p className="text-[0.95rem] font-semibold leading-tight">{person.name}</p>
-          <p className="text-[0.75rem] uppercase tracking-[0.18em] text-white/80 mt-1">
-            {person.role}
-          </p>
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-linear-to-t from-black/65 via-black/10 to-transparent opacity-70"
+          />
+          <div className="absolute bottom-4 left-4 right-4 text-white">
+            <p className="text-[0.95rem] font-semibold leading-tight">{person.name}</p>
+            <p className="text-[0.75rem] uppercase tracking-[0.18em] text-white/80 mt-1">
+              {person.role}
+            </p>
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="absolute inset-0 flex items-end bg-surface/95 opacity-0 translate-y-6 transition duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0">
-        <div className="p-5">
-          <p className="text-[0.85rem] uppercase tracking-[0.18em] text-primary font-semibold mb-2">
-            About
-          </p>
-          <p className="text-[0.9rem] leading-relaxed text-on-surface-variant">
-            {person.bio}
-          </p>
+      {!flipCard && (
+        <div className="absolute inset-0 flex items-end bg-surface/95 opacity-0 translate-y-6 transition duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0">
+          <div className="p-5">
+            <p className="text-[0.85rem] uppercase tracking-[0.18em] text-primary font-semibold mb-2">
+              About
+            </p>
+            <p className="text-[0.9rem] leading-relaxed text-on-surface-variant">
+              {person.bio}
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </motion.article>
   );
 }
@@ -568,12 +619,12 @@ export default function AboutPage() {
                 String of Pearls
               </p>
               <h2 className="font-display text-[clamp(1.6rem,3.2vw,2.5rem)] leading-[1.1] tracking-tight">
-                Flagship Projects with Outcomes
+                 Deep-Tech startups incubated at K-Hub
               </h2>
             </div>
-            <p className="text-sm text-on-surface-variant max-w-md leading-relaxed">
+            {/* <p className="text-sm text-on-surface-variant max-w-md leading-relaxed">
               Each pearl represents one flagship initiative. Keep your final named projects, measurable outputs, and impact notes directly on each card.
-            </p>
+            </p> */}
           </motion.div>
 
           <div className="relative">
@@ -637,20 +688,20 @@ export default function AboutPage() {
             viewport={{ once: true, margin: "-90px" }}
             className="mb-4"
           >
-            <p className="text-[0.72rem] font-semibold tracking-[0.14em] uppercase text-primary mb-3">
+            {/* <p className="text-[0.72rem] font-semibold tracking-[0.14em] uppercase text-primary mb-3">
               People Involved
-            </p>
+            </p> */}
             <h2 className="font-display text-[clamp(1.5rem,3vw,2.3rem)] leading-[1.1] tracking-tight">
               The Team Behind the Work
             </h2>
-            <p className="mt-3 text-sm text-on-surface-variant max-w-2xl">
+            {/* <p className="mt-3 text-sm text-on-surface-variant max-w-2xl">
               Two focus lines: core leadership first, then the paradigm heads guiding each domain.
-            </p>
+            </p> */}
           </motion.div>
 
           <TeamMarquee
             title="Leadership"
-            description="The core team steering K-Hub"
+            // description="The core team steering K-Hub"
             people={leadershipTeam}
             reduceMotion={reduceMotion}
             duration="26s"
@@ -659,7 +710,7 @@ export default function AboutPage() {
 
           <TeamMarquee
             title="Paradigm Heads"
-            description="Domain leaders keeping each vertical on pace"
+            // description="Domain leaders keeping each vertical on pace"
             people={paradigmHeads}
             reduceMotion={reduceMotion}
             duration="32s"
