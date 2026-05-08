@@ -148,14 +148,14 @@ const facilitySlides = [
     description:
       "A launchpad for applied  deep-tech research startups across various domains.",
     image: null,
-    video: "/about/khub.mp4",
-    poster: "/about/infra_1.jpg",
+    // video: "/about/khub.mp4",
+    poster: "/about/khub.jpg",
     background:
       "radial-gradient(circle at 18% 24%, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%), linear-gradient(135deg, #bde0fe, #ffafcc)",
   },
   {
     label: "Compute",
-    title: "A100,H100,H200 GPU Cluster",
+    title: "A100 H100 H200 GPU Cluster",
     description:
       "High-performance compute for model training, simulation, and intensive AI workloads.",
     image: "/about/gpu_pic.jpg",
