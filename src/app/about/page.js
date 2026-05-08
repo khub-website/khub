@@ -95,7 +95,7 @@ const paradigmHeads = [
     name: "Sanjana Gogte",
     role: "DrugParadigm",
     bio: "Leads discovery work and translational pathways for drug innovation.",
-    image: "/logo-drugparadigm.webp",
+    image: "/drugparadigm.webp",
     headImage: "/team/paradigm-01.png",
     isLogo: true,
   },
@@ -103,7 +103,7 @@ const paradigmHeads = [
     name: "Sripooja M",
     role: "CyberParadigm",
     bio: "Oversees secure systems research and applied security pilots.",
-    image: "/logo-cyberparadigm.webp",
+    image: "/cyberparadigm.webp",
     headImage: "/team/paradigm-02.png",
     isLogo: true,
   },
@@ -111,7 +111,7 @@ const paradigmHeads = [
     name: "Mahesh",
     role: "RoboParadigm",
     bio: "Guides robotics prototyping, automation, and field testing cycles.",
-    image: "/logo-roboparadigm.webp",
+    image: "/roboparadigm.webp",
     headImage: "/team/paradigm-03.png",
     isLogo: true,
   },
@@ -119,7 +119,7 @@ const paradigmHeads = [
     name: "Sireesha",
     role: "NeuroParadigm",
     bio: "Directs neurotech research, experimentation, and model validation.",
-    image: "/logo-neuroparadigm.webp",
+    image: "/neuroparadigm.webp",
     headImage: "/team/paradigm-04.png",
     isLogo: true,
   },
@@ -127,7 +127,7 @@ const paradigmHeads = [
     name: "Dr. Devika",
     role: "NutraParadigm",
     bio: "Leads nutrition science pilots and functional formulation testing.",
-    image: "/logo-neutraparadigm.webp",
+    image: "/nutraparadigm.webp",
     headImage: "/team/paradigm-05.png",
     isLogo: true,
   },
@@ -135,7 +135,7 @@ const paradigmHeads = [
     name: "Shilpa",
     role: "CrystalParadigm",
     bio: "Heads materials research and simulation-to-prototype delivery.",
-    image: "/logo-crystalparadigm.webp",
+    image: "/crystalparadigm.webp",
     headImage: "/team/paradigm-06.png",
     isLogo: true,
   },
@@ -552,7 +552,7 @@ export default function AboutPage() {
               <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex flex-wrap gap-3">
                   <Link
-                    href="/#contact"
+                    href="/contact"
                     className="px-5 py-3 rounded-xl bg-surface-container-lowest text-sm font-semibold tracking-tight text-primary hover:opacity-90 transition"
                   >
                     Connect With K-Hub
