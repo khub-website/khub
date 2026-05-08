@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 const INQUIRY_TYPES = [
   { value: "internship", label: "Internship" },
@@ -77,9 +75,7 @@ export default function ContactPage() {
     "w-full px-4 py-3 rounded-xl bg-surface-container-lowest border border-outline-variant text-[0.9rem] text-on-surface placeholder:text-on-surface-variant/60 outline-none focus:border-primary focus:ring-2 focus:ring-[rgba(var(--color-primary-rgb),0.18)] transition-all duration-200";
 
   return (
-    <>
-      <Navbar />
-      <main className="relative min-h-[100dvh] bg-surface flex items-center pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-14 md:pb-20 overflow-hidden">
+    <main className="relative min-h-[100dvh] bg-surface flex items-center pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-14 md:pb-20 overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
@@ -93,20 +89,32 @@ export default function ContactPage() {
               "radial-gradient(ellipse 80% 70% at 50% 40%, black 40%, transparent 90%)",
           }}
         />
-        <div className="relative w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
-          <header className="text-center mb-8 sm:mb-10 md:mb-14">
-            <h1 className="font-display text-[clamp(1.6rem,6vw,2.75rem)] font-bold tracking-tight text-on-surface">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-32 left-[-10%] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(var(--color-primary-rgb),0.25)_0%,rgba(var(--color-primary-rgb),0.08)_40%,transparent_70%)] blur-2xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute bottom-[-14%] right-[-8%] h-[520px] w-[520px] rounded-full bg-[conic-gradient(from_120deg,rgba(var(--color-primary-container-rgb),0.25),transparent_45%,rgba(var(--color-primary-rgb),0.18))] blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-24 h-24 w-[70%] -translate-x-1/2 rounded-[999px] bg-[linear-gradient(90deg,transparent,rgba(var(--color-primary-rgb),0.2),transparent)]"
+        />
+        <div className="relative w-full page-container">
+          <header className="mb-8 sm:mb-10 md:mb-14 max-w-2xl text-left">
+            <h1 className="font-display text-[clamp(1.6rem,4.2vw,3rem)] font-medium tracking-tight text-on-surface leading-[1.02]">
               Contact Us
             </h1>
-            <p className="mt-3 text-[0.88rem] sm:text-[0.95rem] leading-relaxed text-on-surface-variant max-w-md sm:max-w-xl mx-auto">
-              We&apos;d love to hear from you. Send us a message or find us on the map.
+            <p className="mt-3 text-[0.88rem] sm:text-[0.95rem] leading-relaxed text-on-surface-variant max-w-md">
+              Send a note. We&apos;ll reply soon.
             </p>
           </header>
 
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 items-start">
             <form
               onSubmit={handleSubmit}
-              className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-5 sm:p-7 md:p-8"
+              className="bg-surface-container-lowest/90 border border-outline-variant rounded-2xl p-5 sm:p-7 md:p-8 shadow-[0_24px_60px_rgba(15,22,20,0.08)] backdrop-blur"
               noValidate
             >
               <div className="grid sm:grid-cols-2 gap-4">
@@ -253,7 +261,7 @@ export default function ContactPage() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Open Teleparadigm Towers in Google Maps"
-              className="group relative block rounded-2xl overflow-hidden border border-outline-variant bg-surface-container-lowest"
+              className="group relative block rounded-2xl overflow-hidden border border-outline-variant bg-surface-container-lowest shadow-[0_18px_48px_rgba(15,22,20,0.08)]"
             >
               <iframe
                 title="Office location — Teleparadigm Towers"
@@ -264,6 +272,7 @@ export default function ContactPage() {
                 allowFullScreen
               />
               <span className="absolute inset-0" aria-hidden="true" />
+              
               <span className="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-surface/95 backdrop-blur text-[0.72rem] font-semibold text-primary border border-primary/20 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                 Open in Google Maps ↗
               </span>
@@ -271,7 +280,5 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </>
   );
 }

@@ -15,7 +15,9 @@ export const paradigms = [
       { title: "De Novo Design", desc: "Generating entirely new molecules with specific properties." }
     ],
     achievements: [],
-    photos: [],
+    photos: [
+      { src: "/achievements/drug-hero.jpg", alt: "Molecular simulation" },
+    ],
   },
   {
     id: "robo-paradigm",
@@ -31,7 +33,9 @@ export const paradigms = [
       { title: "Collaborative Bots", desc: "Robots designed to work safely alongside human teams." }
     ],
     achievements: [],
-    photos: [],
+    photos: [
+      { src: "/achievements/robo-hero.jpg", alt: "Humanoid robot" },
+    ],
   },
   {
     id: "cyber-paradigm",
@@ -47,14 +51,16 @@ export const paradigms = [
       { title: "Automated Response", desc: "Neutralizing threats at wire-speed without human intervention." }
     ],
     achievements: [],
-    photos: [],
+    photos: [
+      { src: "/achievements/cyber-hero.jpg", alt: "Security dashboard" },
+    ],
   },
   {
     id: "neuro-paradigm",
     name: "NeuroParadigm",
     url: "https://neuroparadigm.in/",
     tagline: "Connecting minds and machines",
-    description: "Decoding the language of the brain to restore function and enhance cognition. NeuroParadigm explores the frontier of high-bandwidth neural interfaces and neuromorphic hardware.",
+    description: "Translating the hidden language of mind and behavior into measurable signals, NeuroParadigm powers a new era of intelligent, scalable psychiatric care.",
     color: "#8b5cf6",
     icon: Brain,
     topics: [
@@ -63,7 +69,9 @@ export const paradigms = [
       { title: "BCI-LLM Bridge", desc: "Enabling direct thought-to-text communication." }
     ],
     achievements: [],
-    photos: [],
+    photos: [
+      { src: "/achievements/neuro-hero.jpeg", alt: "Neural interface" },
+    ],
   },
   {
     id: "crystal-paradigm",
@@ -79,12 +87,14 @@ export const paradigms = [
       { title: "Superconductors", desc: "Predicting materials that conduct without resistance." }
     ],
     achievements: [],
-    photos: [],
+    photos: [
+      { src: "/achievements/crystal-hero.png", alt: "Crystal lattice" },
+    ],
   },
   {
     id: "nutra-paradigm",
     name: "NutraParadigm",
-    url: null,
+    url: "https://nutradrug.in/",
     tagline: "Personalizing health through precision biology",
     description: "Analyzing the complex interplay between diet, microbiome, and metabolism. NutraParadigm uses AI to design bespoke nutritional interventions for optimal human performance.",
     color: "#ec4899",
@@ -95,6 +105,8 @@ export const paradigms = [
       { title: "Bio-Feedback", desc: "Real-time nutritional adjustment based on wearable data." }
     ],
     achievements: [],
-    photos: [],
+    photos: [
+      { src: "/achievements/nutra-hero.png", alt: "Bio-data visualization" },
+    ],
   },
 ];

@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export default function Impact() {
     return (
         <section className="py-20 md:py-28 bg-surface-container-low">
-            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+            <div className="page-container">
                 <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -44,9 +44,14 @@ export default function Impact() {
                             </div>
                         </div>
 
-                        <button className="px-7 py-3.5 bg-gradient-to-r from-primary to-primary-container text-surface text-sm font-semibold tracking-tight rounded-lg hover:shadow-[0_18px_34px_rgba(var(--color-primary-rgb),0.24)] transition-all duration-300">
+                        <a
+                            href="https://newsletters.k-hub.org.in/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block px-7 py-3.5 bg-gradient-to-r from-primary to-primary-container text-surface text-sm font-semibold tracking-tight rounded-lg hover:shadow-[0_18px_34px_rgba(var(--color-primary-rgb),0.24)] transition-all duration-300"
+                        >
                             Read Newsletter
-                        </button>
+                        </a>
                     </motion.div>
 
                     <motion.div

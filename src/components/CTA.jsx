@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export default function CTA() {
     return (
         <section className="py-20 md:py-28">
-            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+            <div className="page-container">
                 <motion.div
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}

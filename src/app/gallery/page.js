@@ -1,448 +1,362 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import gallery1 from "../../../gallery_images/1.jpg";
-import gallery2 from "../../../gallery_images/2.jpg";
-import gallery3 from "../../../gallery_images/3.jpg";
-import gallery4 from "../../../gallery_images/4.jpg";
-import gallery5 from "../../../gallery_images/5.jpg";
-import gallery6 from "../../../gallery_images/6.jpg";
-import gallery7 from "../../../gallery_images/7.jpg";
-import gallery8 from "../../../gallery_images/8.jpg";
-import gallery9 from "../../../gallery_images/9.avif";
+import PhotoSlider from "@/components/PhotoSlider";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import "./gallery.css";
 
-const GALLERY_ITEMS = [
-  {
-    id: 1,
-    title: "All-Hands Energy",
-    caption: "Builders syncing ideas at full speed.",
-    location: "K-Hub Demo Arena",
-    date: "Innovation Day",
-    detail:
-      "A high-focus team moment captured during live founder demos, where problem statements were translated into working prototypes.",
-    image: gallery1,
-    frame: "w-[min(90vw,320px)] aspect-[3/4]",
-    flow: "md:-translate-x-20",
-    entryRotate: -8,
-  },
-  {
-    id: 2,
-    title: "Experiment Table",
-    caption: "Sketches, screens, and rapid prototypes.",
-    location: "Product Sprint Room",
-    date: "Build Week",
-    detail:
-      "Quick iterations, idea boards, and deep feedback loops helped shape feature decisions for launch-ready experiences.",
-    image: gallery2,
-    frame: "w-[min(92vw,400px)] aspect-[4/3]",
-    flow: "md:translate-x-20",
-    entryRotate: 6,
-  },
-  {
-    id: 3,
-    title: "Afterhours Build",
-    caption: "Late-night focus where momentum compounds.",
-    location: "Night Lab",
-    date: "Late Session",
-    detail:
-      "After-hours execution where small decisions and code refinements turned experiments into stable product flows.",
-    image: gallery3,
-    frame: "w-[min(90vw,300px)] aspect-square",
-    flow: "md:-translate-x-28",
-    entryRotate: -5,
-  },
-  {
-    id: 4,
-    title: "Studio Session",
-    caption: "Concepts shaped into product stories.",
-    location: "Creative Studio",
-    date: "Story Pass",
-    detail:
-      "Cross-functional collaboration between design and engineering teams to align narrative, interface, and user impact.",
-    image: gallery4,
-    frame: "w-[min(92vw,430px)] aspect-[5/4]",
-    flow: "md:translate-x-12",
-    entryRotate: 4,
-  },
-  {
-    id: 5,
-    title: "Mentor Rounds",
-    caption: "Feedback loops powering sharper execution.",
-    location: "Mentor Bay",
-    date: "Review Round",
-    detail:
-      "Focused mentor critique sessions that tightened clarity, improved delivery, and accelerated go-to-market confidence.",
-    image: gallery5,
-    frame: "w-[min(88vw,290px)] aspect-[3/4]",
-    flow: "md:-translate-x-10",
-    entryRotate: -7,
-  },
-  {
-    id: 6,
-    title: "Demo Prep",
-    caption: "Polishing details before launch day.",
-    location: "Launch Control",
-    date: "Final Prep",
-    detail:
-      "Final QA checks, communication sync, and release readiness work to ensure a smooth and reliable public rollout.",
-    image: gallery6,
-    frame: "w-[min(92vw,390px)] aspect-[4/3]",
-    flow: "md:translate-x-24",
-    entryRotate: 5,
-  },
-  {
-    id: 7,
-    title: "Creative Debrief",
-    caption: "Insights pinned and shared in real-time.",
-    location: "Collab Wall",
-    date: "Debrief",
-    detail:
-      "Instant capture of learnings and action points, turning observations into concrete next-step execution plans.",
-    image: gallery7,
-    frame: "w-[min(89vw,310px)] aspect-square",
-    flow: "md:-translate-x-24",
-    entryRotate: -4,
-  },
-  {
-    id: 8,
-    title: "Launch Window",
-    caption: "A final check before pushing live.",
-    location: "Release Desk",
-    date: "Go Live",
-    detail:
-      "Critical last-mile validation to verify performance, UX consistency, and operational reliability before launch.",
-    image: gallery8,
-    frame: "w-[min(93vw,440px)] aspect-[16/10]",
-    flow: "md:translate-x-16",
-    entryRotate: 7,
-  },
-  {
-    id: 9,
-    title: "Founder Pulse",
-    caption: "A moment captured from the core team.",
-    location: "Founder Circle",
-    date: "Core Team",
-    detail:
-      "A candid founder snapshot reflecting ownership, velocity, and the collective mindset driving K-Hub initiatives.",
-    image: gallery9,
-    frame: "w-[min(88vw,300px)] aspect-[3/4]",
-    flow: "md:-translate-x-16",
-    entryRotate: -6,
-  },
+// Events images
+import eventImg1 from "../../../gallery_images/events/1.jpg";
+import eventImg2 from "../../../gallery_images/events/3.jpg";
+import eventImg3 from "../../../gallery_images/events/5.jpg";
+import eventImg4 from "../../../gallery_images/events/7.jpg";
+import eventImg5 from "../../../gallery_images/events/8.jpg";
+import eventImg6 from "../../../gallery_images/events/DOC-20260218-WA0006.jpg";
+import eventImg7 from "../../../gallery_images/events/IMG_9798.jpg";
+
+// Resources images
+import resourceImg1 from "../../../gallery_images/resources/20260430_144001.webp";
+import resourceImg2 from "../../../gallery_images/resources/20260430_144233.webp";
+import resourceImg3 from "../../../gallery_images/resources/20260430_152715.webp";
+import resourceImg4 from "../../../gallery_images/resources/IMG_2719.webp";
+import resourceImg5 from "../../../gallery_images/resources/IMG_2721.webp";
+import resourceImg6 from "../../../gallery_images/resources/IMG_2722.webp";
+import resourceImg7 from "../../../gallery_images/resources/IMG_2725.webp";
+import resourceImg8 from "../../../gallery_images/resources/IMG_2734.webp";
+import resourceImg9 from "../../../gallery_images/resources/IMG_2737.webp";
+
+// What We Do images
+import whatWeDoImg1 from "../../../gallery_images/what_we_do/20260430_144656.webp";
+import whatWeDoImg2 from "../../../gallery_images/what_we_do/20260430_145206.webp";
+import whatWeDoImg3 from "../../../gallery_images/what_we_do/20260430_145459.webp";
+import whatWeDoImg4 from "../../../gallery_images/what_we_do/20260430_145932.webp";
+import whatWeDoImg5 from "../../../gallery_images/what_we_do/20260430_150438.webp";
+import whatWeDoImg6 from "../../../gallery_images/what_we_do/20260430_150516.webp";
+import whatWeDoImg7 from "../../../gallery_images/what_we_do/20260430_150556.webp";
+import whatWeDoImg8 from "../../../gallery_images/what_we_do/20260430_150742.webp";
+import whatWeDoImg9 from "../../../gallery_images/what_we_do/20260430_150849.webp";
+import whatWeDoImg10 from "../../../gallery_images/what_we_do/20260430_151844.webp";
+import whatWeDoImg11 from "../../../gallery_images/what_we_do/20260430_162310.webp";
+import whatWeDoImg12 from "../../../gallery_images/what_we_do/IMG_2721.webp";
+import whatWeDoImg13 from "../../../gallery_images/what_we_do/IMG_2722.webp";
+import whatWeDoImg14 from "../../../gallery_images/what_we_do/IMG_2725.webp";
+
+/* ─── Theme Colors Hook ─── */
+function useThemeColors() {
+  const [colors, setColors] = useState({
+    pinPrimary: "#E74C3C",
+    pinLight: "#F8B4B8",
+  });
+  useEffect(() => {
+    const update = () => {
+      const s = getComputedStyle(document.documentElement);
+      setColors({
+        pinPrimary: s.getPropertyValue("--gallery-pin-primary").trim() || "#E74C3C",
+        pinLight: s.getPropertyValue("--gallery-pin-light").trim() || "#F8B4B8",
+      });
+    };
+    update();
+    const obs = new MutationObserver(update);
+    obs.observe(document.documentElement, { attributes: true });
+    return () => obs.disconnect();
+  }, []);
+  return colors;
+}
+
+/* ─── Data ─── */
+const CATEGORIES = ["What We Do", "Resources", "Events", "Highlights", "Partnerships"];
+
+// Events items
+const eventsData = [
+  { title: "All-Hands Energy", caption: "Builders syncing ideas at full speed.", location: "K-Hub Demo Arena", date: "Innovation Day", detail: "A high-focus team moment captured during live founder demos, where problem statements were translated into working prototypes.", image: eventImg1 },
+  { title: "Team Collaboration", caption: "Synergy in motion across teams.", location: "Collab Space", date: "Build Week", detail: "Cross-team alignment sessions that drove clarity, improved coordination, and accelerated project delivery timelines.", image: eventImg2 },
+  { title: "Focused Execution", caption: "Deep work sessions for real impact.", location: "Work Studio", date: "Sprint Session", detail: "Concentrated effort where team members channeled energy into solving complex problems and shipping features.", image: eventImg3 },
+  { title: "Mentorship Moment", caption: "Guidance shaping future builders.", location: "Mentor Hub", date: "Feedback Round", detail: "One-on-one mentorship sessions that provided clarity, accelerated growth, and refined execution strategies.", image: eventImg4 },
+  { title: "Launch Readiness", caption: "Final preparations for release.", location: "Launch Control", date: "Go Live", detail: "Last-mile quality checks and operational validation ensuring smooth and reliable public rollout.", image: eventImg5 },
+  { title: "Community Moment", caption: "K-Hub in motion and energy.", location: "Main Venue", date: "Community Event", detail: "A snapshot of the collective energy, collaboration, and shared mission driving K-Hub forward.", image: eventImg6 },
+  { title: "Team Pulse", caption: "The heartbeat of K-Hub culture.", location: "Core Circle", date: "Team Sync", detail: "A candid moment reflecting the ownership, momentum, and collaborative spirit defining K-Hub initiatives.", image: eventImg7 },
 ];
 
-function ThreadPhotoCard({ item, index, reducedMotion, onSelect }) {
-  const cardRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start 93%", "center 58%"],
-  });
+// Resources items
+const resourcesData = [
+  { title: "Deep Learning Session", caption: "Knowledge exchange in motion.", location: "Learning Hub", date: "Skill Build", detail: "Immersive learning moments where teams acquired new skills and strengthened their technical capabilities.", image: resourceImg1 },
+  { title: "Workshop Moments", caption: "Hands-on creation and learning.", location: "Workshop Area", date: "Build Sprint", detail: "Interactive sessions where team members applied concepts and built solutions from scratch.", image: resourceImg2 },
+  { title: "Brainstorm Session", caption: "Ideas taking shape collaboratively.", location: "Innovation Lab", date: "Ideation Round", detail: "Creative brainstorming sessions where diverse perspectives converged into actionable project plans.", image: resourceImg3 },
+  { title: "Design Sprint", caption: "Prototyping ideas at speed.", location: "Design Studio", date: "Fast Build", detail: "Rapid prototyping sessions where concepts transformed into tangible, testable products.", image: resourceImg4 },
+  { title: "Team Sync", caption: "Alignment and momentum building.", location: "Core Room", date: "Status Check", detail: "Regular synchronization ensuring all team members stayed aligned and moving in the same direction.", image: resourceImg5 },
+  { title: "Code Review Session", caption: "Quality assurance in practice.", location: "Dev Lab", date: "Quality Pass", detail: "Collaborative code review sessions ensuring high standards of code quality and best practices.", image: resourceImg6 },
+  { title: "Testing & QA", caption: "Excellence through rigor.", location: "QA Lab", date: "Testing Phase", detail: "Comprehensive testing processes ensuring products met the highest standards before launch.", image: resourceImg7 },
+  { title: "Knowledge Sharing", caption: "Elevating collective expertise.", location: "Learning Arena", date: "Knowledge Base", detail: "Sessions where team members shared expertise and documented learnings for the broader community.", image: resourceImg8 },
+  { title: "Collaboration Tools", caption: "Technology enabling teamwork.", location: "Tech Hub", date: "Infrastructure", detail: "Setup and optimization of collaboration tools that enhanced team productivity and communication.", image: resourceImg9 },
+];
 
-  const progress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 26,
-    mass: 0.25,
-  });
+// What We Do items
+const whatWeDoData = [
+  { title: "Initiative Overview", caption: "What We Do - Vision in action.", location: "Strategy Room", date: "Planning Phase", detail: "Strategic overview of K-Hub's core initiatives and the impact-driven approach that guides every project.", image: whatWeDoImg1 },
+  { title: "Core Team Alignment", caption: "Strategic sync for execution.", location: "War Room", date: "Strategy Sync", detail: "Deep-dive alignment sessions ensuring all initiatives are coordinated and moving toward shared goals.", image: whatWeDoImg2 },
+  { title: "Community Impact", caption: "Serving the broader ecosystem.", location: "Community Center", date: "Outreach Day", detail: "K-Hub's commitment to community building and creating meaningful impact beyond the walls.", image: whatWeDoImg3 },
+  { title: "Market Research", caption: "Understanding the landscape.", location: "Research Lab", date: "Data Gathering", detail: "In-depth market analysis and user research that informed strategic direction and product decisions.", image: whatWeDoImg4 },
+  { title: "Product Development", caption: "Building solutions that matter.", location: "Dev Center", date: "Build Cycle", detail: "End-to-end product development showcasing K-Hub's commitment to quality and innovation.", image: whatWeDoImg5 },
+  { title: "Strategic Planning", caption: "Mapping the future path.", location: "Strategy Hub", date: "Long-term Vision", detail: "Forward-looking planning sessions that shaped K-Hub's strategic initiatives and long-term vision.", image: whatWeDoImg6 },
+  { title: "User Feedback Loop", caption: "Learning from our community.", location: "Feedback Hub", date: "User Testing", detail: "Active engagement with users to gather feedback and continuously improve offerings.", image: whatWeDoImg7 },
+  { title: "Portfolio Growth", caption: "Expanding our impact reach.", location: "Portfolio Hub", date: "Growth Track", detail: "Tracking and celebrating the expanding portfolio of successful projects and initiatives.", image: whatWeDoImg8 },
+  { title: "Project Showcase", caption: "Celebrating shipped work.", location: "Showcase Stage", date: "Demo Day", detail: "Showcasing completed projects and the positive impact created through K-Hub initiatives.", image: whatWeDoImg9 },
+  { title: "Growth Milestone", caption: "Tracking progress and momentum.", location: "Growth Center", date: "Milestone Check", detail: "Regular milestone reviews tracking progress toward major goals and celebrating achievements.", image: whatWeDoImg10 },
+  { title: "Creative Insights", caption: "Collaborative discovery sessions.", location: "Innovation Lab", date: "Workshop", detail: "Workshops focused on creative problem-solving and innovative approaches to challenges.", image: whatWeDoImg11 },
+  { title: "Team Connection", caption: "Strengthening bonds and partnerships.", location: "Partnership Desk", date: "Collaboration", detail: "Meetings with partners and stakeholders exploring opportunities for mutual growth and collaboration.", image: whatWeDoImg12 },
+  { title: "Excellence Culture", caption: "Building standards that matter.", location: "Excellence Hub", date: "Culture Building", detail: "Fostering a culture of excellence where quality and impact are non-negotiable standards.", image: whatWeDoImg13 },
+  { title: "Future Vision", caption: "Tomorrow starts with today's choices.", location: "Vision Room", date: "Future Planning", detail: "Visionary sessions imagining K-Hub's future and planning initiatives to bring that vision to life.", image: whatWeDoImg14 },
+];
 
-  const y = useTransform(progress, [0, 1], [150, 0]);
-  const opacity = useTransform(progress, [0, 1], [0.2, 1]);
-  const scale = useTransform(progress, [0, 1], [0.86, 1]);
-  const rotate = useTransform(progress, [0, 1], [item.entryRotate, item.entryRotate * 0.15]);
-  const pinPop = useTransform(progress, [0, 1], [0.5, 1]);
+// Build gallery items in original order (no shuffling)
+const buildGalleryItems = () => {
+  const events = eventsData.map((item, idx) => ({ id: idx + 1, category: "Events", ...item }));
+  const resources = resourcesData.map((item, idx) => ({ id: idx + 8, category: "Resources", ...item }));
+  const whatWeDo = whatWeDoData.map((item, idx) => ({ id: idx + 17, category: "What We Do", ...item }));
+  return [...events, ...resources, ...whatWeDo];
+};
 
-  const echoY = useTransform(progress, [0, 1], [90, 0]);
-  const echoOpacity = useTransform(progress, [0, 1], [0, 0.95]);
-  const echoScale = useTransform(progress, [0, 1], [0.78, 1]);
+const GALLERY_ITEMS = buildGalleryItems();
+
+/* ─── Helpers ─── */
+function getCardTilt(index) { return ((index * 37) % 7) - 3; }
+
+/* ─── Pin SVG ─── */
+function PinSVG({ colors }) {
+  return (
+    <svg aria-hidden viewBox="0 0 52 64" className="gallery-pin-svg">
+      <ellipse cx="26" cy="14" rx="14" ry="9" fill={colors.pinPrimary} />
+      <ellipse cx="24" cy="12" rx="8" ry="4" fill={colors.pinLight} opacity="0.85" />
+      <rect x="21" y="16" width="10" height="18" rx="5" fill={colors.pinPrimary} transform="rotate(-8 26 24)" />
+      <ellipse cx="26" cy="34" rx="12" ry="7" fill={colors.pinPrimary} />
+      <ellipse cx="24" cy="32" rx="7" ry="3.5" fill={colors.pinLight} opacity="0.6" />
+      <path d="M26 39 L22 58 L30 58 Z" fill="#737373" />
+    </svg>
+  );
+}
+
+/* ─── Gallery Card ─── */
+function GalleryCard({ item, index, onSelect, colors }) {
+  const rowRef = useRef(null);
+  const imgRef = useRef(null);
+  const polaroidRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const isLeft = index % 2 === 0;
+  const tilt = getCardTilt(index);
+
+  // IntersectionObserver reveal
+  useEffect(() => {
+    if (reduceMotion) { setVisible(true); return; }
+    const el = rowRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.unobserve(el); } },
+      { threshold: 0, rootMargin: "0px 0px 300px 0px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [reduceMotion]);
+
+  // Image parallax — use rAF directly, no state updates for perf
+  useEffect(() => {
+    if (reduceMotion) return;
+    const el = imgRef.current;
+    if (!el) return;
+    const img = el.querySelector("img");
+    if (!img) return;
+    let raf;
+    function tick() {
+      const rect = el.getBoundingClientRect();
+      const offset = ((rect.top + rect.height / 2) - window.innerHeight / 2) * 0.04;
+      const clamped = Math.max(-30, Math.min(30, offset));
+      img.style.transform = `translateY(${clamped}px) scale(1.08)`;
+    }
+    function onScroll() { raf = requestAnimationFrame(tick); }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    tick();
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
+  }, [reduceMotion]);
 
   return (
-    <div className={`relative flex min-h-[54vh] items-end ${index % 2 === 0 ? "justify-start" : "justify-end"}`}>
-      <motion.article
-        ref={cardRef}
-        style={
-          reducedMotion
-            ? undefined
-            : {
-                y,
-                opacity,
-                scale,
-                rotate,
-              }
-        }
-        className={`group relative ${item.flow} ${item.frame} cursor-pointer`}
-        onClick={() => onSelect(item)}
-      >
-        <motion.div
-          style={reducedMotion ? undefined : { scale: pinPop }}
-          className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-[58%]"
-        >
-          <svg
-            aria-hidden
-            viewBox="0 0 52 64"
-            className="h-8 w-8 drop-shadow-[0_6px_10px_rgba(0,0,0,0.28)] md:h-10 md:w-10"
-          >
-            <ellipse cx="26" cy="14" rx="14" ry="9" fill="#dc2626" />
-            <ellipse cx="24" cy="12" rx="8" ry="4" fill="#fca5a5" opacity="0.85" />
-            <rect x="21" y="16" width="10" height="18" rx="5" fill="#ef4444" transform="rotate(-8 26 24)" />
-            <ellipse cx="26" cy="34" rx="12" ry="7" fill="#dc2626" />
-            <ellipse cx="24" cy="32" rx="7" ry="3.5" fill="#fca5a5" opacity="0.6" />
-            <path d="M26 39 L22 58 L30 58 Z" fill="#737373" />
-          </svg>
-        </motion.div>
-
-        <motion.div className="relative h-full w-full rounded-[24px] border border-on-surface/20 bg-surface-container-lowest p-3 shadow-[0_26px_60px_rgba(0,0,0,0.22)] transition-transform duration-500 ease-out group-hover:scale-[1.12]">
-          <div className="relative h-full w-full rounded-[16px] border border-on-surface/10">
-            <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              placeholder="blur"
-              sizes="(max-width: 768px) 88vw, (max-width: 1200px) 44vw, 420px"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/10 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-4 text-white">
-              <p className="text-xs uppercase tracking-[0.22em] opacity-80">KHUB GALLERY 0{item.id}</p>
-              <h3 className="mt-1 text-[clamp(1rem,2.2vw,1.35rem)] font-semibold leading-tight">{item.title}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-white/85">{item.caption}</p>
+    <div
+      ref={rowRef}
+      className={`gallery-card-row ${visible ? "gallery-card-visible" : ""}`}
+      style={{ flexDirection: isLeft ? "row" : "row-reverse", transitionDelay: `${index * 20}ms` }}
+    >
+      {/* Image Column */}
+      <div className="gallery-card-image-col">
+        <div ref={polaroidRef} className="gallery-polaroid" style={{ transform: `rotate(${tilt}deg)` }} onClick={() => onSelect(item, index)}>
+          <div className="gallery-pin-wrapper"><PinSVG colors={colors} /></div>
+          <div className="gallery-polaroid-frame">
+            <div className="gallery-image-inner" ref={imgRef}>
+              <Image
+                src={item.image} alt={item.title} fill placeholder="blur"
+                sizes="(max-width: 768px) 90vw, 45vw"
+                priority={index < 6}
+                className="object-cover"
+                style={{ transition: "transform 0.15s linear" }}
+              />
+              <div className="gallery-image-overlay" />
             </div>
+            <div className="gallery-reflection" aria-hidden="true" />
           </div>
-        </motion.div>
-      </motion.article>
-
-      <motion.div
-        style={reducedMotion ? undefined : { y: echoY, opacity: echoOpacity, scale: echoScale }}
-        className={`group absolute top-[26%] z-20 hidden h-36 w-28 overflow-hidden rounded-2xl border border-white/45 bg-white/80 p-1 shadow-[0_20px_40px_rgba(0,0,0,0.26)] backdrop-blur-sm transition-transform duration-500 ease-out hover:scale-[1.12] md:block ${index % 2 === 0 ? "left-[44%]" : "right-[44%]"}`}
-        onClick={() => onSelect(item)}
-      >
-        <div className="relative h-full w-full rounded-xl">
-          <Image
-            src={item.image}
-            alt=""
-            fill
-            sizes="120px"
-            className="object-cover"
-          />
+          <p className="gallery-polaroid-caption">{item.caption}</p>
         </div>
-      </motion.div>
+      </div>
+
+      {/* Text Column */}
+      <div className="gallery-card-text-col">
+        <p className="gallery-card-number">KHUB GALLERY 0{item.id}</p>
+        <h3 className="gallery-card-title">{item.title}</h3>
+        <p className="gallery-card-description">{item.detail}</p>
+        <div className="gallery-card-meta">
+          <span>{item.location}</span>
+          <span>{item.date}</span>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default function GalleryPage() {
-  const sectionRef = useRef(null);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 70,
-    damping: 22,
-    mass: 0.38,
-  });
-
-  // Snake timeline:
-  // 0-2%: hidden and waiting for scroll start
-  // 2-52%: fast draw + fast travel to right
-  // 52-80%: stays off/right
-  // 80-100%: reappears on right side
-  const threadShiftX = useTransform(smoothProgress, [0, 0.02, 0.52, 0.8, 1], [-260, -240, 560, 590, 170]);
-  const threadShiftXMobile = useTransform(smoothProgress, [0, 0.02, 0.52, 0.8, 1], [-140, -120, 245, 265, 55]);
-  const threadDraw = useTransform(smoothProgress, [0, 0.02, 0.52, 0.8, 1], [0, 0, 1, 1, 1]);
-  const threadGlow = useTransform(smoothProgress, [0, 0.08, 0.52, 1], [0, 0.48, 0.86, 0.9]);
-  const snakeVisibility = useTransform(
-    smoothProgress,
-    [0, 0.018, 0.04, 0.55, 0.79, 0.82, 1],
-    [0, 0, 1, 1, 0, 1, 1]
-  );
+/* ─── Lightbox ─── */
+function Lightbox({ items, activeIndex, onClose, onNavigate }) {
+  const touchX = useRef(0);
 
   useEffect(() => {
-    if (!selectedItem) return undefined;
-    const onEsc = (event) => {
-      if (event.key === "Escape") setSelectedItem(null);
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") onNavigate(1);
+      if (e.key === "ArrowLeft") onNavigate(-1);
     };
-    const previousOverflow = document.body.style.overflow;
+    window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onEsc);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", onEsc);
-    };
-  }, [selectedItem]);
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [onClose, onNavigate]);
+
+  const item = items[activeIndex];
+  if (!item) return null;
 
   return (
-    <div className="min-h-screen bg-surface font-body text-on-surface selection:bg-primary selection:text-white">
-      <Navbar />
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="gallery-lightbox-overlay" onClick={onClose}>
+      <motion.div
+        key={item.id}
+        initial={{ opacity: 0, y: 28, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 20, scale: 0.96 }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        className="gallery-lightbox-content"
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
+        onTouchEnd={(e) => { const d = e.changedTouches[0].clientX - touchX.current; if (d > 50) onNavigate(-1); if (d < -50) onNavigate(1); }}
+      >
+        <button type="button" onClick={onClose} className="gallery-lightbox-close" aria-label="Close">✕</button>
+        <div className="gallery-lightbox-image-wrap">
+          <Image src={item.image} alt={item.title} fill placeholder="blur" sizes="85vw" className="object-contain" />
+        </div>
+        <button type="button" className="gallery-lightbox-prev" onClick={(e) => { e.stopPropagation(); onNavigate(-1); }} aria-label="Previous">‹</button>
+        <button type="button" className="gallery-lightbox-next" onClick={(e) => { e.stopPropagation(); onNavigate(1); }} aria-label="Next">›</button>
+        <div className="gallery-lightbox-footer">
+          <span className="gallery-lightbox-counter">{activeIndex + 1} / {items.length}</span>
+          <span className="gallery-lightbox-title">{item.title}</span>
+          <span className="gallery-lightbox-date">{item.date}</span>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
 
-      <main className="pt-24 lg:pt-0">
-        <section className="relative overflow-hidden px-[6vw] pb-32 pt-10 lg:pb-40 lg:pt-24">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(var(--color-primary-rgb),0.18),transparent_42%),radial-gradient(circle_at_90%_10%,rgba(var(--color-primary-rgb),0.12),transparent_35%)]" />
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative max-w-[1000px] text-[clamp(44px,8.5vw,110px)] font-semibold leading-[0.92] tracking-tight"
-            style={{ fontFamily: "Georgia, serif" }}
-          >
-            Gallery stories, pinned to motion.
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mt-8 max-w-[720px] text-lg leading-relaxed text-on-surface-variant md:text-2xl"
-          >
-            Scroll to pull each memory from the thread. Every image rises from below, pinned like a notice board and connected by one cinematic curve.
-          </motion.p>
-        </section>
 
-        <section ref={sectionRef} className="relative mx-auto max-w-[1320px] px-[5vw] pb-40">
-          <motion.svg
-            aria-hidden
-            viewBox="0 0 900 2100"
-            preserveAspectRatio="none"
-            style={reduceMotion ? undefined : { x: threadShiftXMobile, opacity: snakeVisibility }}
-            className="pointer-events-none absolute -top-14 left-[-68vw] z-0 h-[2200px] w-[188vw] opacity-95 md:hidden"
-          >
-            <motion.path
-              d="M36 90 C 210 30, 430 34, 620 120 C 800 202, 870 340, 780 468 C 662 638, 392 620, 252 758 C 134 872, 154 1045, 346 1148 C 536 1250, 760 1216, 828 1360 C 892 1492, 764 1642, 580 1716 C 390 1792, 344 1928, 492 2010 C 616 2082, 748 2058, 828 1968"
-              fill="none"
-              stroke="rgba(28,98,255,0.9)"
-              strokeWidth="30"
-              strokeLinecap="round"
-              style={reduceMotion ? undefined : { pathLength: threadDraw }}
-            />
-            <motion.path
-              d="M36 90 C 210 30, 430 34, 620 120 C 800 202, 870 340, 780 468 C 662 638, 392 620, 252 758 C 134 872, 154 1045, 346 1148 C 536 1250, 760 1216, 828 1360 C 892 1492, 764 1642, 580 1716 C 390 1792, 344 1928, 492 2010 C 616 2082, 748 2058, 828 1968"
-              fill="none"
-              stroke="rgba(116,199,255,0.9)"
-              strokeWidth="10"
-              strokeLinecap="round"
-              style={reduceMotion ? { opacity: 0.3 } : { pathLength: threadDraw, opacity: threadGlow }}
-            />
-          </motion.svg>
 
-          <motion.svg
-            aria-hidden
-            viewBox="0 0 1400 2500"
-            preserveAspectRatio="none"
-            style={reduceMotion ? undefined : { x: threadShiftX, opacity: snakeVisibility }}
-            className="pointer-events-none absolute -top-24 left-[-15vw] z-0 hidden h-[2550px] w-[1380px] opacity-95 md:block"
-          >
-            <motion.path
-              d="M40 120 C 300 22, 620 24, 900 130 C 1140 220, 1290 360, 1210 520 C 1120 700, 780 680, 520 770 C 250 865, 180 1030, 360 1160 C 590 1325, 1040 1250, 1215 1425 C 1330 1540, 1240 1705, 980 1800 C 730 1890, 640 2040, 860 2140 C 1010 2210, 1160 2260, 1260 2220 C 1350 2180, 1320 2070, 1210 1970"
-              fill="none"
-              stroke="rgba(28,98,255,0.88)"
-              strokeWidth="40"
-              strokeLinecap="round"
-              style={reduceMotion ? undefined : { pathLength: threadDraw }}
-            />
-            <motion.path
-              d="M40 120 C 300 22, 620 24, 900 130 C 1140 220, 1290 360, 1210 520 C 1120 700, 780 680, 520 770 C 250 865, 180 1030, 360 1160 C 590 1325, 1040 1250, 1215 1425 C 1330 1540, 1240 1705, 980 1800 C 730 1890, 640 2040, 860 2140 C 1010 2210, 1160 2260, 1260 2220 C 1350 2180, 1320 2070, 1210 1970"
-              fill="none"
-              stroke="rgba(116,199,255,0.85)"
-              strokeWidth="12"
-              strokeLinecap="round"
-              style={reduceMotion ? { opacity: 0.2 } : { pathLength: threadDraw, opacity: threadGlow }}
-            />
-          </motion.svg>
+/* ═══════════════════════════════════════════════ */
+/*                  MAIN PAGE                     */
+/* ═══════════════════════════════════════════════ */
 
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_24%,rgba(28,98,255,0.2),transparent_46%),radial-gradient(circle_at_88%_62%,rgba(89,189,255,0.14),transparent_46%)] blur-3xl" />
+export default function GalleryPage() {
+  const heroVideoRef = useRef(null);
+  const containerRef = useRef(null);
+  const [activeFilter, setActiveFilter] = useState("What We Do");
+  const [lightbox, setLightbox] = useState({ open: false, idx: 0 });
+  const [scrollProg, setScrollProg] = useState(0);
+  const colors = useThemeColors();
 
-          <div className="relative z-10 space-y-7 lg:space-y-2">
-            {GALLERY_ITEMS.map((item, index) => (
-              <ThreadPhotoCard
-                key={item.id}
-                item={item}
-                index={index}
-                reducedMotion={Boolean(reduceMotion)}
-                onSelect={setSelectedItem}
-              />
+  const filtered = useMemo(() => {
+    return GALLERY_ITEMS.filter((i) => i.category === activeFilter);
+  }, [activeFilter]);
+
+  // Scroll progress — rAF for perf
+  useEffect(() => {
+    let raf;
+    function onScroll() {
+      raf = requestAnimationFrame(() => {
+        const c = containerRef.current;
+        if (!c) return;
+        const rect = c.getBoundingClientRect();
+        const denom = rect.height - window.innerHeight;
+        const prog = denom > 0 ? Math.min(1, Math.max(0, -rect.top / denom)) : 0;
+        setScrollProg(prog);
+      });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
+  }, []);
+
+  const openLightbox = useCallback((item, idx) => setLightbox({ open: true, idx }), []);
+  const closeLightbox = useCallback(() => setLightbox({ open: false, idx: 0 }), []);
+  const navLightbox = useCallback((dir) => setLightbox((p) => ({ ...p, idx: (p.idx + dir + filtered.length) % filtered.length })), [filtered.length]);
+
+  const loopVideo = () => { const v = heroVideoRef.current; if (v && v.ended) { v.currentTime = 0; v.play(); } };
+
+  return (
+    <div className={`gallery-page-shell min-h-screen bg-surface font-body text-on-surface selection:bg-primary selection:text-white ${lightbox.open ? "gallery-lightbox-open" : ""}`}>
+      <div className="gallery-page-content">
+        <main className="pt-24 lg:pt-0">
+          {/* ── Photo Slider Hero ── */}
+          <section className="relative">
+            <PhotoSlider />
+          </section>
+
+          {/* ── Filter Tabs ── */}
+          <div className="gallery-filter-bar">
+            {CATEGORIES.map((cat) => (
+              <button key={cat} className={`gallery-filter-pill ${activeFilter === cat ? "active" : ""}`} onClick={() => setActiveFilter(cat)}>{cat}</button>
             ))}
           </div>
 
-          <div className="mt-20 border-t border-on-surface/12 pt-12">
-            <p className="max-w-2xl text-base leading-relaxed text-on-surface-variant md:text-lg">
-              A stitched archive of moments from Khub. The thread, pins, and staggered parallax are designed to make the gallery feel alive while you scroll.
-            </p>
-          </div>
-        </section>
-      </main>
+          {/* ── Gallery Section ── */}
+          <section ref={containerRef} className="relative pb-40" style={{ minHeight: "50vh" }}>
+            <div className="gallery-progress-bar" style={{ width: `${scrollProg * 100}%` }} />
 
+            <div className="page-container relative z-10" style={{ paddingTop: 40 }}>
+              <AnimatePresence mode="popLayout">
+                {filtered.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.92 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9, height: 0, marginTop: 0, marginBottom: 0, overflow: "hidden" }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <GalleryCard item={item} index={index} onSelect={openLightbox} colors={colors} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+
+
+          </section>
+        </main>
+      </div>
+
+      {/* ── Lightbox ── */}
       <AnimatePresence>
-        {selectedItem && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[120] flex items-center justify-center p-4 md:p-8"
-            onClick={() => setSelectedItem(null)}
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(47,122,255,0.4),transparent_42%),radial-gradient(circle_at_86%_86%,rgba(95,208,255,0.22),transparent_45%),rgba(8,14,28,0.62)] backdrop-blur-md" />
-
-            <motion.article
-              initial={{ opacity: 0, y: 28, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.96 }}
-              transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              onClick={(event) => event.stopPropagation()}
-              className="relative z-10 w-full max-w-5xl overflow-hidden rounded-[28px] border border-white/28 bg-white/10 shadow-[0_30px_80px_rgba(0,26,84,0.45)] backdrop-blur-2xl"
-            >
-              <button
-                type="button"
-                onClick={() => setSelectedItem(null)}
-                className="absolute right-4 top-4 z-20 rounded-full border border-white/40 bg-black/30 px-3 py-1 text-sm text-white transition hover:bg-black/45"
-              >
-                Close
-              </button>
-
-              <div className="grid grid-cols-1 md:grid-cols-[1.06fr_0.94fr]">
-                <div className="relative min-h-[300px] p-3 md:min-h-[560px] md:p-4">
-                  <div className="relative h-full w-full overflow-hidden rounded-[20px] border border-white/40 bg-white/10 p-0 shadow-[inset_0_0_20px_rgba(255,255,255,0.1)] backdrop-blur-sm">
-                    <Image
-                      src={selectedItem.image}
-                      alt={selectedItem.title}
-                      fill
-                      placeholder="blur"
-                      sizes="(max-width: 768px) 100vw, 56vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
-                  </div>
-                </div>
-
-                <div className="relative m-3 overflow-hidden rounded-[20px] border border-white/40 bg-white/10 p-6 text-slate-900 shadow-[inset_0_0_20px_rgba(255,255,255,0.1)] backdrop-blur-sm md:m-4 md:p-10">
-                  <div className="mb-4 inline-flex rounded-full border border-slate-300/80 bg-white/70 px-4 py-1 text-xs uppercase tracking-[0.2em] text-slate-700">
-                    KHUB GALLERY 0{selectedItem.id}
-                  </div>
-                  <h3 className="text-3xl font-semibold leading-tight md:text-4xl">{selectedItem.title}</h3>
-                  <p className="mt-4 text-base leading-relaxed text-slate-800 md:text-lg">{selectedItem.caption}</p>
-                  <p className="mt-6 text-sm leading-relaxed text-slate-700 md:text-base">{selectedItem.detail}</p>
-
-                  <div className="mt-8 grid grid-cols-2 gap-3">
-                    <div className="rounded-2xl border border-slate-300/75 bg-white/70 px-4 py-3">
-                      <p className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">Location</p>
-                      <p className="mt-1 text-sm font-medium text-slate-900">{selectedItem.location}</p>
-                    </div>
-                    <div className="rounded-2xl border border-slate-300/75 bg-white/70 px-4 py-3">
-                      <p className="text-[0.65rem] uppercase tracking-[0.2em] text-slate-500">Moment</p>
-                      <p className="mt-1 text-sm font-medium text-slate-900">{selectedItem.date}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.article>
-          </motion.div>
-        )}
+        {lightbox.open && <Lightbox items={filtered} activeIndex={lightbox.idx} onClose={closeLightbox} onNavigate={navLightbox} />}
       </AnimatePresence>
 
-      <Footer />
     </div>
   );
 }

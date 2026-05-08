@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 
 export default function Footer() {
-    const mapsShareUrl = "https://share.google/VactTMVzldUcG9lxT";
+    const mapsShareUrl = "https://www.google.com/maps/search/?api=1&query=Teleparadigm+Towers&query_place_id=&ll=17.3941203,78.6214986"
 
     return (
         <footer id="contact" className="border-t border-surface-container-low bg-surface">
-            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-16 md:py-20">
+            <div className="page-container py-16 md:py-20">
                 <motion.div
                     initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -24,6 +24,49 @@ export default function Footer() {
                             The deep-tech incubator and venture studio of KMIT Group of
                             Institutions. Learning by doing.
                         </p>
+                        <p className="text-[0.75rem] font-body font-semibold tracking-[0.1em] uppercase text-primary mt-8 mb-5">
+                            Socials
+                        </p>
+                        <div className="flex items-center gap-3">
+                            <a
+                                href="https://www.instagram.com/khubmedialabs/"
+                                target="_blank"
+                                rel="noreferrer"
+                                aria-label="K-Hub on Instagram"
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant transition-colors duration-300 hover:text-primary"
+                            >
+                                <svg
+                                    aria-hidden="true"
+                                    viewBox="0 0 24 24"
+                                    className="h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.6"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <rect x="3" y="3" width="18" height="18" rx="5" />
+                                    <circle cx="12" cy="12" r="4" />
+                                    <circle cx="17" cy="7" r="1" fill="currentColor" stroke="none" />
+                                </svg>
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/company/khubofficial/"
+                                target="_blank"
+                                rel="noreferrer"
+                                aria-label="K-Hub on LinkedIn"
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant transition-colors duration-300 hover:text-primary"
+                            >
+                                <svg
+                                    aria-hidden="true"
+                                    viewBox="0 0 24 24"
+                                    className="h-4 w-4"
+                                    fill="currentColor"
+                                >
+                                    <path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5zM3.5 9h3v11h-3V9zM9 9h2.9v1.6h.05c.4-.76 1.38-1.56 2.85-1.56 3.05 0 3.6 2.01 3.6 4.62V20h-3v-5.3c0-1.26-.02-2.88-1.76-2.88-1.77 0-2.04 1.38-2.04 2.8V20H9V9z" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
 
                     {/* Quick Links */}
@@ -56,6 +99,7 @@ export default function Footer() {
                                 </li>
                             ))}
                         </ul>
+
                     </div>
 
                     {/* Contact */}
@@ -96,7 +140,8 @@ export default function Footer() {
                         <div className="overflow-hidden rounded-xl border border-surface-container-low bg-surface-container-lowest">
                             <iframe
                                 title="K-Hub location"
-                                src="https://maps.google.com/maps?q=SY%20No%2032%2FA%20%26%2032%2FE2%2C%20Near%20NGIT%20College%2C%20Uppal%2C%20Hyderabad%2C%20Telangana%20500088&z=15&output=embed"
+                                src="https://www.google.com/maps/embed?origin=mfe&pb=!1m12!1m8!1m3!1d3807.3678507970926!2d78.6214986!3d17.3941203!3m2!1i1024!2i768!4f13.1!2m1!1sTeleparadigm+Towers!6i17"
+
                                 className="w-full h-40"
                                 loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"
