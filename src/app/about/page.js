@@ -259,17 +259,54 @@ function PearlProjectCard({ project, index, reduceMotion }) {
 function TeamCard({ person, reduceMotion }) {
   const logoFloat = reduceMotion || !person.isLogo ? {} : { y: [0, -6, 0] };
   const flipCard = Boolean(person.isLogo);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isTouchInput, setIsTouchInput] = useState(false);
+
+  const handlePointerDown = (event) => {
+    if (event.pointerType === "touch" || event.pointerType === "pen") {
+      setIsTouchInput(true);
+      return;
+    }
+
+    setIsTouchInput(false);
+  };
+
+  const handleToggleFlip = () => {
+    if (flipCard && isTouchInput) {
+      setIsFlipped((prev) => !prev);
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (!flipCard) {
+      return;
+    }
+
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setIsFlipped((prev) => !prev);
+    }
+  };
 
   return (
     <motion.article
       variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
       tabIndex={0}
       aria-label={`${person.name} - ${person.role}`}
+      role={flipCard ? "button" : undefined}
+      aria-pressed={flipCard ? isFlipped : undefined}
       className="group relative w-[230px] sm:w-[250px] md:w-[270px] shrink-0 overflow-hidden rounded-2xl border border-outline-variant/70 bg-surface-container-lowest shadow-[0_18px_40px_rgba(18,20,24,0.12)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+      onPointerDown={handlePointerDown}
+      onClick={handleToggleFlip}
+      onKeyDown={handleKeyDown}
     >
       {flipCard ? (
         <div className="relative h-60 md:h-64 w-full [perspective:1200px]">
-          <div className="relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] group-focus-within:[transform:rotateY(180deg)]">
+          <div
+            className={`relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] group-focus-within:[transform:rotateY(180deg)] ${
+              isFlipped ? "[transform:rotateY(180deg)]" : ""
+            }`}
+          >
             <div className="absolute inset-0 [backface-visibility:hidden]">
               <div className="relative h-full w-full bg-surface-container-low">
                 <div
