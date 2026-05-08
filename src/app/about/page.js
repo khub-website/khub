@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { User } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -261,6 +262,7 @@ function TeamCard({ person, reduceMotion }) {
   const flipCard = Boolean(person.isLogo);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isTouchInput, setIsTouchInput] = useState(false);
+  const [headImgError, setHeadImgError] = useState(false);
 
   const handlePointerDown = (event) => {
     if (event.pointerType === "touch" || event.pointerType === "pen") {
@@ -346,13 +348,25 @@ function TeamCard({ person, reduceMotion }) {
             </div>
 
             <div className="absolute inset-0 [transform:rotateY(180deg)] [backface-visibility:hidden]">
-              <Image
-                src={person.headImage}
-                alt={`${person.name} headshot`}
-                width={320}
-                height={420}
-                className="h-full w-full object-cover"
-              />
+              {headImgError ? (
+                <div className="flex h-full w-full flex-col items-center justify-center bg-surface-container-high p-6 text-center">
+                  <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-surface-container-highest border border-outline-variant/30">
+                    <User className="h-10 w-10 text-on-surface-variant/40" />
+                  </div>
+                  <p className="text-[0.75rem] font-semibold uppercase tracking-wider text-on-surface-variant/60">
+                    Photo Coming Soon
+                  </p>
+                </div>
+              ) : (
+                <Image
+                  src={person.headImage}
+                  alt={`${person.name} headshot`}
+                  width={320}
+                  height={420}
+                  className="h-full w-full object-cover"
+                  onError={() => setHeadImgError(true)}
+                />
+              )}
               <div
                 aria-hidden
                 className="absolute inset-0 bg-linear-to-t from-black/75 via-black/35 to-transparent"
