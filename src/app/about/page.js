@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { User } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -64,9 +64,10 @@ const flagshipProjects = [
 const evidenceBlocks = [
   { label: "Startups Incubated", value: "09" },
   { label: "Preprints", value: "10" },
+  { label: "Publications", value: "02" },
   { label: "Mentors & SMEs", value: "17" },
   { label: "Domain specific Labs", value: "02" },
-  { label: "Backing Institutions", value: "4" },
+  { label: "Backing Institutions", value: "04" },
   // { label: "Application Pathways", value: "06" },
 ];
 
@@ -156,9 +157,9 @@ const facilitySlides = [
   },
   {
     label: "Compute",
-    title: "A100 H100 H200 GPU Cluster",
+    title: "GPU Infrastructure at K-Hub",
     description:
-      "High-performance compute for model training, simulation, and intensive AI workloads.",
+      "NVIDIA A100, H100, H200 GPU Cluster for High-performance compute for model training, simulation, and intensive AI workloads.",
     image: "/about/gpu_pic.jpg",
     background:
       "radial-gradient(circle at 18% 24%, rgba(255,255,255,0.3), rgba(255,255,255,0) 60%), linear-gradient(135deg, #a3b18a, #588157)",
@@ -167,14 +168,14 @@ const facilitySlides = [
     label: "Infrastructure",
     title: "In-House Infrastructure",
     description:
-      "Dedicated labs, fabrication bays, and testing areas designed for rapid iteration.",
+      "Dedicated labs,workspaces designed for rapid iteration.",
     image: "/about/infra.jpg",
     background:
       "radial-gradient(circle at 18% 24%, rgba(255,255,255,0.3), rgba(255,255,255,0) 60%), linear-gradient(135deg, #56cfe1, #4ea8de)",
   },
   {
     label: "Campus Life",
-    title: "Playarea & Cafeteria",
+    title: "Recreation & Cafeteria",
     description:
       "Spaces to recharge, connect, and collaborate between sprints.",
     image: "/about/cafiteria.jpg",
@@ -259,10 +260,11 @@ function PearlProjectCard({ project, index, reduceMotion }) {
 
 function TeamCard({ person, reduceMotion }) {
   const logoFloat = reduceMotion || !person.isLogo ? {} : { y: [0, -6, 0] };
-  const flipCard = Boolean(person.isLogo);
+  const flipCard = Boolean(person.enableFlip);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isTouchInput, setIsTouchInput] = useState(false);
   const [headImgError, setHeadImgError] = useState(false);
+  const primaryImage = person.headImage ?? person.image;
 
   const handlePointerDown = (event) => {
     if (event.pointerType === "touch" || event.pointerType === "pen") {
@@ -389,7 +391,7 @@ function TeamCard({ person, reduceMotion }) {
       ) : (
         <div className="relative h-60 md:h-64 w-full overflow-hidden">
           <Image
-            src={person.image}
+            src={primaryImage}
             alt={person.name}
             width={320}
             height={420}
@@ -424,12 +426,71 @@ function TeamCard({ person, reduceMotion }) {
   );
 }
 
-function TeamMarquee({ title, description, people, reduceMotion, duration, loop = true }) {
+function TeamMarquee({ title, description, people, reduceMotion, duration, loop = true, enableManualScroll = false }) {
   const shouldLoop = loop && !reduceMotion;
   const trackPeople = shouldLoop ? [...people, ...people] : people;
   const trackClassName = shouldLoop
     ? "flex gap-5 marquee-track"
     : "flex flex-wrap justify-center gap-5";
+  const marqueeRef = useRef(null);
+  const dragStateRef = useRef({ startX: 0, scrollLeft: 0, isDragging: false });
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleDragStart = (event) => {
+    if (!enableManualScroll) {
+      return;
+    }
+
+    if (event.pointerType === "mouse" && event.button !== 0) {
+      return;
+    }
+
+    const container = marqueeRef.current;
+    if (!container) {
+      return;
+    }
+
+    const isInteractive = Boolean(event.target.closest("button, a"));
+    if (isInteractive) {
+      return;
+    }
+
+    dragStateRef.current = {
+      startX: event.clientX,
+      scrollLeft: container.scrollLeft,
+      isDragging: true,
+    };
+    setIsDragging(true);
+    container.setPointerCapture(event.pointerId);
+  };
+
+  const handleDragMove = (event) => {
+    if (!enableManualScroll) {
+      return;
+    }
+
+    const container = marqueeRef.current;
+    if (!container || !dragStateRef.current.isDragging) {
+      return;
+    }
+
+    const deltaX = event.clientX - dragStateRef.current.startX;
+    container.scrollLeft = dragStateRef.current.scrollLeft - deltaX;
+  };
+
+  const handleDragEnd = (event) => {
+    if (!enableManualScroll) {
+      return;
+    }
+
+    const container = marqueeRef.current;
+    if (container && dragStateRef.current.isDragging) {
+      container.releasePointerCapture(event.pointerId);
+    }
+
+    dragStateRef.current = { startX: 0, scrollLeft: 0, isDragging: false };
+    setIsDragging(false);
+  };
 
   return (
     <motion.div
@@ -450,7 +511,17 @@ function TeamMarquee({ title, description, people, reduceMotion, duration, loop 
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-3xl border border-outline-variant/70 bg-surface-container-lowest px-4 py-6">
+      <div
+        ref={marqueeRef}
+        onPointerDown={handleDragStart}
+        onPointerMove={handleDragMove}
+        onPointerUp={handleDragEnd}
+        onPointerCancel={handleDragEnd}
+        style={enableManualScroll ? { scrollSnapType: "x mandatory" } : undefined}
+        className={`relative rounded-3xl border border-outline-variant/70 bg-surface-container-lowest px-4 py-6 ${
+          enableManualScroll ? "overflow-x-auto cursor-grab active:cursor-grabbing" : "overflow-hidden"
+        }`}
+      >
         {shouldLoop && (
           <>
             <div
@@ -466,7 +537,7 @@ function TeamMarquee({ title, description, people, reduceMotion, duration, loop 
 
         <div
           className={trackClassName}
-          style={shouldLoop ? { "--marquee-duration": duration } : {}}
+          style={shouldLoop ? { "--marquee-duration": duration, animationPlayState: isDragging ? "paused" : undefined } : undefined}
         >
           {trackPeople.map((person, index) => (
             <TeamCard key={`${person.name}-${index}`} person={person} reduceMotion={reduceMotion} />
@@ -481,6 +552,7 @@ export default function AboutPage() {
   const reduceMotion = useReducedMotion();
   const [isClient, setIsClient] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
+  const swipeStartRef = useRef({ x: 0, isInteractive: false });
   const totalSlides = facilitySlides.length;
   const activeSlideData = facilitySlides[activeSlide];
   const posterImage = activeSlideData.poster || activeSlideData.image;
@@ -520,6 +592,37 @@ export default function AboutPage() {
     },
   };
 
+  const handleSwipeStart = (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) {
+      return;
+    }
+
+    const isInteractive = Boolean(event.target.closest("button, a"));
+    swipeStartRef.current = { x: event.clientX, isInteractive };
+  };
+
+  const handleSwipeEnd = (event) => {
+    const { x, isInteractive } = swipeStartRef.current;
+    if (!x || isInteractive) {
+      swipeStartRef.current = { x: 0, isInteractive: false };
+      return;
+    }
+
+    const deltaX = event.clientX - x;
+    const threshold = 50;
+
+    if (Math.abs(deltaX) > threshold) {
+      setActiveSlide((prev) => {
+        if (deltaX > 0) {
+          return (prev - 1 + totalSlides) % totalSlides;
+        }
+        return (prev + 1) % totalSlides;
+      });
+    }
+
+    swipeStartRef.current = { x: 0, isInteractive: false };
+  };
+
   return (
     <>
       <main className="bg-surface text-on-surface pt-32 pb-20">
@@ -528,6 +631,10 @@ export default function AboutPage() {
             variants={sectionIntro}
             initial="hidden"
             animate="show"
+            onPointerDown={handleSwipeStart}
+            onPointerUp={handleSwipeEnd}
+            onPointerCancel={handleSwipeEnd}
+            style={{ touchAction: "pan-y" }}
             className="relative overflow-hidden rounded-[28px] border border-outline-variant/70 bg-surface-container-lowest p-8 md:p-12 shadow-[0_22px_60px_rgba(20,20,18,0.1)]"
           >
             <div className="absolute inset-0">
@@ -763,6 +870,7 @@ export default function AboutPage() {
             people={paradigmHeads}
             reduceMotion={reduceMotion}
             duration="32s"
+            enableManualScroll
           />
         </section>
       </main>
