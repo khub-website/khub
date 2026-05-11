@@ -10,9 +10,9 @@ const fadeUp = {
 };
 
 const stats = [
-    { number: 400, suffix: "+", label: "Trained Learners" },
-    { number: 6, suffix: "", label: "Deep-Tech Paradigms" },
-    { number: 4, suffix: "", label: "Campus Partners" },
+    { number: 125, suffix: "+", label: "Learners" },
+    { number: 9, suffix: "", label: "Deep-Tech Paradigms" },
+    { number: 4, suffix: "", label: "Backing Institutions" },
     { number: 9, suffix: "", label: "Programs" },
 ];
 const campusPartners = ["KMIT", "NGIT", "KMEC", "KMCE"];
@@ -166,7 +166,7 @@ export default function About() {
                             className="mt-8"
                         >
                             <p className="text-[0.78rem] text-on-surface-variant font-semibold tracking-[0.12em] uppercase mb-4 text-center">
-                                Campus Partners
+                                Backing Institutions
                             </p>
                             <div className="flex flex-wrap justify-center gap-3">
                                 {campusPartners.map((partner) => (
