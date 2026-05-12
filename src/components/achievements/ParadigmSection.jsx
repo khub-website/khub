@@ -44,7 +44,7 @@ async function fetchParadigmScrape(id) {
 
 export function ParadigmSection({ paradigm }) {
   const Icon = paradigm.icon;
-  const [view, setView] = useState("achievements"); // "achievements" | "research"
+  const [view, setView] = useState(paradigm.id === "drug-paradigm" ? "research" : "achievements"); // "achievements" | "research"
   
   const { data: scraped, isLoading } = useQuery({
     queryKey: ["paradigm-scrape", paradigm.id],
@@ -83,12 +83,6 @@ export function ParadigmSection({ paradigm }) {
     }
   }, [achievements, view, isDrugParadigm]);
 
-  // Default to research for Drug Paradigm on load
-  useEffect(() => {
-    if (isDrugParadigm) {
-      setView("research");
-    }
-  }, [isDrugParadigm]);
   const photos = scraped?.photos ?? paradigm.photos ?? [];
   const hero = photos[0];
 

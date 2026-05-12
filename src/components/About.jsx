@@ -18,15 +18,12 @@ const stats = [
 const campusPartners = ["KMIT", "NGIT", "KMEC", "KMCE"];
 
 export default function About() {
-    const [theme, setTheme] = useState("theme-1");
+    const [theme, setTheme] = useState(() => (typeof document !== 'undefined' ? document.documentElement.getAttribute("data-theme") || "theme-1" : "theme-1"));
     const [hasAnimated, setHasAnimated] = useState(false);
     const [animatedValues, setAnimatedValues] = useState(stats.map(() => 0));
     const statsRef = useRef(null);
 
     useEffect(() => {
-        const currentTheme = document.documentElement.getAttribute("data-theme") || "theme-1";
-        setTheme(currentTheme);
-        
         const observer = new MutationObserver(() => {
             const newTheme = document.documentElement.getAttribute("data-theme") || "theme-1";
             setTheme(newTheme);
