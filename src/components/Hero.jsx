@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const CYCLING_WORDS = [
     "Deep Tech",
@@ -14,7 +14,6 @@ const CYCLING_WORDS = [
     "Innovation",
 ];
 
-const THEMES = ["theme-1", "theme-3", "theme-4", "theme-7", "theme-8"];
 const WORD_SWITCH_MS = 2200;
 const WORD_TRANSITION_SECONDS = 0.4;
 
@@ -22,21 +21,6 @@ const HERO_TAG = "Student-led applied research, built on campus.";
 
 export default function Hero() {
     const [wordIndex, setWordIndex] = useState(0);
-    const [themeIndex, setThemeIndex] = useState(0);
-    const themeInitializedRef = useRef(false);
-
-    useEffect(() => {
-        const saved = window.localStorage.getItem("khub-theme-index");
-        const parsed = saved === null ? null : Number(saved);
-        const isValid = Number.isInteger(parsed) && parsed >= 0 && parsed < THEMES.length;
-
-        queueMicrotask(() => {
-            if (isValid) {
-                setThemeIndex(parsed);
-            }
-            themeInitializedRef.current = true;
-        });
-    }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -44,14 +28,6 @@ export default function Hero() {
         }, WORD_SWITCH_MS);
         return () => clearInterval(interval);
     }, []);
-
-    useEffect(() => {
-        const theme = THEMES[themeIndex];
-        document.documentElement.setAttribute("data-theme", theme);
-        if (themeInitializedRef.current) {
-            window.localStorage.setItem("khub-theme-index", String(themeIndex));
-        }
-    }, [themeIndex]);
 
     const scrollTo = (id) => {
         const el = document.querySelector(id);
@@ -63,10 +39,6 @@ export default function Hero() {
         const top = el.getBoundingClientRect().top + window.scrollY - offset;
 
         window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
-    };
-
-    const cycleTheme = () => {
-        setThemeIndex((prev) => (prev + 1) % THEMES.length);
     };
 
     return (
@@ -88,14 +60,6 @@ export default function Hero() {
 
             <div className="relative z-10 h-full w-full page-container flex items-center">
                 <div className="max-w-2xl text-white">
-                    <motion.button
-                        onClick={cycleTheme}
-                        className="mb-5 h-8 px-3 rounded-full border border-white/35 bg-white/10 text-white text-[0.65rem] font-semibold tracking-[0.12em] uppercase hover:bg-white/20 transition-all duration-300"
-                        aria-label="Switch website theme"
-                    >
-                        {`Theme-${themeIndex + 1}`}
-                    </motion.button>
-
                     <p className="text-[0.72rem] font-body font-semibold tracking-[0.18em] uppercase text-white/80 mb-5">
                         Deep-Tech Innovation Hub
                     </p>
