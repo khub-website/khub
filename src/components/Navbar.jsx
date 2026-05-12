@@ -88,21 +88,42 @@ export default function Navbar() {
 
     const router = useRouter();
     const pathname = usePathname();
+    const scrollToHashWithOffset = (hash, smooth = true) => {
+        if (!hash) return;
+        const id = hash.startsWith("#") ? hash : `#${hash}`;
+        const el = document.querySelector(id);
+        if (!el) return;
+
+        const nav = document.querySelector("nav");
+        const navHeight = nav ? nav.getBoundingClientRect().height : 76;
+        const offset = navHeight - 65;
+        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(top, 0), behavior: smooth ? "smooth" : "auto" });
+    };
+
+    useEffect(() => {
+        if (pathname !== "/") return;
+        const hash = window.location.hash;
+        if (!hash) return;
+
+        // Allow the new route paint to complete before applying fixed-nav offset.
+        const timer = window.setTimeout(() => scrollToHashWithOffset(hash, false), 60);
+        return () => window.clearTimeout(timer);
+    }, [pathname]);
 
     const handleLinkClick = (e, href) => {
         setMobileOpen(false);
 
         // If it's a hash link
         if (href.startsWith("/#")) {
-            const id = href.substring(1); // e.g., "#about"
+            e.preventDefault();
+            const hash = href.substring(1); // e.g., "#about"
 
             if (pathname === "/") {
-                // If already on home page, just scroll
-                const el = document.querySelector(id);
-                if (el) {
-                    e.preventDefault();
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
+                scrollToHashWithOffset(hash, true);
+                window.history.replaceState(null, "", hash);
+            } else {
+                router.push(`/${hash}`);
             }
             return;
         }
@@ -162,7 +183,7 @@ export default function Navbar() {
                                     <Link
                                         key={link.href}
                                         href={link.href}
-                                        onClick={() => setMobileOpen(false)}
+                                        onClick={(e) => handleLinkClick(e, link.href)}
                                         className={`px-4 py-2.5 rounded-full text-[0.84rem] font-semibold tracking-[0.02em] transition-all duration-300 ${isActive
                                             ? "text-primary bg-white/80 shadow-[0_8px_22px_rgba(2,44,34,0.12)]"
                                             : "text-on-surface-variant hover:text-primary bg-transparent hover:bg-white/70"
@@ -203,7 +224,7 @@ export default function Navbar() {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    onClick={() => setMobileOpen(false)}
+                                    onClick={(e) => handleLinkClick(e, link.href)}
                                     className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all ${pathname === link.href ? "text-primary bg-white/80" : "text-on-surface-variant hover:text-primary hover:bg-white/72"
                                         }`}
                                 >

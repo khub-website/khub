@@ -55,7 +55,14 @@ export default function Hero() {
 
     const scrollTo = (id) => {
         const el = document.querySelector(id);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (!el) return;
+
+        const nav = document.querySelector("nav");
+        const navHeight = nav ? nav.getBoundingClientRect().height : 76;
+        const offset = navHeight - 65;
+        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+
+        window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
     };
 
     const cycleTheme = () => {
