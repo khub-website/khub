@@ -10,10 +10,10 @@ const fadeUp = {
 };
 
 const stats = [
-    { number: 125, suffix: "+", label: "Learners" },
+    { number: 125, suffix: "+", label: "Work Force" },
     { number: 9, suffix: "", label: "Deep-Tech Paradigms" },
     { number: 4, suffix: "", label: "Backing Institutions" },
-    { number: 9, suffix: "", label: "Programs" },
+    { number: 2, suffix: "", label: "Q1 level Research papers" },
 ];
 const campusPartners = ["KMIT", "NGIT", "KMEC", "KMCE"];
 
