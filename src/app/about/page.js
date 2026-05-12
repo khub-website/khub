@@ -430,7 +430,7 @@ function TeamMarquee({ title, description, people, reduceMotion, duration, loop 
   const shouldLoop = loop && !reduceMotion;
   const trackPeople = shouldLoop ? [...people, ...people] : people;
   const trackClassName = shouldLoop
-    ? "flex gap-5 marquee-track"
+    ? `flex gap-5${enableManualScroll ? "" : " marquee-track"}`
     : "flex flex-wrap justify-center gap-5";
   const marqueeRef = useRef(null);
   const dragStateRef = useRef({ startX: 0, scrollLeft: 0, isDragging: false });
@@ -476,6 +476,14 @@ function TeamMarquee({ title, description, people, reduceMotion, duration, loop 
 
     const deltaX = event.clientX - dragStateRef.current.startX;
     container.scrollLeft = dragStateRef.current.scrollLeft - deltaX;
+    if (shouldLoop) {
+      const halfWidth = container.scrollWidth / 2;
+      if (container.scrollLeft >= halfWidth) {
+        container.scrollLeft -= halfWidth;
+      } else if (container.scrollLeft < 0) {
+        container.scrollLeft += halfWidth;
+      }
+    }
   };
 
   const handleDragEnd = (event) => {
@@ -491,6 +499,42 @@ function TeamMarquee({ title, description, people, reduceMotion, duration, loop 
     dragStateRef.current = { startX: 0, scrollLeft: 0, isDragging: false };
     setIsDragging(false);
   };
+
+  useEffect(() => {
+    if (!enableManualScroll || !shouldLoop) {
+      return undefined;
+    }
+
+    const container = marqueeRef.current;
+    if (!container) {
+      return undefined;
+    }
+
+    let frameId;
+    let lastTime = 0;
+    const speed = 0.035;
+
+    const tick = (time) => {
+      if (!lastTime) {
+        lastTime = time;
+      }
+      const delta = time - lastTime;
+      lastTime = time;
+
+      if (!dragStateRef.current.isDragging) {
+        container.scrollLeft += delta * speed;
+        const halfWidth = container.scrollWidth / 2;
+        if (container.scrollLeft >= halfWidth) {
+          container.scrollLeft -= halfWidth;
+        }
+      }
+
+      frameId = requestAnimationFrame(tick);
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, [enableManualScroll, shouldLoop]);
 
   return (
     <motion.div
