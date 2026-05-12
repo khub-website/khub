@@ -74,7 +74,7 @@ export function AchievementsHero({ onSwitchTab }) {
           transition={{ delay: 0.32, duration: 0.6 }}
           className="mt-6 max-w-2xl text-[1rem] leading-relaxed text-white/75 font-light"
         >
-          A living archive of breakthroughs, research publications, and milestones across K-Hub's paradigms — from drug discovery and robotics to materials science and neural interfaces.
+          A living archive of breakthroughs, research publications, and milestones across K-Hub&apos;s paradigms — from drug discovery and robotics to materials science and neural interfaces.
         </motion.p>
 
         {/* CTA buttons */}

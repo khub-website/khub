@@ -34,7 +34,7 @@ export default function Impact() {
                                 <span className="text-sm text-on-surface-variant">2025-12-17</span>
                             </div>
                             <p className="text-sm text-on-surface-variant leading-relaxed font-light mb-3">
-                                Introducing K-Hub's deep-tech verticals: AI-led drug discovery, Let Us Hack
+                                Introducing K-Hub&apos;s deep-tech verticals: AI-led drug discovery, Let Us Hack
                                 cybersecurity training, and lab automation innovations from Roboparadigm.
                             </p>
                             <div className="flex items-center gap-2 text-xs font-medium">

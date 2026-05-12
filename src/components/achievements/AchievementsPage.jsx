@@ -108,7 +108,7 @@ export function AchievementsPage() {
             Innovate With <span className="text-primary">K-Hub</span>
           </h2>
           <p className="text-on-surface-variant mb-10 max-w-lg mx-auto text-base font-light leading-relaxed">
-            Join the frontier of deep-tech research. Whether you're a student, researcher, or partner, let's build the future together.
+            Join the frontier of deep-tech research. Whether you&apos;re a student, researcher, or partner, let&apos;s build the future together.
           </p>
           <Link
             href="/contact"
