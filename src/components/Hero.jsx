@@ -9,7 +9,7 @@ const CYCLING_WORDS = [
     "Cybersecurity",
     "Robotics",
     "Neuroscience",
-    "Neutraceuticals",
+    "Nutraceuticals",
     "AI Research",
     "Innovation",
 ];
