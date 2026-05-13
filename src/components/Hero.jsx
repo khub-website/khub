@@ -59,7 +59,7 @@ export default function Hero() {
             </div>
 
             <div className="relative z-10 h-full w-full page-container flex items-center">
-                <div className="max-w-2xl text-white">
+                <div className="max-w-2xl text-white [text-shadow:none]">
                     <p className="text-[0.72rem] font-body font-semibold tracking-[0.18em] uppercase text-white/80 mb-5">
                         Deep-Tech Innovation Hub
                     </p>
