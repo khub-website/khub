@@ -7,7 +7,7 @@ import CTA from "@/components/CTA";
 
 export default function Home() {
   return (
-    <main className="overflow-x-hidden">
+    <main className="overflow-x-hidden [text-shadow:none]">
       <Hero />
       <About />
       <Domains />
