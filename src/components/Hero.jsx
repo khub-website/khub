@@ -4,14 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const CYCLING_WORDS = [
+    "AI Research",
+    "Cybersecurity",
     "Deep Tech",
     "Drug Discovery",
-    "Cybersecurity",
-    "Robotics",
+    "Innovation",
     "Neuroscience",
     "Neutraceuticals",
-    "AI Research",
-    "Innovation",
+    "Robotics",
 ];
 
 const THEMES = ["theme-1", "theme-3", "theme-4", "theme-7", "theme-8"];

@@ -2,39 +2,21 @@ import { Brain, Bot, Network, Dna, Network as NetworkIcon, LineChart } from "luc
 
 export const paradigms = [
   {
-    id: "drug-paradigm",
-    name: "DrugParadigm",
-    url: "https://drugparadigm.com/",
-    tagline: "Accelerating discovery with molecular intelligence",
-    description: "Leveraging deep learning to predict protein structures and simulate molecular interactions. This paradigm reduces the search space for life-saving therapeutics from decades to days.",
-    color: "#006c51", // Adjusted to match K-Hub primary
-    icon: Dna,
+    id: "crystal-paradigm",
+    name: "CrystalParadigm",
+    url: "https://crystalparadigm.in/",
+    tagline: "Architecting matter from the atom up",
+    description: "Discovering high-performance materials through computational alchemy. CrystalParadigm uses generative models to explore the vast space of possible crystal structures for energy and tech.",
+    color: "#06b6d4",
+    icon: NetworkIcon,
     topics: [
-      { title: "Protein Folding", desc: "Predicting 3D structures from amino acid sequences." },
-      { title: "ADMET Prediction", desc: "Forecasting drug absorption, distribution, and toxicity." },
-      { title: "De Novo Design", desc: "Generating entirely new molecules with specific properties." }
+      { title: "GNoME Project", desc: "DeepMind's discovery of 2.2 million new stable crystals." },
+      { title: "Battery Innovation", desc: "Simulating solid-state electrolytes for faster charging." },
+      { title: "Superconductors", desc: "Predicting materials that conduct without resistance." }
     ],
     achievements: [],
     photos: [
-      { src: "/achievements/drug-hero.jpg", alt: "Molecular simulation" },
-    ],
-  },
-  {
-    id: "robo-paradigm",
-    name: "RoboParadigm",
-    url: "https://roboparadigm.com/",
-    tagline: "The bridge between silicon and steel",
-    description: "Integrating advanced perception with dynamic control systems. RoboParadigm focuses on embodied agents that can navigate, manipulate, and learn within complex physical environments.",
-    color: "#3b82f6",
-    icon: Bot,
-    topics: [
-      { title: "End-to-End Control", desc: "Direct mapping from camera pixels to motor torques." },
-      { title: "Sim-to-Real", desc: "Bridging the gap between physics engines and hardware." },
-      { title: "Collaborative Bots", desc: "Robots designed to work safely alongside human teams." }
-    ],
-    achievements: [],
-    photos: [
-      { src: "/achievements/robo-hero.jpg", alt: "Humanoid robot" },
+      { src: "/achievements/crystal-hero.png", alt: "Crystal lattice" },
     ],
   },
   {
@@ -56,6 +38,24 @@ export const paradigms = [
     ],
   },
   {
+    id: "drug-paradigm",
+    name: "DrugParadigm",
+    url: "https://drugparadigm.com/",
+    tagline: "Accelerating discovery with molecular intelligence",
+    description: "Leveraging deep learning to predict protein structures and simulate molecular interactions. This paradigm reduces the search space for life-saving therapeutics from decades to days.",
+    color: "#006c51", // Adjusted to match K-Hub primary
+    icon: Dna,
+    topics: [
+      { title: "Protein Folding", desc: "Predicting 3D structures from amino acid sequences." },
+      { title: "ADMET Prediction", desc: "Forecasting drug absorption, distribution, and toxicity." },
+      { title: "De Novo Design", desc: "Generating entirely new molecules with specific properties." }
+    ],
+    achievements: [],
+    photos: [
+      { src: "/achievements/drug-hero.jpg", alt: "Molecular simulation" },
+    ],
+  },
+  {
     id: "neuro-paradigm",
     name: "NeuroParadigm",
     url: "https://neuroparadigm.in/",
@@ -74,24 +74,6 @@ export const paradigms = [
     ],
   },
   {
-    id: "crystal-paradigm",
-    name: "CrystalParadigm",
-    url: "https://crystalparadigm.in/",
-    tagline: "Architecting matter from the atom up",
-    description: "Discovering high-performance materials through computational alchemy. CrystalParadigm uses generative models to explore the vast space of possible crystal structures for energy and tech.",
-    color: "#06b6d4",
-    icon: NetworkIcon,
-    topics: [
-      { title: "GNoME Project", desc: "DeepMind's discovery of 2.2 million new stable crystals." },
-      { title: "Battery Innovation", desc: "Simulating solid-state electrolytes for faster charging." },
-      { title: "Superconductors", desc: "Predicting materials that conduct without resistance." }
-    ],
-    achievements: [],
-    photos: [
-      { src: "/achievements/crystal-hero.png", alt: "Crystal lattice" },
-    ],
-  },
-  {
     id: "nutra-paradigm",
     name: "NutraParadigm",
     url: "https://nutradrug.in/",
@@ -107,6 +89,24 @@ export const paradigms = [
     achievements: [],
     photos: [
       { src: "/achievements/nutra-hero.png", alt: "Bio-data visualization" },
+    ],
+  },
+  {
+    id: "robo-paradigm",
+    name: "RoboParadigm",
+    url: "https://roboparadigm.com/",
+    tagline: "The bridge between silicon and steel",
+    description: "Integrating advanced perception with dynamic control systems. RoboParadigm focuses on embodied agents that can navigate, manipulate, and learn within complex physical environments.",
+    color: "#3b82f6",
+    icon: Bot,
+    topics: [
+      { title: "End-to-End Control", desc: "Direct mapping from camera pixels to motor torques." },
+      { title: "Sim-to-Real", desc: "Bridging the gap between physics engines and hardware." },
+      { title: "Collaborative Bots", desc: "Robots designed to work safely alongside human teams." }
+    ],
+    achievements: [],
+    photos: [
+      { src: "/achievements/robo-hero.jpg", alt: "Humanoid robot" },
     ],
   },
 ];
