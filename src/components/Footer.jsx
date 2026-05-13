@@ -115,18 +115,18 @@ export default function Footer() {
                             </p>
                             <p>
                                 <a
-                                    href="tel:+919052906665"
+                                    href="tel:+918977932044"
                                     className="hover:text-primary transition-colors duration-300"
                                 >
-                                    +91 9052906665
+                                    +91 8977932044
                                 </a>
                             </p>
                             <p>
                                 <a
-                                    href="mailto:komurojusairaudhran@gmail.com"
+                                    href="mailto:outreach@k-hub.org.in"
                                     className="hover:text-primary transition-colors duration-300"
                                 >
-                                    komurojusairaudhran@gmail.com
+                                    outreach@k-hub.org.in
                                 </a>
                             </p>
                         </div>
