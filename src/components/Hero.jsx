@@ -4,14 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const CYCLING_WORDS = [
+    "AI Research",
+    "Cybersecurity",
     "Deep Tech",
     "Drug Discovery",
-    "Cybersecurity",
-    "Robotics",
+    "Innovation",
     "Neuroscience",
     "Nutraceuticals",
-    "AI Research",
-    "Innovation",
+    "Robotics",
 ];
 
 const WORD_SWITCH_MS = 2200;
