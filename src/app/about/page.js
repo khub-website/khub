@@ -102,7 +102,7 @@ const paradigmHeads = [
     isLogo: true,
   },
   {
-    name: "Sripooja M",
+    name: "Sripooja Mallam",
     role: "CyberParadigm",
     bio: "Oversees secure systems research and applied security pilots.",
     image: "/cyberparadigm.webp",
@@ -110,7 +110,7 @@ const paradigmHeads = [
     isLogo: true,
   },
   {
-    name: "Mahesh",
+    name: "Mahesh Kalwakurthy",
     role: "RoboParadigm",
     bio: "Guides robotics prototyping, automation, and field testing cycles.",
     image: "/roboparadigm.png",
@@ -118,7 +118,7 @@ const paradigmHeads = [
     isLogo: true,
   },
   {
-    name: "Sireesha",
+    name: "Sireesha Puppala",
     role: "NeuroParadigm",
     bio: "Directs neurotech research, experimentation, and model validation.",
     image: "/neuroparadigm.webp",
@@ -126,7 +126,7 @@ const paradigmHeads = [
     isLogo: true,
   },
   {
-    name: "Dr. Devika",
+    name: "Dr. Devika Rubi",
     role: "NutraParadigm",
     bio: "Leads nutrition science pilots and functional formulation testing.",
     image: "/nutraparadigm.jpg",
@@ -134,7 +134,7 @@ const paradigmHeads = [
     isLogo: true,
   },
   {
-    name: "Shilpa",
+    name: "Dr. Shilpa Choudhary",
     role: "CrystalParadigm",
     bio: "Heads materials research and simulation-to-prototype delivery.",
     image: "/crystalparadigm.webp",
