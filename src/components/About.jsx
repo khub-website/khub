@@ -11,7 +11,7 @@ const fadeUp = {
 
 const stats = [
     { number: 145, suffix: "+", label: "Workforce" },
-    { number: 7, suffix: "", label: "Deep-Tech Verticles" },
+    { number: 7, suffix: "", label: "Deep-Tech Verticals" },
     { number: 4, suffix: "", label: "Backing Institutions" },
     { number: 2, suffix: "", label: "Publications (Q1)" },
 ];
