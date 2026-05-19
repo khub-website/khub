@@ -14,7 +14,7 @@ export default function ContactPage() {
     lastName: "",
     email: "",
     phone: "",
-    inquiry: "internship",
+    inquiry: "",
     message: "",
   });
   const [submitting, setSubmitting] = useState(false);
@@ -58,7 +58,7 @@ export default function ContactPage() {
         lastName: "",
         email: "",
         phone: "",
-        inquiry: "internship",
+        inquiry: "",
         message: "",
       });
     } catch (error) {
@@ -188,10 +188,12 @@ export default function ContactPage() {
                 <div className="relative">
                   <select
                     id="inquiry"
+                    required
                     value={form.inquiry}
                     onChange={(e) => update("inquiry", e.target.value)}
                     className={`${inputClass} appearance-none pr-10 cursor-pointer`}
                   >
+                    <option value="">Select an option</option>
                     {INQUIRY_TYPES.map((opt) => (
                       <option key={opt.value} value={opt.value}>
                         {opt.label}
