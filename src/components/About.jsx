@@ -106,10 +106,10 @@ export default function About() {
                             className="space-y-6 text-on-surface-variant leading-[1.7] text-[0.95rem] font-light"
                         >
                             <p>
-                                K-Hub is the deep-tech incubator and venture studio of<b> KMIT
-                                Group of Institutions</b>. It incubates teams working across
-                                multiple domains - drug discovery, cybersecurity, robotics,
-                                materials science, and more.
+                                K-Hub is the deep-tech incubator and venture studio of
+                                <span className="font-black tracking-tight text-[1.05rem]"> KMIT Group of Institutions</span>.
+                                It incubates teams working across multiple domains - drug discovery,
+                                cybersecurity, robotics, materials science, and more.
                             </p>
                             <p>
                                 By providing structured access to GPU infrastructure, technical
