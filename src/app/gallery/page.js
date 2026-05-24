@@ -34,6 +34,7 @@ import tt2ndPrize from "../../../gallery_images/events/TT2ndPrize.png";
 import felicitationCover from "../../../gallery_images/events/FelicitationAlbumCoverPage.png";
 import felicitationInside1 from "../../../gallery_images/events/FelicitationInsideAlbum.png";
 import felicitationInside2 from "../../../gallery_images/events/FelicitationInsideAlbum (2).png";
+import cyberFelicitation from "../../../gallery_images/events/CyberFelicitation.png";
 
 // Resources images
 import resourceImg1 from "../../../gallery_images/resources/20260430_144001.webp";
@@ -91,7 +92,7 @@ const CATEGORIES = ["What We Do", "Resources", "Events", "Highlights", "Partners
 const eventsData = [
   { title: "Paradigm Tank", caption: "Think big. Dive deep. 💡", location: "K-Hub", date: "Paradigm Meet", detail: "Bring your best ideas to the floor — it's time to think big and dive deep into the Tank! From 10:30 AM to 12:30 PM, teams pitched bold ideas and translated problem statements into actionable prototypes.", image: paradigmTankCover, albumImages: [paradigmTankCover, paradigmTank2ndPrize, groupPhoto] },
   { title: "TT Tournament", caption: "Game, set, match! 🏓", location: "K-Hub", date: "Paradigm Meet", detail: "Think you've got the best serve? Whether playing or cheering, the energy was electric! The Table Tennis Tournament ran from 12:30 PM to 2:00 PM with fierce rallies and unforgettable moments.", image: ttCover, albumImages: [ttCover, ttMatch, tt1stPrize, tt2ndPrize] },
-  { title: "Felicitation", caption: "Honoring the hard work. 🎓", location: "K-Hub", date: "Paradigm Meet", detail: "An inspiring keynote with Sri Neil Gogte Sir, followed by a special felicitation ceremony to honor the incredible work and dedication of the interns. A moment of pride and celebration.", image: felicitationCover, albumImages: [felicitationCover, felicitationInside1, felicitationInside2] },
+  { title: "Felicitation", caption: "Honoring the hard work. 🎓", location: "K-Hub", date: "Paradigm Meet", detail: "An inspiring keynote with Sri Neil Gogte Sir, followed by a special felicitation ceremony to honor the incredible work and dedication of the interns. A moment of pride and celebration.", image: felicitationCover, albumImages: [felicitationCover, felicitationInside1, felicitationInside2, cyberFelicitation] },
   { title: "All-Hands Energy", caption: "Builders syncing ideas at full speed.", location: "K-Hub Demo Arena", date: "Innovation Day", detail: "A high-focus team moment captured during live founder demos, where problem statements were translated into working prototypes.", image: eventImg1 },
   { title: "Team Collaboration", caption: "Synergy in motion across teams.", location: "Collab Space", date: "Build Week", detail: "Cross-team alignment sessions that drove clarity, improved coordination, and accelerated project delivery timelines.", image: eventImg2 },
   { title: "Focused Execution", caption: "Deep work sessions for real impact.", location: "Work Studio", date: "Sprint Session", detail: "Concentrated effort where team members channeled energy into solving complex problems and shipping features.", image: eventImg3 },
@@ -132,11 +133,14 @@ const whatWeDoData = [
   { title: "Future Vision", caption: "Tomorrow starts with today's choices.", location: "Vision Room", date: "Future Planning", detail: "Visionary sessions imagining K-Hub's future and planning initiatives to bring that vision to life.", image: whatWeDoImg14 },
 ];
 
+// Helper to generate a slug from title
+const toSlug = (title) => "card-" + title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
 // Build gallery items in original order (no shuffling)
 const buildGalleryItems = () => {
-  const events = eventsData.map((item, idx) => ({ id: idx + 1, category: "Events", ...item }));
-  const resources = resourcesData.map((item, idx) => ({ id: idx + 8, category: "Resources", ...item }));
-  const whatWeDo = whatWeDoData.map((item, idx) => ({ id: idx + 17, category: "What We Do", ...item }));
+  const events = eventsData.map((item, idx) => ({ id: idx + 1, category: "Events", slug: toSlug(item.title), ...item }));
+  const resources = resourcesData.map((item, idx) => ({ id: idx + 8, category: "Resources", slug: toSlug(item.title), ...item }));
+  const whatWeDo = whatWeDoData.map((item, idx) => ({ id: idx + 17, category: "What We Do", slug: toSlug(item.title), ...item }));
   return [...events, ...resources, ...whatWeDo];
 };
 
@@ -366,6 +370,21 @@ export default function GalleryPage() {
     return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
   }, []);
 
+  // Listen for "Discover more" scroll-to events from the PhotoSlider
+  useEffect(() => {
+    const handler = (e) => {
+      const { category, cardId } = e.detail;
+      setActiveFilter(category);
+      // Wait for React to re-render the filtered cards, then scroll
+      setTimeout(() => {
+        const el = document.getElementById(cardId);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 350);
+    };
+    window.addEventListener("gallery-scroll-to", handler);
+    return () => window.removeEventListener("gallery-scroll-to", handler);
+  }, []);
+
   const openLightbox = useCallback((item, idx) => {
     if (item.albumImages && item.albumImages.length > 0) {
       const albumItems = item.albumImages.map((img, i) => ({
@@ -408,6 +427,7 @@ export default function GalleryPage() {
                 {filtered.map((item, index) => (
                   <motion.div
                     key={item.id}
+                    id={item.slug}
                     layout
                     initial={{ opacity: 0, scale: 0.92 }}
                     animate={{ opacity: 1, scale: 1 }}
