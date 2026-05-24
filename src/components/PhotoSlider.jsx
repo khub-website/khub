@@ -19,6 +19,14 @@ const isVideo = (src) => VIDEO_EXTS.some((ext) => src.toLowerCase().endsWith(ext
  */
 const SLIDES = [
     {
+        title: "Paradigm",
+        titleLine2: "Meet",
+        subtitle: "Innovation, Competition & Celebration",
+        bg: "/slider/ParadigmMeet-bg.JPG",
+        fg: "/slider/ParadigmMeetPoster-fg.png",
+        fgFit: "contain",
+    },
+    {
         title: "Moments",
         titleLine2: "& Milestones",
         subtitle: "Captured at K-Hub",
@@ -266,6 +274,7 @@ export default function PhotoSlider() {
                                     loop
                                     playsInline
                                     draggable={false}
+                                    style={slide.fgFit ? { objectFit: slide.fgFit } : undefined}
                                 />
                             ) : (
                                 /* eslint-disable-next-line @next/next/no-img-element */
@@ -274,6 +283,7 @@ export default function PhotoSlider() {
                                     alt=""
                                     className="ps-fg-img"
                                     draggable={false}
+                                    style={slide.fgFit ? { objectFit: slide.fgFit } : undefined}
                                 />
                             )}
                         </motion.div>
