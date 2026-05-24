@@ -18,9 +18,9 @@ import eventImg6 from "../../../gallery_images/events/DOC-20260218-WA0006.jpg";
 import eventImg7 from "../../../gallery_images/events/IMG_9798.jpg";
 
 // Paradigm Meet – Paradigm Tank
-import paradigmTankCover from "../../../gallery_images/events/ParadigmTankAlbumCover.JPG";
+import paradigmTankCover from "../../../gallery_images/events/ParadigmTankAlbumCover.jpg";
 import paradigmTank2ndPrize from "../../../gallery_images/events/DrugParadigm2ndPrizeParadigmTank.png";
-import groupPhoto from "../../../gallery_images/events/GroupPhoto.JPG";
+import groupPhoto from "../../../gallery_images/events/GroupPhoto.jpg";
 import paradigmExtra1 from "../../../gallery_images/events/IMG_2177.webp";
 import paradigmExtra2 from "../../../gallery_images/events/IMG_2232.webp";
 

@@ -22,7 +22,7 @@ const SLIDES = [
         title: "Paradigm",
         titleLine2: "Meet",
         subtitle: "Innovation, Competition & Celebration",
-        bg: "/slider/ParadigmMeet-bg.JPG",
+        bg: "/slider/ParadigmMeet-bg.jpg",
         fg: "/slider/ParadigmMeetPoster-fg.png",
         fgFit: "contain",
         scrollTarget: { category: "Events", cardId: "card-paradigm-tank" },
