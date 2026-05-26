@@ -19,11 +19,21 @@ const isVideo = (src) => VIDEO_EXTS.some((ext) => src.toLowerCase().endsWith(ext
  */
 const SLIDES = [
     {
+        title: "Paradigm",
+        titleLine2: "Meet",
+        subtitle: "Innovation, Competition & Celebration",
+        bg: "/slider/ParadigmMeet-bg.jpg",
+        fg: "/slider/ParadigmMeetPoster-fg.png",
+        fgFit: "contain",
+        scrollTarget: { category: "Events", cardId: "card-paradigm-tank" },
+    },
+    {
         title: "Moments",
         titleLine2: "& Milestones",
         subtitle: "Captured at K-Hub",
         bg: "/slider/slide1-bg.jpg",
         fg: "/slider/slide1-fg.jpg",
+        scrollTarget: { category: "What We Do", cardId: "card-initiative-overview" },
     },
     {
         title: "Inside",
@@ -31,6 +41,7 @@ const SLIDES = [
         subtitle: "Where Research Comes Alive",
         bg: "/slider/slide2-bg.jpg",
         fg: "/slider/slide2-fg.jpg",
+        scrollTarget: { category: "Resources", cardId: "card-deep-learning-session" },
     },
     {
         title: "People",
@@ -38,6 +49,7 @@ const SLIDES = [
         subtitle: "The Faces Behind the Work",
         bg: "/slider/20260430_145206.jpg",
         fg: "/slider/20260430_145930.jpg",
+        scrollTarget: { category: "Events", cardId: "card-community-moment" },
     },
     {
         title: "Events",
@@ -45,6 +57,7 @@ const SLIDES = [
         subtitle: "Sessions That Shape Ideas",
         bg: "/slider/slide4-bg.mp4",
         fg: "/slider/20260430_150456 (1).jpg",
+        scrollTarget: { category: "Events", cardId: "card-all-hands-energy" },
     },
 ];
 
@@ -194,13 +207,19 @@ export default function PhotoSlider() {
             aria-label="Photo showcase slider"
         >
             {/* ── Sidebar ── */}
-            <div className="ps-sidebar" aria-hidden="true">
+            <div className="ps-sidebar">
                 <span className="ps-brand">Gallery</span>
                 <div className="ps-sidebar-line" />
                 <div className="ps-sidebar-socials">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                    <a href="https://www.linkedin.com/company/khubofficial/" target="_blank" rel="noreferrer" aria-label="K-Hub on LinkedIn">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5zM3.5 9h3v11h-3V9zM9 9h2.9v1.6h.05c.4-.76 1.38-1.56 2.85-1.56 3.05 0 3.6 2.01 3.6 4.62V20h-3v-5.3c0-1.26-.02-2.88-1.76-2.88-1.77 0-2.04 1.38-2.04 2.8V20H9V9z" /></svg>
+                    </a>
+                    <a href="https://www.instagram.com/khubmedialabs/" target="_blank" rel="noreferrer" aria-label="K-Hub on Instagram">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
+                    </a>
+                    <a href="mailto:outreach@k-hub.org.in" aria-label="Email K-Hub">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                    </a>
                 </div>
             </div>
 
@@ -266,6 +285,7 @@ export default function PhotoSlider() {
                                     loop
                                     playsInline
                                     draggable={false}
+                                    style={slide.fgFit ? { objectFit: slide.fgFit } : undefined}
                                 />
                             ) : (
                                 /* eslint-disable-next-line @next/next/no-img-element */
@@ -274,6 +294,7 @@ export default function PhotoSlider() {
                                     alt=""
                                     className="ps-fg-img"
                                     draggable={false}
+                                    style={slide.fgFit ? { objectFit: slide.fgFit } : undefined}
                                 />
                             )}
                         </motion.div>
@@ -291,7 +312,11 @@ export default function PhotoSlider() {
                                 <span className="ps-title-line">{slide.titleLine2}</span>
                             </h2>
                             <p className="ps-subtitle">{slide.subtitle}</p>
-                            <button className="ps-cta">
+                            <button className="ps-cta" onClick={() => {
+                                if (slide.scrollTarget) {
+                                    window.dispatchEvent(new CustomEvent("gallery-scroll-to", { detail: slide.scrollTarget }));
+                                }
+                            }}>
                                 Discover more
                             </button>
                         </motion.div>

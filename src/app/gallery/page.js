@@ -17,6 +17,25 @@ import eventImg5 from "../../../gallery_images/events/8.jpg";
 import eventImg6 from "../../../gallery_images/events/DOC-20260218-WA0006.jpg";
 import eventImg7 from "../../../gallery_images/events/IMG_9798.jpg";
 
+// Paradigm Meet – Paradigm Tank
+import paradigmTankCover from "../../../gallery_images/events/ParadigmTankAlbumCover.jpg";
+import paradigmTank2ndPrize from "../../../gallery_images/events/DrugParadigm2ndPrizeParadigmTank.png";
+import groupPhoto from "../../../gallery_images/events/GroupPhoto.jpg";
+import paradigmExtra1 from "../../../gallery_images/events/IMG_2177.webp";
+import paradigmExtra2 from "../../../gallery_images/events/IMG_2232.webp";
+
+// Paradigm Meet – TT Tournament
+import ttCover from "../../../gallery_images/events/TTTournamentAlbumCover.png";
+import ttMatch from "../../../gallery_images/events/TableTennis.png";
+import tt1stPrize from "../../../gallery_images/events/TT1stPrize.png";
+import tt2ndPrize from "../../../gallery_images/events/TT2ndPrize.png";
+
+// Paradigm Meet – Felicitation
+import felicitationCover from "../../../gallery_images/events/FelicitationAlbumCoverPage.png";
+import felicitationInside1 from "../../../gallery_images/events/FelicitationInsideAlbum.png";
+import felicitationInside2 from "../../../gallery_images/events/FelicitationInsideAlbum (2).png";
+import cyberFelicitation from "../../../gallery_images/events/CyberFelicitation.png";
+
 // Resources images
 import resourceImg1 from "../../../gallery_images/resources/20260430_144001.webp";
 import resourceImg2 from "../../../gallery_images/resources/20260430_144233.webp";
@@ -71,6 +90,9 @@ const CATEGORIES = ["What We Do", "Resources", "Events", "Highlights", "Partners
 
 // Events items
 const eventsData = [
+  { title: "Paradigm Tank", caption: "Think big. Dive deep. 💡", location: "K-Hub", date: "Paradigm Meet", detail: "Bring your best ideas to the floor — it's time to think big and dive deep into the Tank! From 10:30 AM to 12:30 PM, teams pitched bold ideas and translated problem statements into actionable prototypes.", image: paradigmTankCover, albumImages: [paradigmTankCover, paradigmTank2ndPrize, groupPhoto] },
+  { title: "TT Tournament", caption: "Game, set, match! 🏓", location: "K-Hub", date: "Paradigm Meet", detail: "Think you've got the best serve? Whether playing or cheering, the energy was electric! The Table Tennis Tournament ran from 12:30 PM to 2:00 PM with fierce rallies and unforgettable moments.", image: ttCover, albumImages: [ttCover, ttMatch, tt1stPrize, tt2ndPrize] },
+  { title: "Felicitation", caption: "Honoring the hard work. 🎓", location: "K-Hub", date: "Paradigm Meet", detail: "An inspiring keynote with Sri Neil Gogte Sir, followed by a special felicitation ceremony to honor the incredible work and dedication of the interns. A moment of pride and celebration.", image: felicitationCover, albumImages: [felicitationCover, felicitationInside1, felicitationInside2, cyberFelicitation] },
   { title: "All-Hands Energy", caption: "Builders syncing ideas at full speed.", location: "K-Hub Demo Arena", date: "Innovation Day", detail: "A high-focus team moment captured during live founder demos, where problem statements were translated into working prototypes.", image: eventImg1 },
   { title: "Team Collaboration", caption: "Synergy in motion across teams.", location: "Collab Space", date: "Build Week", detail: "Cross-team alignment sessions that drove clarity, improved coordination, and accelerated project delivery timelines.", image: eventImg2 },
   { title: "Focused Execution", caption: "Deep work sessions for real impact.", location: "Work Studio", date: "Sprint Session", detail: "Concentrated effort where team members channeled energy into solving complex problems and shipping features.", image: eventImg3 },
@@ -111,11 +133,14 @@ const whatWeDoData = [
   { title: "Future Vision", caption: "Tomorrow starts with today's choices.", location: "Vision Room", date: "Future Planning", detail: "Visionary sessions imagining K-Hub's future and planning initiatives to bring that vision to life.", image: whatWeDoImg14 },
 ];
 
+// Helper to generate a slug from title
+const toSlug = (title) => "card-" + title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
 // Build gallery items in original order (no shuffling)
 const buildGalleryItems = () => {
-  const events = eventsData.map((item, idx) => ({ id: idx + 1, category: "Events", ...item }));
-  const resources = resourcesData.map((item, idx) => ({ id: idx + 8, category: "Resources", ...item }));
-  const whatWeDo = whatWeDoData.map((item, idx) => ({ id: idx + 17, category: "What We Do", ...item }));
+  const events = eventsData.map((item, idx) => ({ id: idx + 1, category: "Events", slug: toSlug(item.title), ...item }));
+  const resources = resourcesData.map((item, idx) => ({ id: idx + 8, category: "Resources", slug: toSlug(item.title), ...item }));
+  const whatWeDo = whatWeDoData.map((item, idx) => ({ id: idx + 17, category: "What We Do", slug: toSlug(item.title), ...item }));
   return [...events, ...resources, ...whatWeDo];
 };
 
@@ -191,10 +216,20 @@ function GalleryCard({ item, index, onSelect, colors }) {
       <div className="gallery-card-image-col">
         <div ref={polaroidRef} className="gallery-polaroid" style={{ transform: `rotate(${tilt}deg)` }} onClick={() => onSelect(item, index)}>
           <div className="gallery-pin-wrapper"><PinSVG colors={colors} /></div>
+          {item.albumImages && item.albumImages.length > 0 && (
+            <div style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 20, background: 'rgba(0,0,0,0.6)', color: 'white', fontSize: '12px', padding: '4px 8px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+              {item.albumImages.length}
+            </div>
+          )}
           <div className="gallery-polaroid-frame">
             <div className="gallery-image-inner" ref={imgRef}>
               <Image
-                src={item.image} alt={item.title} fill placeholder="blur"
+                src={item.image} alt={item.title} fill placeholder={item.image?.blurDataURL ? "blur" : "empty"}
                 sizes="(max-width: 768px) 90vw, 45vw"
                 priority={index < 6}
                 className="object-cover"
@@ -225,6 +260,7 @@ function GalleryCard({ item, index, onSelect, colors }) {
 /* ─── Lightbox ─── */
 function Lightbox({ items, activeIndex, onClose, onNavigate }) {
   const touchX = useRef(0);
+  const thumbStripRef = useRef(null);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -236,6 +272,16 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
     document.body.style.overflow = "hidden";
     return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
   }, [onClose, onNavigate]);
+
+  // Auto-scroll thumbnail strip to keep the active thumb visible
+  useEffect(() => {
+    const strip = thumbStripRef.current;
+    if (!strip) return;
+    const activeThumb = strip.children[activeIndex];
+    if (activeThumb) {
+      activeThumb.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+  }, [activeIndex]);
 
   const item = items[activeIndex];
   if (!item) return null;
@@ -255,7 +301,7 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
       >
         <button type="button" onClick={onClose} className="gallery-lightbox-close" aria-label="Close">✕</button>
         <div className="gallery-lightbox-image-wrap">
-          <Image src={item.image} alt={item.title} fill placeholder="blur" sizes="85vw" className="object-contain" />
+          <Image src={item.image} alt={item.title} fill placeholder={item.image?.blurDataURL ? "blur" : "empty"} sizes="85vw" className="object-contain" />
         </div>
         <button type="button" className="gallery-lightbox-prev" onClick={(e) => { e.stopPropagation(); onNavigate(-1); }} aria-label="Previous">‹</button>
         <button type="button" className="gallery-lightbox-next" onClick={(e) => { e.stopPropagation(); onNavigate(1); }} aria-label="Next">›</button>
@@ -263,6 +309,26 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
           <span className="gallery-lightbox-counter">{activeIndex + 1} / {items.length}</span>
           <span className="gallery-lightbox-title">{item.title}</span>
           <span className="gallery-lightbox-date">{item.date}</span>
+        </div>
+        {/* Thumbnail strip */}
+        <div className="gallery-lightbox-thumbstrip" ref={thumbStripRef}>
+          {items.map((thumbItem, i) => (
+            <button
+              key={i}
+              className={`gallery-lightbox-thumb${i === activeIndex ? " gallery-lightbox-thumb--active" : ""}`}
+              onClick={(e) => { e.stopPropagation(); onNavigate(i - activeIndex); }}
+              aria-label={`Go to photo ${i + 1}`}
+            >
+              <Image
+                src={thumbItem.image}
+                alt={`Thumbnail ${i + 1}`}
+                width={56}
+                height={56}
+                placeholder={thumbItem.image?.blurDataURL ? "blur" : "empty"}
+                className="gallery-lightbox-thumb-img"
+              />
+            </button>
+          ))}
         </div>
       </motion.div>
     </motion.div>
@@ -279,7 +345,7 @@ export default function GalleryPage() {
   const heroVideoRef = useRef(null);
   const containerRef = useRef(null);
   const [activeFilter, setActiveFilter] = useState("What We Do");
-  const [lightbox, setLightbox] = useState({ open: false, idx: 0 });
+  const [lightbox, setLightbox] = useState({ open: false, idx: 0, items: [] });
   const [scrollProg, setScrollProg] = useState(0);
   const colors = useThemeColors();
 
@@ -304,9 +370,35 @@ export default function GalleryPage() {
     return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
   }, []);
 
-  const openLightbox = useCallback((item, idx) => setLightbox({ open: true, idx }), []);
-  const closeLightbox = useCallback(() => setLightbox({ open: false, idx: 0 }), []);
-  const navLightbox = useCallback((dir) => setLightbox((p) => ({ ...p, idx: (p.idx + dir + filtered.length) % filtered.length })), [filtered.length]);
+  // Listen for "Discover more" scroll-to events from the PhotoSlider
+  useEffect(() => {
+    const handler = (e) => {
+      const { category, cardId } = e.detail;
+      setActiveFilter(category);
+      // Wait for React to re-render the filtered cards, then scroll
+      setTimeout(() => {
+        const el = document.getElementById(cardId);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 350);
+    };
+    window.addEventListener("gallery-scroll-to", handler);
+    return () => window.removeEventListener("gallery-scroll-to", handler);
+  }, []);
+
+  const openLightbox = useCallback((item, idx) => {
+    if (item.albumImages && item.albumImages.length > 0) {
+      const albumItems = item.albumImages.map((img, i) => ({
+        ...item,
+        id: `${item.id}-${i}`,
+        image: img
+      }));
+      setLightbox({ open: true, idx: 0, items: albumItems });
+    } else {
+      setLightbox({ open: true, idx, items: filtered });
+    }
+  }, [filtered]);
+  const closeLightbox = useCallback(() => setLightbox({ open: false, idx: 0, items: [] }), []);
+  const navLightbox = useCallback((dir) => setLightbox((p) => ({ ...p, idx: (p.idx + dir + p.items.length) % p.items.length })), []);
 
   const loopVideo = () => { const v = heroVideoRef.current; if (v && v.ended) { v.currentTime = 0; v.play(); } };
 
@@ -335,6 +427,7 @@ export default function GalleryPage() {
                 {filtered.map((item, index) => (
                   <motion.div
                     key={item.id}
+                    id={item.slug}
                     layout
                     initial={{ opacity: 0, scale: 0.92 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -354,7 +447,7 @@ export default function GalleryPage() {
 
       {/* ── Lightbox ── */}
       <AnimatePresence>
-        {lightbox.open && <Lightbox items={filtered} activeIndex={lightbox.idx} onClose={closeLightbox} onNavigate={navLightbox} />}
+        {lightbox.open && <Lightbox items={lightbox.items} activeIndex={lightbox.idx} onClose={closeLightbox} onNavigate={navLightbox} />}
       </AnimatePresence>
 
     </div>
