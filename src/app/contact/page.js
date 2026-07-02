@@ -173,7 +173,7 @@ export default function ContactPage() {
                   value={form.phone}
                   onChange={(e) => update("phone", e.target.value)}
                   className={inputClass}
-                  placeholder="+91 98765 43210"
+                  placeholder="+91 90529 06665"
                   autoComplete="tel"
                 />
               </div>
