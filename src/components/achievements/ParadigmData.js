@@ -72,18 +72,18 @@ export const paradigms = [
       {
         year: "2026",
         month: 2,
-        title: "Two Patent Applications Published by Indian Patent Office",
-        desc: "Published applications on privacy-preserving eye tracking & real-time clinical gait analysis.",
-        details: "We’re happy to share that two patent applications from Neuroparadigm have been published by the Indian Patent Office.\n\nThe published applications relate to:\n• Privacy-preserving, child-adaptive webcam-based eye tracking and structured gaze data export\n• Browser-based real-time multimodal skeletal data acquisition for clinical gait analysis",
+        title: "Dual Patent Publication by Indian Patent Office in AI-Driven Behavioral & Gait Diagnostics",
+        desc: "Published IP covering child-adaptive gaze tracking & multimodal browser-based skeletal gait acquisition.",
+        details: "NeuroParadigm announces the publication of two key patent applications by the Indian Patent Office, advancing clinical-grade digital phenotyping:\n\n• Privacy-Preserving Child-Adaptive Eye Tracking: Webcam-based gaze estimation with structured data export for neurodevelopmental assessment.\n• Real-Time Multimodal Skeletal Gait Acquisition: Browser-based posture & movement analysis for remote clinical rehabilitation monitoring.",
         category: "Patent",
         url: "https://www.linkedin.com/posts/neuroparadigmpvtltd_neuroparadigm-patentpublication-artificialintelligence-activity-7486374864669437952-xi4t?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAF8tv-8BR5B7FLMTiAyxMELRKKjVVbg9rT8"
       },
       {
         year: "2026",
         month: 1,
-        title: "MoU Signed with Total Solution Rehabilitation Society (TSRS)",
-        desc: "Translating AI research into real-world clinical and rehabilitation settings.",
-        details: "We’re pleased to share that Neuroparadigm has signed a Memorandum of Understanding (MoU) with Total Solution Rehabilitation Society (TSRS), marking another step towards translating AI research into real-world rehabilitation settings.",
+        title: "Strategic MoU Executed with Total Solution Rehabilitation Society (TSRS)",
+        desc: "Translating computational neuroscience & skeletal AI research into clinical rehabilitation workflows.",
+        details: "NeuroParadigm has formally executed a Memorandum of Understanding (MoU) with the Total Solution Rehabilitation Society (TSRS). This strategic collaboration bridges theoretical AI research and applied clinical practice, establishing real-world validation frameworks for intelligent rehabilitation tech.",
         category: "MoU",
         url: "https://www.linkedin.com/posts/neuroparadigmpvtltd_neuroparadigm-khub-artificialintelligence-activity-7485558064096526337-vKs6?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAF8tv-8BR5B7FLMTiAyxMELRKKjVVbg9rT8"
       }
