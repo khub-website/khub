@@ -51,7 +51,7 @@ export function ParadigmSection({ paradigm }) {
     queryFn: () => fetchParadigmScrape(paradigm.id),
   });
 
-  const achievements = scraped?.isScraped ? (scraped.achievements ?? []) : [];
+  const achievements = (scraped?.achievements && scraped.achievements.length > 0) ? scraped.achievements : (paradigm.achievements ?? []);
   const isDrugParadigm = paradigm.id === "drug-paradigm";
 
   // Logic for filtering top 5
@@ -66,7 +66,7 @@ export function ParadigmSection({ paradigm }) {
       // For Drug Paradigm, all items are research, so achievements view should be empty
       if (isDrugParadigm) return [];
       
-      const filtered = achievements.filter(a => a.category !== "Research" && !a.url);
+      const filtered = achievements.filter(a => a.category !== "Research");
       return filterPlaceholders(filtered).slice(0, 5);
     } else {
       // For research, prioritize items with URLs or "paper" keywords
@@ -233,7 +233,7 @@ export function ParadigmSection({ paradigm }) {
                     <Skeleton className="flex-1 h-24 rounded-2xl" />
                   </div>
                 ))
-              ) : (scraped?.isScraped && displayItems.length > 0) ? (
+              ) : displayItems.length > 0 ? (
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={view}
@@ -308,7 +308,7 @@ export function ParadigmSection({ paradigm }) {
                                   className="overflow-hidden"
                                 >
                                   <div className="mt-2 sm:mt-3 text-xs sm:text-sm text-on-surface-variant leading-relaxed font-light">
-                                    <div className="details-text break-words">{renderDetailsWithLinks(a.details)}</div>
+                                    <div className="details-text break-words whitespace-pre-line">{renderDetailsWithLinks(a.details)}</div>
                                     {a.url && (
                                       <div
                                         role="button"

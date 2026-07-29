@@ -68,7 +68,26 @@ export const paradigms = [
       { title: "Neural Modulation", desc: "Targeted stimulation to treat neurological conditions." },
       { title: "BCI-LLM Bridge", desc: "Enabling direct thought-to-text communication." }
     ],
-    achievements: [],
+    achievements: [
+      {
+        year: "2026",
+        month: 2,
+        title: "Two Patent Applications Published by Indian Patent Office",
+        desc: "Published applications on privacy-preserving eye tracking & real-time clinical gait analysis.",
+        details: "We’re happy to share that two patent applications from Neuroparadigm have been published by the Indian Patent Office.\n\nThe published applications relate to:\n• Privacy-preserving, child-adaptive webcam-based eye tracking and structured gaze data export\n• Browser-based real-time multimodal skeletal data acquisition for clinical gait analysis",
+        category: "Patent",
+        url: "https://www.linkedin.com/posts/neuroparadigmpvtltd_neuroparadigm-patentpublication-artificialintelligence-activity-7486374864669437952-xi4t?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAF8tv-8BR5B7FLMTiAyxMELRKKjVVbg9rT8"
+      },
+      {
+        year: "2026",
+        month: 1,
+        title: "MoU Signed with Total Solution Rehabilitation Society (TSRS)",
+        desc: "Translating AI research into real-world clinical and rehabilitation settings.",
+        details: "We’re pleased to share that Neuroparadigm has signed a Memorandum of Understanding (MoU) with Total Solution Rehabilitation Society (TSRS), marking another step towards translating AI research into real-world rehabilitation settings.",
+        category: "MoU",
+        url: "https://www.linkedin.com/posts/neuroparadigmpvtltd_neuroparadigm-khub-artificialintelligence-activity-7485558064096526337-vKs6?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAF8tv-8BR5B7FLMTiAyxMELRKKjVVbg9rT8"
+      }
+    ],
     photos: [
       { src: "/achievements/neuro-hero.jpeg", alt: "Neural interface" },
     ],
