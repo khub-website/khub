@@ -116,6 +116,7 @@ export default function ContactPage() {
               onSubmit={handleSubmit}
               className="bg-surface-container-lowest/90 border border-outline-variant rounded-2xl p-5 sm:p-7 md:p-8 shadow-[0_24px_60px_rgba(15,22,20,0.08)] backdrop-blur"
               noValidate
+              data-testid="contact-form"
             >
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
@@ -125,6 +126,7 @@ export default function ContactPage() {
                   <input
                     type="text"
                     required
+                    data-testid="contact-firstname"
                     value={form.firstName}
                     onChange={(e) => update("firstName", e.target.value)}
                     className={inputClass}
@@ -139,6 +141,7 @@ export default function ContactPage() {
                   <input
                     type="text"
                     required
+                    data-testid="contact-lastname"
                     value={form.lastName}
                     onChange={(e) => update("lastName", e.target.value)}
                     className={inputClass}
@@ -155,6 +158,7 @@ export default function ContactPage() {
                 <input
                   type="email"
                   required
+                  data-testid="contact-email"
                   value={form.email}
                   onChange={(e) => update("email", e.target.value)}
                   className={inputClass}
@@ -170,6 +174,7 @@ export default function ContactPage() {
                 <input
                   type="tel"
                   required
+                  data-testid="contact-phone"
                   value={form.phone}
                   onChange={(e) => update("phone", e.target.value)}
                   className={inputClass}
@@ -189,6 +194,7 @@ export default function ContactPage() {
                   <select
                     id="inquiry"
                     required
+                    data-testid="contact-inquiry"
                     value={form.inquiry}
                     onChange={(e) => update("inquiry", e.target.value)}
                     className={`${inputClass} appearance-none pr-10 cursor-pointer`}
@@ -224,6 +230,7 @@ export default function ContactPage() {
                 <textarea
                   required
                   rows={5}
+                  data-testid="contact-message"
                   value={form.message}
                   onChange={(e) => update("message", e.target.value)}
                   className={`${inputClass} resize-none`}
@@ -234,6 +241,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={submitting}
+                data-testid="contact-submit"
                 className="mt-6 w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary-container text-surface-container-lowest text-[0.9rem] font-semibold rounded-xl hover:opacity-95 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-200"
               >
                 {submitting ? (
@@ -252,6 +260,7 @@ export default function ContactPage() {
                     status.type === "success" ? "text-primary" : "text-red-500"
                   }`}
                   role="status"
+                  data-testid="contact-status"
                 >
                   {status.msg}
                 </p>

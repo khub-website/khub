@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { User } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+const emptySubscribe = () => () => {};
 
 const flagshipProjects = [
   {
@@ -594,16 +596,12 @@ function TeamMarquee({ title, description, people, reduceMotion, duration, loop 
 
 export default function AboutPage() {
   const reduceMotion = useReducedMotion();
-  const [isClient, setIsClient] = useState(false);
+  const isClient = useSyncExternalStore(emptySubscribe, () => true, () => false);
   const [activeSlide, setActiveSlide] = useState(0);
   const swipeStartRef = useRef({ x: 0, isInteractive: false });
   const totalSlides = facilitySlides.length;
   const activeSlideData = facilitySlides[activeSlide];
   const posterImage = activeSlideData.poster || activeSlideData.image;
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   useEffect(() => {
     if (reduceMotion || activeSlideData.video) {

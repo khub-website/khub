@@ -42,7 +42,7 @@ export default function Hero() {
     };
 
     return (
-        <section className="relative h-dvh w-screen overflow-hidden pt-16">
+        <section data-testid="hero-section" className="relative h-dvh w-screen overflow-hidden pt-16">
             <div className="absolute inset-0">
                 <video
                     className="h-full w-full object-cover object-center"
@@ -91,12 +91,14 @@ export default function Hero() {
 
                     <div className="flex items-center gap-5 flex-wrap">
                         <button
+                            data-testid="hero-cta-explore"
                             onClick={() => scrollTo("#domains")}
                             className="px-8 py-3.5 text-surface text-sm font-semibold tracking-tight rounded-lg bg-(--hero-cta-from) hover:brightness-95 hover:shadow-[0_20px_40px_rgba(var(--color-primary-rgb),0.24)] transition-all duration-300"
                         >
                             Explore Our Work
                         </button>
                         <button
+                            data-testid="hero-cta-learn"
                             onClick={() => scrollTo("#about")}
                             className="px-8 py-3.5 text-sm font-medium tracking-tight text-(--hero-secondary-text) bg-(--hero-secondary-bg) hover:bg-(--hero-secondary-bg-hover) transition-all duration-300 rounded-lg"
                         >
