@@ -142,6 +142,7 @@ export default function Navbar() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -1.5, scale: 1.005 }}
             className="fixed top-3 sm:top-4 left-1/2 z-50 -translate-x-1/2 w-[min(96vw,1120px)]"
+            data-testid="navbar"
         >
             <div
                 className={`relative overflow-hidden rounded-[26px] border transition-all duration-500 ${scrolled
@@ -155,6 +156,7 @@ export default function Navbar() {
                     <div className="flex items-center justify-between h-[68px]">
                         <Link
                             href="/"
+                            data-testid="nav-logo"
                             onClick={(e) => {
                                 if (pathname === "/") {
                                     e.preventDefault();
@@ -183,6 +185,7 @@ export default function Navbar() {
                                     <Link
                                         key={link.href}
                                         href={link.href}
+                                        data-testid={`nav-link-${link.label.toLowerCase()}`}
                                         onClick={(e) => handleLinkClick(e, link.href)}
                                         className={`px-4 py-2.5 rounded-full text-[0.84rem] font-semibold tracking-[0.02em] transition-all duration-300 ${isActive
                                             ? "text-primary bg-white/80 shadow-[0_8px_22px_rgba(2,44,34,0.12)]"
@@ -199,6 +202,7 @@ export default function Navbar() {
                             onClick={() => setMobileOpen((o) => !o)}
                             className="md:hidden relative w-10 h-10 rounded-full bg-white/62 ring-1 ring-white/80 shadow-[0_6px_16px_rgba(2,44,34,0.12)] flex items-center justify-center"
                             aria-label="Toggle menu"
+                            data-testid="mobile-menu-toggle"
                         >
                             <span className="relative w-5 h-4 flex flex-col justify-between">
                                 <span className={`block w-full h-[2px] bg-on-surface transition-all duration-300 origin-center ${mobileOpen ? "rotate-45 translate-y-[6px]" : ""}`} />
@@ -218,12 +222,14 @@ export default function Navbar() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                         className="md:hidden overflow-hidden bg-white/58 backdrop-blur-2xl border-t border-white/60 rounded-b-[26px]"
+                        data-testid="mobile-menu"
                     >
                         <div className="px-4 sm:px-6 py-4 flex flex-col gap-2">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
+                                    data-testid={`mobile-nav-link-${link.label.toLowerCase()}`}
                                     onClick={(e) => handleLinkClick(e, link.href)}
                                     className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all ${pathname === link.href ? "text-primary bg-white/80" : "text-on-surface-variant hover:text-primary hover:bg-white/72"
                                         }`}

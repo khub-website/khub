@@ -168,14 +168,14 @@ function GalleryCard({ item, index, onSelect, colors }) {
   const rowRef = useRef(null);
   const imgRef = useRef(null);
   const polaroidRef = useRef(null);
-  const [visible, setVisible] = useState(false);
   const reduceMotion = useReducedMotion();
+  const [visible, setVisible] = useState(() => Boolean(reduceMotion));
   const isLeft = index % 2 === 0;
   const tilt = getCardTilt(index);
 
   // IntersectionObserver reveal
   useEffect(() => {
-    if (reduceMotion) { setVisible(true); return; }
+    if (reduceMotion) return;
     const el = rowRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(
@@ -209,6 +209,7 @@ function GalleryCard({ item, index, onSelect, colors }) {
   return (
     <div
       ref={rowRef}
+      data-testid="gallery-card"
       className={`gallery-card-row ${visible ? "gallery-card-visible" : ""}`}
       style={{ flexDirection: isLeft ? "row" : "row-reverse", transitionDelay: `${index * 20}ms` }}
     >
@@ -412,9 +413,16 @@ export default function GalleryPage() {
           </section>
 
           {/* ── Filter Tabs ── */}
-          <div className="gallery-filter-bar">
+          <div className="gallery-filter-bar" data-testid="gallery-filter-bar">
             {CATEGORIES.map((cat) => (
-              <button key={cat} className={`gallery-filter-pill ${activeFilter === cat ? "active" : ""}`} onClick={() => setActiveFilter(cat)}>{cat}</button>
+              <button
+                key={cat}
+                data-testid={`gallery-filter-${cat.toLowerCase().replace(/\s+/g, "-")}`}
+                className={`gallery-filter-pill ${activeFilter === cat ? "active" : ""}`}
+                onClick={() => setActiveFilter(cat)}
+              >
+                {cat}
+              </button>
             ))}
           </div>
 
@@ -422,7 +430,7 @@ export default function GalleryPage() {
           <section ref={containerRef} className="relative pb-40" style={{ minHeight: "50vh" }}>
             <div className="gallery-progress-bar" style={{ width: `${scrollProg * 100}%` }} />
 
-            <div className="page-container relative z-10" style={{ paddingTop: 40 }}>
+            <div className="page-container relative z-10" data-testid="gallery-grid" style={{ paddingTop: 40 }}>
               <AnimatePresence mode="popLayout">
                 {filtered.map((item, index) => (
                   <motion.div

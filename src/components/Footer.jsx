@@ -6,7 +6,7 @@ export default function Footer() {
     const mapsShareUrl = "https://www.google.com/maps/search/?api=1&query=Teleparadigm+Towers&query_place_id=&ll=17.3941203,78.6214986"
 
     return (
-        <footer id="contact" className="border-t border-surface-container-low bg-surface">
+        <footer id="contact" data-testid="footer" className="border-t border-surface-container-low bg-surface">
             <div className="page-container py-16 md:py-20">
                 <motion.div
                     initial={{ opacity: 0, y: 16 }}

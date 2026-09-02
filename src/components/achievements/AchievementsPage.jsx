@@ -24,7 +24,7 @@ export function AchievementsPage() {
   };
 
   return (
-    <main className="bg-surface min-h-screen text-on-surface">
+    <main data-testid="achievements-page" className="bg-surface min-h-screen text-on-surface">
       <FloatingNav />
 
       {/* 1. Parallax Hero Section */}
@@ -51,13 +51,14 @@ export function AchievementsPage() {
       </div>
 
       {/* 4. Filterable Global Grid with Tab Switcher */}
-      <section id="library" ref={libraryRef} className="py-24 border-t border-outline-variant/30 bg-surface-container-lowest">
+      <section id="library" ref={libraryRef} data-testid="achievements-library" className="py-24 border-t border-outline-variant/30 bg-surface-container-lowest">
         <div className="page-container">
           <div className="flex flex-col items-center mb-12 text-center">
             <h2 className="text-xs font-black tracking-[0.3em] uppercase text-primary/60 mb-4">Discovery Library</h2>
             <div className="inline-flex p-1 bg-surface-container-low rounded-2xl border border-outline-variant/40 shadow-inner">
               <button
                 onClick={() => setActiveTab("achievements")}
+                data-testid="tab-achievements"
                 className={`flex items-center gap-2.5 px-8 py-3 rounded-xl text-sm font-bold transition-all ${activeTab === "achievements"
                     ? "bg-surface text-primary shadow-lg border border-outline-variant/20"
                     : "text-on-surface-variant hover:text-on-surface"
@@ -68,6 +69,7 @@ export function AchievementsPage() {
               </button>
               <button
                 onClick={() => setActiveTab("research")}
+                data-testid="tab-research"
                 className={`flex items-center gap-2.5 px-8 py-3 rounded-xl text-sm font-bold transition-all ${activeTab === "research"
                     ? "bg-surface text-primary shadow-lg border border-outline-variant/20"
                     : "text-on-surface-variant hover:text-on-surface"

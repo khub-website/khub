@@ -1,0 +1,69 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - testing
+  pull_request:
+    branches:
+      - main
+      - testing
+
+jobs:
+  test:
+    name: Lint, Build & E2E Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Build Next.js Application
+        run: npm run build
+
+      - name: Get Playwright Version
+        id: playwright-version
+        run: echo "version=$(node -e "console.log(require('@playwright/test/package.json').version)")" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright Browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
+
+      - name: Install Playwright Chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Playwright System Dependencies (if cached)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Run Playwright E2E Tests
+        env:
+          CI: true
+          PORT: 5000
+        run: npm run test:e2e
+
+      - name: Upload Playwright Test Report Artifacts
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
