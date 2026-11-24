@@ -51,7 +51,10 @@ export function ParadigmSection({ paradigm }) {
     queryFn: () => fetchParadigmScrape(paradigm.id),
   });
 
-  const achievements = scraped?.isScraped ? (scraped.achievements ?? []) : [];
+  const achievements = React.useMemo(
+    () => scraped?.isScraped ? (scraped.achievements ?? []) : [],
+    [scraped]
+  );
   const isDrugParadigm = paradigm.id === "drug-paradigm";
 
   // Logic for filtering top 5
@@ -66,19 +69,20 @@ export function ParadigmSection({ paradigm }) {
       // For Drug Paradigm, all items are research, so achievements view should be empty
       if (isDrugParadigm) return [];
       
-      const filtered = achievements.filter(a => a.category !== "Research" && !a.url);
+      const filtered = achievements.filter(a => a.category
+        ? a.category !== "Research"
+        : !a.url);
       return filterPlaceholders(filtered).slice(0, 5);
     } else {
       // For research, prioritize items with URLs or "paper" keywords
       const research = isDrugParadigm 
         ? achievements 
-        : achievements.filter(a => 
-            a.category === "Research" ||
-            a.url || 
-            a.details?.toLowerCase().includes("paper") || 
-            a.details?.toLowerCase().includes("research") ||
-            a.title?.toLowerCase().includes("study")
-          );
+        : achievements.filter(a => a.category
+            ? a.category === "Research"
+            : a.url ||
+              a.details?.toLowerCase().includes("paper") ||
+              a.details?.toLowerCase().includes("research") ||
+              a.title?.toLowerCase().includes("study"));
       return filterPlaceholders(research).slice(0, 5);
     }
   }, [achievements, view, isDrugParadigm]);

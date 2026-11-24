@@ -37,11 +37,11 @@ export function ResearchSection() {
           // 1. Specifically labeled as Research
           // 2. In DrugParadigm (as per user rule)
           // 3. Has a URL (likely a paper)
-          const isResearch = 
-            pId === "drug-paradigm" || 
-            a.category === "Research" || 
-            a.url || 
-            (isScraped && a.desc?.toLowerCase().includes("research"));
+          const isResearch = a.category
+            ? a.category === "Research"
+            : pId === "drug-paradigm" ||
+              a.url ||
+              (isScraped && a.desc?.toLowerCase().includes("research"));
 
           if (isResearch) {
             // Remove placeholders from Research too

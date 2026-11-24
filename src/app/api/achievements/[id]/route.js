@@ -66,6 +66,64 @@ async function getDynamicDrugAchievements() {
   }
 }
 
+function decodeJavaScriptString(doubleQuoted, singleQuoted) {
+  if (doubleQuoted !== undefined) {
+    return JSON.parse(`"${doubleQuoted}"`);
+  }
+
+  return JSON.parse(`"${singleQuoted.replace(/"/g, '\\"').replace(/\\'/g, "'")}"`);
+}
+
+async function getDynamicNeuroAchievements() {
+  try {
+    const siteUrl = "https://neuroparadigm.in/";
+    const siteResponse = await fetch(siteUrl, { next: { revalidate: 3600 } });
+    if (!siteResponse.ok) throw new Error(`NeuroParadigm site returned ${siteResponse.status}`);
+
+    const html = await siteResponse.text();
+    const scriptPath = html.match(/<script\b[^>]*\bsrc=["']([^"']+\.js(?:\?[^"']*)?)["'][^>]*>/i)?.[1];
+    if (!scriptPath) throw new Error("NeuroParadigm achievement script was not found");
+
+    const scriptUrl = new URL(scriptPath, siteUrl);
+    if (scriptUrl.origin !== new URL(siteUrl).origin) {
+      throw new Error("NeuroParadigm achievement script is hosted on an unexpected origin");
+    }
+
+    const scriptResponse = await fetch(scriptUrl, { next: { revalidate: 3600 } });
+    if (!scriptResponse.ok) throw new Error(`NeuroParadigm script returned ${scriptResponse.status}`);
+
+    const script = await scriptResponse.text();
+    const achievementPattern = /\{date:(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)'),title:(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)'),description:(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)')\}/g;
+    const achievements = Array.from(script.matchAll(achievementPattern), (match) => {
+      const date = decodeJavaScriptString(match[1], match[2]);
+      const title = decodeJavaScriptString(match[3], match[4]);
+      const description = decodeJavaScriptString(match[5], match[6]);
+
+      if (!/^\d{4}(?:-\d{2}(?:-\d{2})?)?$/.test(date) || !title || !description) {
+        return null;
+      }
+
+      return {
+        year: date.slice(0, 4),
+        title,
+        desc: description,
+        details: `${description} Source: ${siteUrl}#achievements`,
+        category: "Achievement",
+        url: `${siteUrl}#achievements`,
+      };
+    }).filter(Boolean);
+
+    if (achievements.length === 0) {
+      throw new Error("No NeuroParadigm achievement records were found");
+    }
+
+    return achievements;
+  } catch (error) {
+    console.error("NeuroParadigm achievements fetch failed:", error);
+    return null;
+  }
+}
+
 export async function GET(request, { params }) {
   const { id } = await params;
   const data = paradigmsData[id];
@@ -83,6 +141,13 @@ export async function GET(request, { params }) {
       result.isScraped = true;
     }
     result.siteUrl = "https://drugparadigm.com/";
+  } else if (id === "neuro-paradigm") {
+    const dynamicAchievements = await getDynamicNeuroAchievements();
+    if (dynamicAchievements) {
+      result.achievements = dynamicAchievements;
+      result.isScraped = true;
+    }
+    result.siteUrl = "https://neuroparadigm.in/";
   } else {
     // Other paradigms don't have scrapers yet, so they remain isScraped: false
     result.siteUrl = `https://k-hub.org/paradigms/${id}`;
